@@ -1,5 +1,5 @@
 """
-Main RAG System implementation with Claude 3.7 integration.
+Main RAG System implementation with Claude Sonnet 4 integration.
 """
 import os
 from typing import List, Dict, Optional, Any
@@ -13,7 +13,7 @@ load_dotenv()
 
 
 class RAGSystem:
-    """Retrieval Augmented Generation system using Claude 3.7."""
+    """Retrieval Augmented Generation system using Claude Sonnet 4."""
 
     def __init__(self):
         """Initialize the RAG system."""
@@ -23,7 +23,7 @@ class RAGSystem:
             raise ValueError("ANTHROPIC_API_KEY environment variable not set")
 
         self.client = Anthropic(api_key=api_key)
-        self.model = os.getenv('CLAUDE_MODEL', 'claude-sonnet-3-7-20250219')
+        self.model = os.getenv('CLAUDE_MODEL', 'claude-sonnet-4-20250514')
 
         # Initialize embedding service
         self.embeddings = get_embedding_service()

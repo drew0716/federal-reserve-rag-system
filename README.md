@@ -1,6 +1,6 @@
 # Federal Reserve Public Correspondence Response System
 
-A Retrieval Augmented Generation (RAG) system that provides professional responses to inquiries about Federal Reserve policies, operations, and monetary policy. Built with Claude Sonnet 3.7, PostgreSQL with pgvector, and Streamlit.
+A Retrieval Augmented Generation (RAG) system that provides professional responses to inquiries about Federal Reserve policies, operations, and monetary policy. Built with Claude Sonnet 4, PostgreSQL with pgvector, and Streamlit.
 
 ## Overview
 
@@ -8,7 +8,7 @@ This system crawls official Federal Reserve documentation, processes it into a s
 
 ## Features
 
-- **📝 Professional Response Generation**: Claude Sonnet 3.7 generates correspondence-style responses with inline citations
+- **📝 Professional Response Generation**: Claude Sonnet 4 generates correspondence-style responses with inline citations
 - **🔍 Intelligent Document Retrieval**: Vector similarity search with feedback-based reranking
 - **📚 Federal Reserve Content**: Automatically crawls and indexes federalreserve.gov content
 - **⭐ User Feedback System**: Ratings improve future retrieval results
@@ -214,6 +214,85 @@ streamlit run streamlit_app.py
 
 The application will open in your browser at `http://localhost:8501`
 
+## Quick Start for Returning Users
+
+If you've already completed the installation and just want to start the application again (e.g., after a restart), follow these steps:
+
+### 1. Navigate to Project Directory
+
+```bash
+cd /path/to/federal-reserve-rag-system
+```
+
+### 2. Activate Virtual Environment
+
+```bash
+# macOS/Linux
+source venv/bin/activate
+
+# Windows
+venv\Scripts\activate
+```
+
+You should see `(venv)` appear in your terminal prompt.
+
+### 3. Start PostgreSQL (if not running)
+
+**Check if PostgreSQL is running:**
+```bash
+pg_isready -p 5433
+```
+
+**If you see an error, start PostgreSQL:**
+
+**macOS (Homebrew):**
+```bash
+brew services start postgresql@18
+```
+
+**Linux (systemd):**
+```bash
+sudo systemctl start postgresql
+```
+
+**Verify it's running:**
+```bash
+pg_isready -p 5433
+# Should output: /tmp:5433 - accepting connections
+```
+
+### 4. Start the Application
+
+```bash
+streamlit run streamlit_app.py
+```
+
+The application will automatically open at `http://localhost:8501`
+
+### 5. Stop the Application
+
+When you're done:
+- Press `Ctrl+C` in the terminal to stop Streamlit
+- Optionally deactivate the virtual environment: `deactivate`
+- PostgreSQL can keep running in the background, or stop it:
+  ```bash
+  brew services stop postgresql@18  # macOS
+  sudo systemctl stop postgresql    # Linux
+  ```
+
+### Common Issues
+
+**"Command not found: streamlit"**
+- You forgot to activate the virtual environment (Step 2)
+
+**"Connection refused" or database errors**
+- PostgreSQL isn't running (Step 3)
+- Check `.env` has correct DB credentials
+
+**"Module not found" errors**
+- Virtual environment not activated, or dependencies not installed
+- Run: `source venv/bin/activate && pip install -r requirements.txt`
+
 ## Using the Application
 
 ### 1. Submit Inquiry Page
@@ -278,7 +357,7 @@ The application will open in your browser at `http://localhost:8501`
         ▼                                       ▼
 ┌──────────────────┐                  ┌─────────────────┐
 │  Claude Sonnet   │                  │   PostgreSQL    │
-│  3.7 (Anthropic) │                  │  + pgvector     │
+│  4 (Anthropic)   │                  │  + pgvector     │
 │                  │                  │                 │
 │  • Text Gen      │                  │  • Documents    │
 │  • Citation      │                  │  • Queries      │
@@ -530,7 +609,7 @@ WITH (lists = 50);
 
 ## Credits
 
-- **Anthropic** - Claude Sonnet 3.7 API
+- **Anthropic** - Claude Sonnet 4 API
 - **pgvector** - PostgreSQL vector similarity search
 - **Streamlit** - Web interface framework
 - **sentence-transformers** - Embedding models

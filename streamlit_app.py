@@ -789,7 +789,7 @@ Examples:
 
     with col1:
         st.markdown(f"""
-        **AI Model:** Claude Sonnet 3.7 by Anthropic
+        **AI Model:** Claude Sonnet 4 by Anthropic
 
         The system uses Claude to:
         - Analyze retrieved Federal Reserve documents
@@ -838,7 +838,7 @@ Examples:
         **Technology Stack:**
         - **Database:** PostgreSQL 18 with pgvector extension
         - **Vector Embeddings:** sentence-transformers (all-MiniLM-L6-v2, 384 dimensions)
-        - **AI Model:** Claude Sonnet 3.7 (claude-sonnet-3-7-20250219)
+        - **AI Model:** Claude Sonnet 4 (claude-sonnet-4-20250514)
         - **Web Crawler:** Python with aiohttp and BeautifulSoup4
         - **Interface:** Streamlit
 
