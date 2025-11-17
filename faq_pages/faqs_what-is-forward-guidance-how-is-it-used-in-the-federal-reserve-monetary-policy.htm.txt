@@ -1,0 +1,21 @@
+<!-- source_url: https://www.federalreserve.gov/faqs/what-is-forward-guidance-how-is-it-used-in-the-federal-reserve-monetary-policy.htm -->
+<!-- title: The Fed - What is forward guidance, and how is it used in the Federal Reserve's monetary policy? -->
+<!-- date_fetched: 2025-11-17T04:00:12.630377Z -->
+
+Most Frequently Asked Questions
+Federal Reserve’s Renovation of Two Historic Buildings
+About the Fed
+Banking and the Financial System
+Money, Interest Rates, and Monetary Policy
+Credit, Loans, and Mortgages
+Currency and Coin
+Economy, Jobs, and Prices
+Federal Open Market Committee
+Regulations
+What is forward guidance, and how is it used in the Federal Reserve's monetary policy?
+Forward guidance is a tool that central banks use to tell the public about the likely future course of monetary policy. When central banks provide forward guidance, individuals and businesses can use this information in making decisions about spending and investments. Thus, forward guidance about future policy can influence financial and economic conditions today.
+The Federal Open Market Committee (FOMC) began using forward guidance in its postmeeting statements in the early 2000s. Before increasing its target for the federal funds rate in June 2004, the FOMC used a sequence of changes in its statement language to signal that it was approaching the time at which a tightening of monetary policy was warranted. For a review of that experience, see
+The Effects of FOMC Communications before Policy Tightening in 1994 and 2004
+.
+Another example came when responding to the Global Financial Crisis. Then the FOMC reduced its federal funds rate target to nearly zero and used forward guidance to provide information about likely future monetary policy. (The federal funds rate is the primary tool to conduct monetary policy and the rate that banks pay for overnight borrowing in the federal funds market.) The postmeeting statement issued in December 2008 noted that the Committee anticipated that weak economic conditions were "likely to warrant exceptionally low levels of the federal funds rate for some time." The FOMC's forward guidance subsequently evolved; eventually, the Committee's guidance indicated that the future path of the federal funds rate would depend upon how economic conditions changed.
+Back to Top

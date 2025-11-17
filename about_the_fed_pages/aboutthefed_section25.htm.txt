@@ -1,0 +1,80 @@
+<!-- source_url: https://www.federalreserve.gov/aboutthefed/section25.htm -->
+<!-- title: Federal Reserve Board - Section 25. Foreign Branches -->
+<!-- date_fetched: 2025-11-17T04:00:02.148051Z -->
+
+Section 1. Short title and definitions
+Section 2. Federal Reserve Districts
+Section 2A. Monetary policy objectives
+Section 2B. Appearances Before and Reports to the Congress
+Section 3. Branch Offices
+Section 4. Federal Reserve Banks
+Section 5. Stock Issues; Increase and Decrease of Capital
+Section 6. Insolvency of member banks
+Section 7. Division of Earnings
+Section 8. Conversion of state banks into national banks
+Section 9. State Banks as Members
+Section 9A. Participation in lotteries prohibited
+Section 9B. Resolution of Clearing Banks
+Section 10. Board of Governors of the Federal Reserve System
+Section 10A. Emergency advances to groups of member banks*
+Section 10B. Advances to Individual Member Banks*
+Section 11. Powers of Board of Governors of the Federal Reserve System
+Section 11A. Pricing of Services
+Section 11B. Annual Independent Audits of Federal Reserve Banks and Board
+Section 11C. Master Account and Services Database
+Section 12. Federal Advisory Council
+Section 12A. Federal Open Market Committee
+Section 13. Powers of Federal Reserve Banks
+Section 13A.* Discount of agricultural paper
+Section 14. Open-Market Operations
+Section 15. Government Deposits
+Section 16. Note Issues
+Section 17. Deposit of bonds by national banks
+Section 18. Refunding Bonds
+Section 19. Bank Reserves
+Section 20. National bank notes redemption fund as reserve
+Section 21. Bank Examinations
+Section 22. Offenses of examiners, member banks, officers, and directors
+Section 23. Interbank Liabilities*
+Section 23A. Relations with affiliates
+Section 23B. Restrictions on Transactions with Affiliates
+Section 24. Real Estate Loans
+Section 24A. Investment in Bank Premises or Stock of Corporation Holding Premises
+Section 25. Foreign Branches
+Section 25A. Banking Corporations Authorized to Do Foreign Banking Business*
+Section 25B. Jurisdiction of suits*
+Section 25C. Potential Liability on Foreign Accounts
+Section 26. [Repealed]
+Section 27. Tax on national bank notes
+Section 28. Reduction of capital of national banks
+Section 29. Civil Money Penalty
+Section 30. Saving clause
+Section 31. Reservation of right to amend
+Section 25. Foreign Branches
+1. Capital and surplus required to exercise powers
+Any national banking association possessing a capital and surplus of $1,000,000 or more may file application with the Board of Governors of the Federal Reserve System for permission to exercise, upon such conditions and under such regulations as may be prescribed by the said board, the following powers:
+First. To establish branches in foreign countries or dependencies or insular possessions of the United States for the furtherance of the foreign commerce of the United States, and to act if required to do so as fiscal agents of the United States.
+Second. To invest an amount not exceeding in the aggregate ten per centum of its paid-in capital stock and surplus in the stock of one or more banks or corporations chartered or incorporated under the laws of the United States or of any State thereof, and principally engaged in international or foreign banking, or banking in a dependency or insular possession of the United States either directly or through the agency, ownership, or control of local institutions in foreign countries, or in such dependencies or insular possessions.
+Third. To acquire and hold, directly or indirectly, stock or other evidences of ownership in one or more banks organized under the law of a foreign country or a dependency or insular possession of the United States and not engaged, directly or indirectly, in any activity in the United States except as, in the judgment of the Board of Governors of the Federal Reserve System, shall be incidental to the international or foreign business of such foreign bank; and, notwithstanding the provisions of section 23A of this Act, to make loans or extensions of credit to or for the account of such bank in the manner and within the limits prescribed by the Board by general or specific regulation or ruling.
+[12 USC 601. As amended by act of Sept. 7, 1916 (39 Stat. 755), which completely revised this section, and by act of July 1, 1966 (80 Stat. 241).]
+2. Right of national banks to invest in foreign banking corporations until January 1, 1921
+Until January 1, 1921, any national banking association, without regard to the amount of its capital and surplus, may file application with the Board of Governors of the Federal Reserve System for permission, upon such conditions and under such regulations as may be prescribed by said board, to invest an amount not exceeding in the aggregate 5 per centum of its paid-in capital and surplus in the stock of one or more corporations chartered or incorporated under the laws of the United States or of any State thereof and, regardless of its location, principally engaged in such phases of international or foreign financial operations as may be necessary to facilitate the export of goods, wares, or merchandise from the United States or any of its dependencies or insular possessions to any foreign country:
+Provided, however,
+That in no event shall the total investments authorized by this section by any one national bank exceed 10 per centum of its capital and surplus.
+[12 USC 601. As added by act of Sept. 17, 1919 (41 Stat. 285). This paragraph, by its terms, is now obsolete.]
+3. Application for permission to exercise powers
+Such application shall specify the name and capital of the banking association filing it, the powers applied for, and the place or places where the banking or financial operations proposed are to be carried on. The Board of Governors of the Federal Reserve System shall have power to approve or to reject such application in whole or in part if for any reason the granting of such application is deemed inexpedient, and shall also have power from time to time to increase or decrease the number of places where such banking operations may be carried on.
+[12 USC 601. As amended by act of Sept. 7, 1916 (39 Stat. 755), which completely revised this section; and by act of Sept. 17, 1919 (41 Stat. 286).]
+4. Examinations and reports of condition
+Every national banking association operating foreign branches shall be required to furnish information concerning the conditions of such branches to the Comptroller of the Currency upon demand, and every member bank investing in the capital stock of banks or corporations described above shall be required to furnish information concerning the condition of such banks or corporations to the Board of Governors of the Federal Reserve System upon demand, and the Board of Governors of the Federal Reserve System may order special examinations of the said branches, banks, or corporations at such time or times as it may deem best.
+[12 USC 602. As amended by act of Sept. 7, 1916 (39 Stat. 755), which completely revised this section; and by act of Sept. 17, 1919 (41 Stat. 286).]
+5. Agreements to restrict operations
+Before any national bank shall be permitted to purchase stock in any such corporation the said corporation shall enter into an agreement or undertaking with the Board of Governors of the Federal Reserve System to restrict its operations or conduct its business in such manner or under such limitations and restrictions as the said board may prescribe for the place or places wherein such business is to be conducted. If at any time the Board of Governors of the Federal Reserve System shall ascertain that the regulations prescribed by it are not being complied with, said board is hereby authorized and empowered to institute an investigation of the matter and to send for persons and papers, subpoena witnesses, and administer oaths in order to satisfy itself as to the actual nature of the transactions referred to. Should such investigation result in establishing the failure of the corporation in question, or of the national bank or banks which may be stockholders therein, to comply with the regulations laid down by the said Board of Governors of the Federal Reserve System, such national banks may be required to dispose of stock holdings in the said corporation upon reasonable notice.
+[12 USC 603. Added by act of Sept. 7, 1916 (39 Stat. 755), which completely revised this section.]
+6. Accounts of foreign branches
+Every national banking association operating foreign branches shall conduct the accounts of each foreign branch independently of the accounts of other foreign branches established by it and of its home office, and shall at the end of each fiscal period transfer to its general ledger the profit or loss accrued at each branch as a separate item.
+[12 USC 604. As added by act of Dec. 23, 1913 (38 Stat. 273); and amended by act of Sept. 7, 1916 (39 Stat. 756).]
+7. Additional banking powers authorized
+Regulations issued by the Board of Governors of the Federal Reserve System under this section, in addition to regulating powers which a foreign branch may exercise under other provisions of law, may authorize such a foreign branch, subject to such conditions and requirements as such regulations may prescribe, to exercise such further powers as may be usual in connection with the transaction of the business of banking in the places where such foreign branch shall transact business. Such regulations shall not authorize a foreign branch to engage in the general business of producing, distributing, buying or selling goods, wares, or merchandise; nor, except to such limited extent as the Board may deem to be necessary with respect to securities issued by any "foreign state" as defined in section 25(b) of this Act, shall such regulations authorize a foreign branch to engage or participate, directly or indirectly, in the business of underwriting, selling, or distributing securities.
+[12 USC 604a. As added by act of Aug. 15, 1962 (76 Stat. 388).]
+Back to Top

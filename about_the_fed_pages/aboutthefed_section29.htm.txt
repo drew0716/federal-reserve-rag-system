@@ -1,0 +1,106 @@
+<!-- source_url: https://www.federalreserve.gov/aboutthefed/section29.htm -->
+<!-- title: Federal Reserve Board - Section 29. Civil Money Penalty -->
+<!-- date_fetched: 2025-11-17T04:00:02.538264Z -->
+
+Section 1. Short title and definitions
+Section 2. Federal Reserve Districts
+Section 2A. Monetary policy objectives
+Section 2B. Appearances Before and Reports to the Congress
+Section 3. Branch Offices
+Section 4. Federal Reserve Banks
+Section 5. Stock Issues; Increase and Decrease of Capital
+Section 6. Insolvency of member banks
+Section 7. Division of Earnings
+Section 8. Conversion of state banks into national banks
+Section 9. State Banks as Members
+Section 9A. Participation in lotteries prohibited
+Section 9B. Resolution of Clearing Banks
+Section 10. Board of Governors of the Federal Reserve System
+Section 10A. Emergency advances to groups of member banks*
+Section 10B. Advances to Individual Member Banks*
+Section 11. Powers of Board of Governors of the Federal Reserve System
+Section 11A. Pricing of Services
+Section 11B. Annual Independent Audits of Federal Reserve Banks and Board
+Section 11C. Master Account and Services Database
+Section 12. Federal Advisory Council
+Section 12A. Federal Open Market Committee
+Section 13. Powers of Federal Reserve Banks
+Section 13A.* Discount of agricultural paper
+Section 14. Open-Market Operations
+Section 15. Government Deposits
+Section 16. Note Issues
+Section 17. Deposit of bonds by national banks
+Section 18. Refunding Bonds
+Section 19. Bank Reserves
+Section 20. National bank notes redemption fund as reserve
+Section 21. Bank Examinations
+Section 22. Offenses of examiners, member banks, officers, and directors
+Section 23. Interbank Liabilities*
+Section 23A. Relations with affiliates
+Section 23B. Restrictions on Transactions with Affiliates
+Section 24. Real Estate Loans
+Section 24A. Investment in Bank Premises or Stock of Corporation Holding Premises
+Section 25. Foreign Branches
+Section 25A. Banking Corporations Authorized to Do Foreign Banking Business*
+Section 25B. Jurisdiction of suits*
+Section 25C. Potential Liability on Foreign Accounts
+Section 26. [Repealed]
+Section 27. Tax on national bank notes
+Section 28. Reduction of capital of national banks
+Section 29. Civil Money Penalty
+Section 30. Saving clause
+Section 31. Reservation of right to amend
+Section 29. Civil Money Penalty
+(a) First Tier.
+Any member bank which, and any institution-affiliated party (within the meaning of section 3(u) of the Federal Deposit Insurance Act) with respect to such member bank who, violates any provision of section 22, 23A, or 23B, or any regulation issued pursuant thereto, shall forfeit and pay a civil penalty of not more than $5,000 for each day during which such violation continues.
+[12 USC 504(a). As added by act of Nov. 10, 1978 (92 Stat. 3641) and amended by acts of Oct. 15, 1982 (96 Stat. 1523) and Aug. 9, 1989 (103 Stat. 470).]
+(b) Second Tier.
+Notwithstanding subsection (a), any member bank which, and any institution-affiliated party (within the meaning of section 3(u) of the Federal Deposit Insurance Act) with respect to such member bank who
+commits any violation described in subsection (a);
+recklessly engages in an unsafe or unsound practice in conducting the affairs of such member bank; or
+breaches any fiduciary duty;
+which violation, practice, or breach--
+is part of a pattern of misconduct;
+causes or is likely to cause more than a minimal loss to such member bank; or
+results in pecuniary gain or other benefit to such party,
+shall forfeit and pay a civil penalty of not more than $25,000 for each day during which such violation, practice, or breach continues.
+[12 USC 504(b). As added by act of Nov. 10, 1978 (92 Stat. 3641) and amended by act of Aug. 9, 1989 (103 Stat. 470).]
+(c) Third Tier.
+Notwithstanding subsections (a) and (b), any member bank which, and any institution-affiliated party (within the meaning of section 3(u) of the Federal Deposit Insurance Act) with respect to such member bank who--
+knowingly--
+commits any violation described in subsection (a);
+engages in any unsafe or unsound practice in conducting the affairs of such credit union; or
+breaches any fiduciary duty; and
+knowingly or recklessly causes a substantial loss to such credit union or a substantial pecuniary gain or other benefit to such party by reason of such violation, practice, or breach,
+shall forfeit and pay a civil penalty in an amount not to exceed the applicable maximum amount determined under subsection (d) for each day during which such violation, practice, or breach continues.
+[12 USC 504(c). As added by act of Nov. 10, 1978 (72 Stat. 3641) and amended by act of Aug. 9, 1989 (103 Stat. 470).]
+(d) Maximum Amounts Of Penalties For Any Violation Described In Subsection (c).
+The maximum daily amount of any civil penalty which may be assessed pursuant to subsection (c) for any violation, practice, or breach described in such subsection is--
+in the case of any person other than a member bank, an amount to not exceed $1,000,000; and
+in the case of a member bank, an amount not to exceed the lesser of --
+$1,000,000; or
+1 percent of the total assets of such member bank.
+[12 USC 504(d). As added by act of Nov. 10, 1978 (92 Stat. 3641) and amended by acts of Oct. 15, 1982 (96 Stat. 1523) and Aug. 9, 1989 (103 Stat. 470).]
+(e) Assessment, Etc.
+Any penalty imposed under subsection (a), (b), or (c) shall be assessed and collected by
+in the case of a national bank, by the Comptroller of the Currency; and
+in the case of a State member bank, by the Board,
+in the manner provided in subparagraphs (E), (F), (G), and (I) of section 8(i)(2) of the Federal Deposit Insurance Act for penalties imposed (under such section) and any such assessment shall be subject to the provisions of such section.
+[12 USC 504(e). As added by act of Nov. 10, 1978 (92 Stat. 3641) and amended by act of Aug. 9, 1989 (103 Stat. 470).]
+(f) Hearing.
+The member bank or other person against whom any penalty is assessed under this section shall be afforded an agency hearing if such member bank or person submits a request for such hearing within 20 days after the issuance of the notice of assessment. Section 8(h) of the Federal Deposit Insurance Act shall apply to any proceeding under this section.
+[12 USC 504(f). As added by act of Nov. 10, 1978 (92 Stat. 3641) and amended by act of Aug. 9, 1989 (103 Stat. 470).]
+(g) Disbursement.
+All penalties collected under authority of this paragraph shall be deposited into the Treasury.
+[12 USC 504(g). As added by act of Nov. 10, 1978 (92 Stat. 3641) and amended by act of Aug. 9, 1989 (103 Stat. 470).]
+(h) Violate Defined.
+For purposes of this section, the term "violate" includes any action (alone or with another or others) for or toward causing, bringing about, participating in, counseling, or aiding or abetting a violation.
+[12 USC 504(h). As added by act of Aug. 9, 1989 (103 Stat. 470).]
+(i) Regulations.
+The Comptroller of the Currency and the Board shall prescribe regulations establishing such procedures as may be necessary to carry out this section.
+[12 USC 504(i). As added by act of Aug. 9, 1989 (103 Stat. 470).]
+(m)* Notice Under This Section After Separation From Service.
+The resignation, termination of employment or participation, or separation of an institution-affiliated party (within the meaning of section 3(u) of the Federal Deposit Insurance Act) with respect to a member bank (including a separation caused by the closing of such a bank) shall not affect the jurisdiction and authority of the appropriate Federal banking agency to issue any notice and proceed under this section against any such party, if such notice is served before the end of the 6-year period beginning on the date such party ceased to be such a party with respect to such bank (whether such date occurs before, on, or after the date of the enactment of this subsection).
+[12 USC 504(m). As added by act of Aug. 9, 1989 (103 Stat. 461).]
+* So in original. Subsection (m) was added without subsections (j) through (
+l

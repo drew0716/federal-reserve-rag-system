@@ -1,0 +1,140 @@
+<!-- source_url: https://www.federalreserve.gov/aboutthefed/section4.htm#4 -->
+<!-- title: Federal Reserve Board - Section 4. Federal Reserve Banks -->
+<!-- date_fetched: 2025-11-17T04:00:10.445287Z -->
+
+Section 1. Short title and definitions
+Section 2. Federal Reserve Districts
+Section 2A. Monetary policy objectives
+Section 2B. Appearances Before and Reports to the Congress
+Section 3. Branch Offices
+Section 4. Federal Reserve Banks
+Section 5. Stock Issues; Increase and Decrease of Capital
+Section 6. Insolvency of member banks
+Section 7. Division of Earnings
+Section 8. Conversion of state banks into national banks
+Section 9. State Banks as Members
+Section 9A. Participation in lotteries prohibited
+Section 9B. Resolution of Clearing Banks
+Section 10. Board of Governors of the Federal Reserve System
+Section 10A. Emergency advances to groups of member banks*
+Section 10B. Advances to Individual Member Banks*
+Section 11. Powers of Board of Governors of the Federal Reserve System
+Section 11A. Pricing of Services
+Section 11B. Annual Independent Audits of Federal Reserve Banks and Board
+Section 11C. Master Account and Services Database
+Section 12. Federal Advisory Council
+Section 12A. Federal Open Market Committee
+Section 13. Powers of Federal Reserve Banks
+Section 13A.* Discount of agricultural paper
+Section 14. Open-Market Operations
+Section 15. Government Deposits
+Section 16. Note Issues
+Section 17. Deposit of bonds by national banks
+Section 18. Refunding Bonds
+Section 19. Bank Reserves
+Section 20. National bank notes redemption fund as reserve
+Section 21. Bank Examinations
+Section 22. Offenses of examiners, member banks, officers, and directors
+Section 23. Interbank Liabilities*
+Section 23A. Relations with affiliates
+Section 23B. Restrictions on Transactions with Affiliates
+Section 24. Real Estate Loans
+Section 24A. Investment in Bank Premises or Stock of Corporation Holding Premises
+Section 25. Foreign Branches
+Section 25A. Banking Corporations Authorized to Do Foreign Banking Business*
+Section 25B. Jurisdiction of suits*
+Section 25C. Potential Liability on Foreign Accounts
+Section 26. [Repealed]
+Section 27. Tax on national bank notes
+Section 28. Reduction of capital of national banks
+Section 29. Civil Money Penalty
+Section 30. Saving clause
+Section 31. Reservation of right to amend
+Section 4. Federal Reserve Banks
+1. Organization of reserve banks
+When the organization committee shall have established Federal reserve districts as provided in section two of this Act, a certificate shall be filed with the Comptroller of the Currency showing the geographical limits of such districts and the Federal reserve city designated in each of such districts. The Comptroller of the Currency shall thereupon cause to be forwarded to each national bank located in each district, and to such other banks declared to be eligible by the organization committee which may apply therefor, an application blank in form to be approved by the organization committee, which blank shall contain a resolution to be adopted by the board of directors of each bank executing such application, authorizing a subscription to the capital stock of the Federal reserve bank organizing in that district in accordance with the provisions of this Act.
+[Omitted from U.S. Code. Part of original Federal Reserve Act; not amended.]
+2. Organization certificate
+When the minimum amount of capital stock prescribed by this Act for the organization of any Federal reserve bank shall have been subscribed and allotted, the organization committee shall designate any five banks of those whose applications have been received, to execute a certificate of organization, and thereupon the banks so designated shall, under their seals, make an organization certificate which shall specifically state the name of such Federal reserve bank, the territorial extent of the district over which the operations of such Federal reserve bank are to be carried on, the city and State in which said bank is to be located, the amount of capital stock and the number of shares into which the same is divided, the name and place of doing business of each bank executing such certificate, and of all banks which have subscribed to the capital stock of such Federal reserve bank and the number of shares, subscribed by each, and the fact that the certificate is made to enable those banks executing same, and all banks which have subscribed or may thereafter subscribe to the capital stock of such Federal reserve bank, to avail themselves of the advantages of this Act.
+[Omitted from U.S. Code. Part of original Federal Reserve Act; not amended.]
+3. Acknowledgment and filing
+The said organization certificate shall be acknowledged before a judge of some court of record or notary public; and shall be, together with the acknowledgment thereof, authenticated by the seal of such court, or notary, transmitted to the Comptroller of the Currency, who shall file, record and carefully preserve the same in his office.
+[Omitted from U.S. Code. Part of original Federal Reserve Act; not amended.]
+4.
+General corporate powers
+Upon the filing of such certificate with the Comptroller of the Currency as aforesaid, the said Federal reserve bank shall become a body corporate and as such, and in the name designated in such organization certificate, shall have power--
+First. To adopt and use a corporate seal.
+Second. To have succession after the approval of this Act until dissolved by Act of Congress or until forfeiture of franchise for violation of law.
+Third. To make contracts
+Fourth. To sue and be sued, complain and defend, in any court of law or equity.
+Fifth. To appoint by its board of directors a president, vice presidents, and such officers and employees as are not otherwise provided for in this Act, to define their duties, require bonds for them and fix the penalty thereof, and to dismiss at pleasure such officers or employees. The president shall be the chief executive officer of the bank and shall be appointed by the Class B and Class C directors of the bank, with the approval of the Board of Governors of the Federal Reserve System, for a term of 5 years; and all other executive officers and all employees of the bank shall be directly responsible to the president. The first vice president of the bank shall be appointed in the same manner and for the same term as the president, and shall, in the absence or disability of the president or during a vacancy in the office of the president, serve as chief executive officer of the bank. Whenever a vacancy shall occur in the office of the president or the first vice president, it shall be filled in the manner provided for original appointments; and the person so appointed shall hold office until the expiration of the term of his predecessor.
+Sixth. To prescribe by its board of directors, by-laws not inconsistent with law, regulating the manner in which its general business may be conducted, and the privileges granted to it by law may be exercised and enjoyed.
+Seventh. To exercise by its board of directors, or duly authorized officers or agents, all powers specifically granted by the provisions of this Act and such incidental powers as shall be necessary to carry on the business of banking within the limitations prescribed by this Act.
+Eighth. Upon deposit with the Treasurer of the United States of any bonds of the United States in the manner provided by existing law relating to national banks, to receive from the Secretary of the Treasury circulating notes in blank, registered and countersigned as provided by law, equal in amount to the par value of the bonds so deposited, such notes to be issued under the same conditions and provisions of law as relate to the issue of circulating notes of national banks secured by bonds of the United States bearing the circulating privilege, except that the issue of such notes shall not be limited to the capital stock of such Federal reserve bank.
+[12 USC 341. As amended by act of Feb. 25, 1927 (44 Stat. 1234), which amended subparagraph "Second;" by act of Aug. 23, 1935 (49 Stat. 703), which amended subparagraph "Fifth" effective March 1, 1936; by act of Sept. 23, 1994 (108 Stat. 2293), which amended subparagraph "Eighth"; and by act of July 21, 2010 (124 Stat. 2126), which amended subparagraph "Fifth." As to issuance of Federal Reserve bank notes and redemption of bonds securing such notes, see
+section 18
+, and note to the first paragraph of that section.]
+5. Authority to commence business
+But no Federal reserve bank shall transact any business except such as is incidental and necessarily preliminary to its organization until it has been authorized by the Comptroller of the Currency to commence business under the provisions of this Act.
+[12 USC 341. Part of original Federal Reserve Act; not amended.]
+6. Board of directors
+Every Federal reserve bank shall be conducted under the supervision and control of a board of directors.
+[12 USC 301. Part of original Federal Reserve Act; not amended.]
+7. Duties of directors generally
+The board of directors shall perform the duties usually appertaining to the office of directors of banking associations and all such duties as are prescribed by law.
+[12 USC 301. Part of original Federal Reserve Act; not amended.]
+8. Administration of affairs; extension of credit
+Said board of directors shall administer the affairs of said bank fairly and impartially and without discrimination in favor of or against any member bank or banks and may, subject to the provisions of law and the orders of the Board of Governors of the Federal Reserve System, extend to each member bank such discounts, advancements, and accommodations as may be safely and reasonably made with due regard for the claims and demands of other member banks, the maintenance of sound credit conditions, and the accommodation of commerce, industry, and agriculture. The Board of Governors of the Federal Reserve System may prescribe regulations further defining within the limitations of this Act the conditions under which discounts, advancements, and the accommodations may be extended to member banks. Each Federal reserve bank shall keep itself informed of the general character and amount of the loans and investments of its member banks with a view to ascertaining whether undue use is being made of bank credit for the speculative carrying of or trading in securities, real estate, or commodities, or for any other purpose inconsistent with the maintenance of sound credit conditions; and, in determining whether to grant or refuse advances, rediscounts or other credit accommodations, the Federal reserve bank shall give consideration to such information. The chairman of the Federal reserve bank shall report to the Board of Governors of the Federal Reserve System any such undue use of bank credit by any member bank, together with his recommendation. Whenever, in the judgment of the Board of Governors of the Federal Reserve System, any member bank is making such undue use of bank credit, the Board may, in its discretion, after reasonable notice and an opportunity for a hearing, suspend such bank from the use of the credit facilities of the Federal Reserve System and may terminate such suspension or may renew it from time to time.
+[12 USC 301. As amended by act of June 16, 1933 (48 Stat. 163).]
+9. Number and classes of directors
+Such board of directors shall be selected as hereinafter specified and shall consist of nine members, holding office for three years, and divided into three classes, designated as classes A, B, and C.
+[12 USC 302. Part of original Federal Reserve Act; not amended.]
+10. Class A directors
+Class A shall consist of three members, without discrimination on the basis of race, creed, color, sex, or national origin, who shall be chosen by and be representative of the stockholding banks.
+[12 USC 302. As amended by act of Nov. 16, 1977 (91 Stat. 1387).]
+11. Class B directors
+Class B shall consist of three members, who shall represent the public and shall be elected without discrimination on the basis of race, creed, color, sex, or national origin, and with due but not exclusive consideration to the interests of agriculture, commerce, industry, services, labor, and consumers.
+[12 USC 302. As amended by act of Nov. 16, 1977 (91 Stat. 1388).]
+12. Class C directors
+Class C shall consist of three members who shall be designated by the Board of Governors of the Federal Reserve System. They shall be elected to represent the public, without discrimination on the basis of race, creed, color, sex, or national origin, and with due but not exclusive consideration to the interests of agriculture, commerce, industry, services, labor and consumers. When the necessary subscriptions to the capital stock have been obtained for the organization of any Federal reserve bank, the Board of Governors of the Federal Reserve System shall appoint the class C directors and shall designate one of such directors as chairman of the board to be selected. Pending the designation of such chairman, the organization committee shall exercise the powers and duties appertaining to the office of chairman in the organization of such Federal reserve bank.
+[12 USC 302. As amended by act of Nov. 16, 1977 (91 Stat. 1388).]
+13. Senator or Representative ineligible
+No Senator or Representative in Congress shall be a member of the Board of Governors of the Federal Reserve System or an officer or a director of a Federal reserve bank.
+[12 USC 303. Part of original Federal Reserve Act; not amended.]
+14. Class B directors as employees of banks
+No director of class B shall be an officer, director, or employee of any bank.
+[12 USC 303. Part of original Federal Reserve Act; not amended.]
+15. Class C directors as employees or stockholders of banks
+No director of class C shall be an officer, director, employee, or stockholder of any bank.
+[12 USC 303. Part of original Federal Reserve Act; not amended.]
+16. Nomination and election of Class A and B directors
+Directors of class A and class B shall be chosen in the following manner:
+The Board of Governors of the Federal Reserve System shall classify the member banks of the district into three general groups or divisions, designating each group by number. Each group shall consist as nearly as may be of banks of similar capitalization. Each member bank shall be permitted to nominate to the chairman of the board of directors of the Federal reserve bank of the district one candidate for director of class A and one candidate for director of class B. The candidates so nominated shall be listed by the chairman, indicating by whom nominated, and a copy of said list shall, within fifteen days after its completion, be furnished by the chairman to each member bank. Each member bank by a resolution of the board or by an amendment to its by-laws shall authorize its president, cashier, or some other officer to cast the vote of the member bank in the elections of class A and class B directors:
+Provided,
+That whenever any member banks within the same Federal Reserve district are subsidiaries of the same bank holding company within the meaning of the Bank Holding Company Act of 1956, participation in any such nomination or election by such member banks, including such bank holding company if it is also a member bank, shall be confined to one of such banks, which may be designated for the purpose by such holding company.
+[12 USC 304. As amended by acts of Sept. 26, 1918 (40 Stat. 968); June 16, 1933 (48 Stat. 163); and July 1, 1966 (80 Stat. 243).]
+17. Preferential ballot
+Within fifteen days after receipt of the list of candidates the duly authorized officer of a member bank shall certify to the chairman his first, second, and other choices for director of class A and class B, respectively, upon a preferential ballot upon a form furnished by the chairman of the board of directors of the Federal reserve bank of the district. Each such officer shall make a cross opposite the name of the first, second, and other choices for a director of class A and for a director of class B, but shall not vote more than one choice for any one candidate. No officer or director of a member bank shall be eligible to serve as a class A director unless nominated and elected by banks which are members of the same group as the member bank of which he is an officer or director.
+[12 USC 304. As amended by act of Sept. 26, 1918 (40 Stat. 968).]
+18. Candidates serving more than one member bank
+Any person who is an officer or director of more than one member bank shall not be eligible for nomination as a class A director except by banks in the same group as the bank having the largest aggregate resources of any of those of which such person is an officer or director.
+[12 USC 304. As added by act of Sept. 26, 1918 (40 Stat. 968).]
+19. Counting the ballots
+Any candidate having a majority of all votes cast in the column of first choice shall be declared elected. If no candidate have a majority of all the votes in the first column, then there shall be added together the votes cast by the electors for such candidates in the second column and the votes cast for the several candidates in the first column. The candidate then having a majority of the electors voting and the highest number of combined votes shall be declared elected. If no candidate have a majority of electors voting and the highest number of votes when the first and second choices shall have been added, then the votes cast in the third column for other choices shall be added together in like manner, and the candidate then having the highest number of votes shall be declared elected. An immediate report of election shall be declared.
+[12 USC 304. As amended by act of June 26, 1930 (46 Stat. 815).]
+20. Class C directors; chairman and Federal reserve agent; deputy chairman
+Class C directors shall be appointed by the Board of Governors of the Federal Reserve System. They shall have been for at least two years residents of the district for which they are appointed, one of whom shall be designated by said board as chairman of the board of directors of the Federal reserve bank and as "Federal reserve agent." He shall be a person of tested banking experience, and in addition to his duties as chairman of the board of directors of the Federal reserve bank he shall be required to maintain, under regulations to be established by the Board of Governors of the Federal Reserve System, a local office of said board on the premises of the Federal reserve bank. He shall make regular reports to the Board of Governors of the Federal Reserve System and shall act as its official representative for the performance of the functions conferred upon it by this Act. He shall receive an annual compensation to be fixed by the Board of Governors of the Federal Reserve System and paid monthly by the Federal reserve bank to which he is designated. One of the directors of class C shall be appointed by the Board of Governors of the Federal Reserve System as deputy chairman to exercise the powers of the chairman of the board when necessary. In case of the absence of the chairman and deputy chairman, the third class C director shall preside at meetings of the board.
+[12 USC 305. As amended by act of June 21, 1917 (40 Stat. 232).]
+21. Assistant Federal reserve agents
+Subject to the approval of the Board of Governors of the Federal Reserve System, the Federal reserve agent shall appoint one or more assistants. Such assistants, who shall be persons of tested banking experience, shall assist the Federal reserve agent in the performance of his duties and shall also have power to act in his name and stead during his absence or disability. The Board of Governors of the Federal Reserve System shall require such bonds of the assistant Federal reserve agents as it may deem necessary for the protection of the United States. Assistants to the Federal reserve agent shall receive an annual compensation, to be fixed and paid in the same manner as that of the Federal reserve agent.
+[12 USC 306. As added by act of June 21, 1917 (40 Stat. 232).]
+22. Compensation and expenses of directors, officers, and employees
+Directors of Federal reserve banks shall receive, in addition to any compensation otherwise provided, a reasonable allowance for necessary expenses in attending meetings of their respective boards, which amounts shall be paid by the respective Federal reserve banks. Any compensation that may be provided by boards of directors of Federal reserve banks for directors, officers or employees shall be subject to the approval of the Board of Governors of the Federal Reserve System.
+[12 USC 307. Part of original Federal Reserve Act; not amended.]
+23. Meetings of directors pending organization
+The Reserve Bank Organization Committee may, in organizing Federal reserve banks, call such meetings of bank directors in the several districts as may be necessary to carry out the purposes of this Act, and may exercise the functions herein conferred upon the chairman of the board of directors of each Federal reserve bank pending the complete organization of such bank.
+[Omitted from U.S. Code. Part of original Federal Reserve Act; not amended.]
+24. Terms of directors; vacancies
+At the first meeting of the full board of directors of each Federal reserve bank, it shall be the duty of the directors of classes A, B and C, respectively, to designate one of the members of each class whose term of office shall expire in one year from the first of January nearest to date of such meeting, one whose term of office shall expire at the end of two years from said date, and one whose term of office shall expire at the end of three years from said date. Thereafter every director of a Federal reserve bank chosen as hereinbefore provided shall hold office for a term of three years. Vacancies that may occur in the several classes of directors of Federal reserve banks may be filled in the manner provided for the original selection of such directors, such appointees to hold office for the unexpired terms of their predecessors.
+[12 USC 308. Part of original Federal Reserve Act; not amended.]
+Back to Top

@@ -1,0 +1,34 @@
+<!-- source_url: https://www.federalreserve.gov/aboutthefed/procurement/coupa-supplier-enablement.htm -->
+<!-- title: Federal Reserve Board - Coupa Supplier Enablement -->
+<!-- date_fetched: 2025-11-17T03:59:59.531034Z -->
+
+Frequently Asked Questions
+Procuring the Future Acquisition Forecast
+Procurement Staff
+Federal Reserve System Supplier Diversity Contacts
+Tips for Winning Board Contracts
+Acquisition Policy
+Supplier Diversity Policy
+Small and Disadvantaged Business Acquisition Policy
+Vendor Outreach Fair
+Coupa Supplier Enablement
+Starting on July 5, 2023,
+the Board will utilize a Software-as-a-Service (SaaS) based solution provided by Coupa. Coupa is a cloud-based SaaS spend management platform that unifies the procure-to-pay business process.
+All transactions with Board suppliers will be managed through the Coupa platform in the Coupa Supplier Portal (CSP). This configuration will enable an electronic connection and allow procure-to-pay activities to occur completely online.
+Common questions and details about the enablement options are included in the
+Frequently Asked Questions (FAQs) document (PDF)
+.
+The Coupa Supplier Training, below, can also provide some additional context and instructions on how to use the Coupa platform successfully.
+Coupa Supplier Training
+Accessible Keys for Video
+[Space Bar]
+seeks the video forwards and back (5 sec );
+[Up/Down Arrows]
+increase/decrease volume;
+[M]
+toggles fullscreen on/off (Except IE 11);
+The
+key may be used in combination with the
+[Enter/Return]
+key to navigate and activate control buttons, such as caption on/off.
+Back to Top

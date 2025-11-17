@@ -1,0 +1,97 @@
+<!-- source_url: https://www.federalreserve.gov/aboutthefed/section%2010.htm -->
+<!-- title: Federal Reserve Board - Section 10. Board of Governors of the Federal Reserve System -->
+<!-- date_fetched: 2025-11-17T04:00:06.550304Z -->
+
+Section 1. Short title and definitions
+Section 2. Federal Reserve Districts
+Section 2A. Monetary policy objectives
+Section 2B. Appearances Before and Reports to the Congress
+Section 3. Branch Offices
+Section 4. Federal Reserve Banks
+Section 5. Stock Issues; Increase and Decrease of Capital
+Section 6. Insolvency of member banks
+Section 7. Division of Earnings
+Section 8. Conversion of state banks into national banks
+Section 9. State Banks as Members
+Section 9A. Participation in lotteries prohibited
+Section 9B. Resolution of Clearing Banks
+Section 10. Board of Governors of the Federal Reserve System
+Section 10A. Emergency advances to groups of member banks*
+Section 10B. Advances to Individual Member Banks*
+Section 11. Powers of Board of Governors of the Federal Reserve System
+Section 11A. Pricing of Services
+Section 11B. Annual Independent Audits of Federal Reserve Banks and Board
+Section 11C. Master Account and Services Database
+Section 12. Federal Advisory Council
+Section 12A. Federal Open Market Committee
+Section 13. Powers of Federal Reserve Banks
+Section 13A.* Discount of agricultural paper
+Section 14. Open-Market Operations
+Section 15. Government Deposits
+Section 16. Note Issues
+Section 17. Deposit of bonds by national banks
+Section 18. Refunding Bonds
+Section 19. Bank Reserves
+Section 20. National bank notes redemption fund as reserve
+Section 21. Bank Examinations
+Section 22. Offenses of examiners, member banks, officers, and directors
+Section 23. Interbank Liabilities*
+Section 23A. Relations with affiliates
+Section 23B. Restrictions on Transactions with Affiliates
+Section 24. Real Estate Loans
+Section 24A. Investment in Bank Premises or Stock of Corporation Holding Premises
+Section 25. Foreign Branches
+Section 25A. Banking Corporations Authorized to Do Foreign Banking Business*
+Section 25B. Jurisdiction of suits*
+Section 25C. Potential Liability on Foreign Accounts
+Section 26. [Repealed]
+Section 27. Tax on national bank notes
+Section 28. Reduction of capital of national banks
+Section 29. Civil Money Penalty
+Section 30. Saving clause
+Section 31. Reservation of right to amend
+Section 10. Board of Governors of the Federal Reserve System
+1. Appointment and qualification of members
+The Board of Governors of the Federal Reserve System (hereinafter referred to as the "Board") shall be composed of seven members, to be appointed by the President, by and with the advice and consent of the Senate, after the date of enactment of the Banking Act of 1935, for terms of fourteen years except as hereinafter provided, but each appointive member of the Federal Reserve Board in office on such date shall continue to serve as a member of the Board until February 1, 1936, and the Secretary of the Treasury and the Comptroller of the Currency shall continue to serve as members of the Board until February 1, 1936. In selecting the members of the Board, not more than one of whom shall be selected from any one Federal Reserve district, the President shall have due regard to a fair representation of the financial, agricultural, industrial, and commercial interests, and geographical divisions of the country. In selecting members of the Board, the President shall appoint at least 1 member with demonstrated primary experience working in or supervising community banks having less than $10,000,000,000 in total assets. The members of the Board shall devote their entire time to the business of the Board and shall each receive an annual salary of $15,000, payable monthly, together with actual necessary traveling expenses.
+[12 USC 241. As amended by acts of June 3, 1922 (42 Stat. 620); Aug. 23, 1935 (49 Stat. 704); and Jan. 12, 2015 (129 Stat. 9). Prior to the enactment of the Banking Act of 1935, approved Aug. 23, 1935, the Board of Governors of the Federal Reserve System was known as the Federal Reserve Board. See note to the third paragraph of section 1. The portion of this paragraph dealing with salaries of Board members has in effect been amended numerous times, most recently by Executive Order. Prior to the act of December 27, 2000, section 1002 of which revised the executive schedule, the salary of the chairman of the Board was set at executive schedule level 2 and the salary of other members at level 3. The salary of the chairman of the Board is now set at executive schedule level I, and the salary of other members at level II (see 2 USC 358 and 5 USC 5313 and 5314).]
+2. Members ineligible to serve member banks; term of office; chairman and vice chairman
+The members of the Board shall be ineligible during the time they are in office and for two years thereafter to hold any office, position, or employment in any member bank, except that this restriction shall not apply to a member who has served the full term for which he was appointed. Upon the expiration of the term of any appointive member of the Federal Reserve Board in office on the date of enactment of the Banking Act of 1935, the President shall fix the term of the successor to such member at not to exceed fourteen years, as designated by the President at the time of nomination, but in such manner as to provide for the expiration of the term of not more than one member in any two-year period, and thereafter each member shall hold office for a term of fourteen years from the expiration of the term of his predecessor, unless sooner removed for cause by the President. Of the persons thus appointed, 1 shall be designated by the President, by and with the advice and consent of the Senate, to serve as Chairman of the Board for a term of 4 years, and 2 shall be designated by the President, by and with the advice and consent of the Senate, to serve as Vice Chairmen of the Board, each for a term of 4 years, 1 of whom shall serve in the absence of the Chairman, as provided in the fourth undesignated paragraph of this section, and 1 of whom shall be designated Vice Chairman for Supervision. The Vice Chairman for Supervision shall develop policy recommendations for the Board regarding supervision and regulation of depository institution holding companies and other financial firms supervised by the Board, and shall oversee the supervision and regulation of such firms. The chairman of the Board, subject to its supervision, shall be its active executive officer. Each member of the Board shall within fifteen days after notice of appointment make and subscribe to the oath of office. Upon the expiration of their terms of office, members of the Board shall continue to serve until their successors are appointed and have qualified. Any person appointed as a member of the Board after the date of enactment of the Banking Act of 1935 shall not be eligible for reappointment as such member after he shall have served a full term of fourteen years.
+[12 USC 242. As amended by acts of March 3, 1919 (40 Stat. 1315); June 3, 1922 (42 Stat. 620); June 16, 1933 (48 Stat. 166); Aug. 23, 1935 (49 Stat. 704); November 16, 1977 (91 Stat. 1388); and act of July 21, 2010 (124 Stat. 2126). The Banking Act of 1935, referred to in this paragraph, became effective Aug. 23, 1935. Prior to the enactment of that act, the chairman and vice chairman of the Board of Governors of the Federal Reserve System were known as the governor and vice governor of the Federal Reserve Board, respectively. See note to the third paragraph of section 1. The act of November 16, 1977, amended the second sentence of this paragraph. The amendment takes effect on Jan. 1, 1979, and applies to individuals who are designated by the President on or after such date to serve as chairman or vice chairman. The act of July 21, 2010, designated a new Vice Chairman for Supervision.]
+3. Assessments on Federal reserve banks
+The Board of Governors of the Federal Reserve System shall have power to levy semiannually upon the Federal reserve banks, in proportion to their capital stock and surplus, an assessment sufficient to pay its estimated expenses and the salaries of its members and employees for the half year succeeding the levying of such assessments, together with any deficit carried forward from the preceding half year, and such assessments may include amounts sufficient to provide for the acquisition by the Board in its own name of such site or building in the District of Columbia as in its judgment alone shall be necessary for the purpose of providing suitable and adequate quarters for the performance of its functions. After September 1, 2000, the Board may also use such assessments to acquire, in its own name, a site or building (in addition to the facilities existing on such date) to provide for the performance of the functions of the Board. After approving such plans, estimates, and specifications as it shall have caused to be prepared, the Board may, notwithstanding any other provision of law, cause to be constructed on any site so acquired by it a building or buildings suitable and adequate in its judgment for its purposes and proceed to take all such steps as it may deem necessary or appropriate in connection with the construction, equipment, and furnishing of such building or buildings. The Board may maintain, enlarge, or remodel any building or buildings so acquired or constructed and shall have sole control of such building or buildings and space therein.
+[12 USC 243. As reenacted without change by act of June 3, 1922 (42 Stat. 621); and amended by acts of June 19, 1934 (48 Stat. 1108) and Dec. 27, 2000 (114 Stat. 3027). By act approved June 27, 1935 (49 Stat. 425), provision was made for the furnishing of steam from the central heating plant to the Federal Reserve Board, now the Board of Governors of the Federal Reserve System.]
+4. Principal offices; expenses; deposit of funds; members not to be officers or stockholders of banks
+The principal offices of the Board shall be in the District of Columbia. At meetings of the Board the chairman shall preside, and, in his absence, the vice chairman shall preside. In the absence of the chairman and the vice chairman, the board shall elect a member to act as chairman pro tempore. The Board shall determine and prescribe the manner in which its obligations shall be incurred and its disbursements and expenses allowed and paid, and may leave on deposit in the Federal Reserve banks the proceeds of assessments levied upon them to defray its estimated expenses and the salaries of its members and employees, whose employment, compensation, leave, and expenses shall be governed solely by the provisions of this Act, specific amendments thereof, and rules and regulations of the Board not inconsistent therewith; and funds derived from such assessments shall not be construed to be Government funds or appropriated moneys. No member of the Board of Governors of the Federal Reserve System shall be an officer or director of any bank, banking institution, trust company, or Federal Reserve bank or hold stock in any bank, banking institution, or trust company; and before entering upon his duties as a member of the Board of Governors of the Federal Reserve System he shall certify under oath that he has complied with this requirement, and such certification shall be filed with the secretary of the Board. Whenever a vacancy shall occur, other than by expiration of term, among the six members of the Board of Governors of the Federal Reserve System appointed by the President as above provided, a successor shall be appointed by the President, by and with the advice and consent of the Senate, to fill such vacancy, and when appointed he shall hold office for the unexpired term of his predecessor.
+[12 USC 244. As amended by acts of June 3, 1922 (42 Stat. 621); June 16, 1933 (48 Stat. 167); Aug. 23, 1935 (49 Stat. 705). The reference to "the six members" of the Board of Governors is an apparent error in the law and should read "the seven members." See
+section 10
+, first paragraph, this act.]
+5. Vacancies during recess of Senate
+The President shall have power to fill all vacancies that may happen on the Board of Governors of the Federal Reserve System during the recess of the Senate by granting commissions which shall expire with the next session of the Senate.
+[12 USC 245. As amended by act of June 3, 1922 (42 Stat. 621).]
+6. Reservation of powers of Secretary of Treasury
+Nothing in this Act contained shall be construed as taking away any powers heretofore vested by law in the Secretary of the Treasury which relate to the supervision, management, and control of the Treasury Department and bureaus under such department, and wherever any power vested by this Act in the Board of Governors of the Federal Reserve System or the Federal reserve agent appears to conflict with the powers of the Secretary of the Treasury, such powers shall be exercised subject to the supervision and control of the Secretary.
+[12 USC 246. As reenacted without change by act of June 3, 1922 (42 Stat. 621).]
+7. Annual report
+The Board of Governors of the Federal Reserve System shall annually make a full report of its operations to the Speaker of the House of Representatives, who shall cause the same to be printed for the information of the Congress. The report required under this paragraph shall include the reports required under section 707 of the Equal Credit Opportunity Act, section 18(f)(7) of the Federal Trade Commission Act, section 114 of the Truth in Lending Act, and the tenth undesignated paragraph of this section.
+[12 USC 247. As reenacted without change by act of June 3, 1922 (42 Stat. 621) and amended by acts of June 3, 1922, and Dec. 27, 2000 (114 Stat. 3030).]
+8. Office of the Comptroller of the Currency
+Section three hundred and twenty-four of the Revised Statutes of the United States shall be amended so as to read as follows:
+(a) Office Of The Comptroller Of The Currency Established.
+There is established in the Department of the Treasury a bureau to be known as the "Office of the Comptroller of the Currency" which is charged with assuring the safety and soundness of, and compliance with laws and regulations, fair access to financial services, and fair treatment of customers by, the institutions and other persons subject to its jurisdiction.
+(b) Comptroller Of The Currency.
+In General.
+The chief officer of the Office of the Comptroller of the Currency shall be known as the Comptroller of the Currency. The Comptroller of the Currency shall perform the duties of the Comptroller of the Currency under the general direction of the Secretary of the Treasury. The Secretary of the Treasury may not delay or prevent the issuance of any rule or the promulgation of any regulation by the Comptroller of the Currency, and may not intervene in any matter or proceeding before the Comptroller of the Currency (including agency enforcement actions), unless otherwise specifically provided by law.
+Additional Authority.
+The Comptroller of the Currency shall have the same authority with respect to functions transferred to the Comptroller of the Currency under the Enhancing Financial Institution Safety and Soundness Act of 2010 as was vested in the Director of the Office of Thrift Supervision on the transfer date, as defined in section 311 of that Act.
+[12 USC 1. As reenacted without change by act of June 3, 1922 (42 Stat. 621); and amended by acts of May 20, 1966 (80 Stat. 161), Sept. 23, 1994 (108 Stat. 2232), and July 21, 2010 (124 Stat. 1523).]
+9. Branch Federal Reserve bank buildings
+No Federal Reserve bank may authorize the acquisition or construction of any branch building, or enter into any contract or other obligation for the acquisition or construction of any branch building, without the approval of the Board.
+[12 USC 522. As added by act of June 3, 1922 (42 Stat. 622); and amended by acts of Feb. 6, 1923 (42 Stat. 1223); July 30, 1947 (61 Stat. 520); May 29, 1953 (67 Stat. 41); Aug. 31, 1962 (76 Stat. 418); Oct. 28, 1974 (88 Stat. 1505); and Oct. 24, 1992 (106 Stat. 3144).]
+10. Record of open market and other policies
+The Board of Governors of the Federal Reserve System shall keep a complete record of the action taken by the Board and by the Federal Open Market Committee upon all questions of policy relating to open-market operations and shall record therein the votes taken in connection with the determination of open-market policies and the reasons underlying the action of the Board and the Committee in each instance. The Board shall keep a similar record with respect to all questions of policy determined by the Board, and shall include in its annual report to the Congress a full account of the action so taken during the preceding year with respect to open-market policies and operations and with respect to the policies determined by it and shall include in such report a copy of the records required to be kept under the provisions of this paragraph.
+[12 USC 247a. As added by act of Aug. 23, 1935 (49 Stat. 705).]
+12. Appearances before Congress*
+The Vice Chairman for Supervision shall appear before the Committee on Banking, Housing, and Urban Affairs of the Senate and the Committee on Financial Services of the House of Representatives and at semi-annual hearings regarding the efforts, activities, objectives, and plans of the Board with respect to the conduct of supervision and regulation of depository institution holding companies and other financial firms supervised by the Board.
+[12 USC 247b. As added by act of July 21, 2010 (124 Stat. 2126).]
+* The act of July 21, 2010, added paragraph 12 without adding paragraph 11.
+Back to Top

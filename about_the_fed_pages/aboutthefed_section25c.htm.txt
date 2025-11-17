@@ -1,0 +1,63 @@
+<!-- source_url: https://www.federalreserve.gov/aboutthefed/section25c.htm -->
+<!-- title: Federal Reserve Board - Section 25C. Potential Liability on Foreign Accounts -->
+<!-- date_fetched: 2025-11-17T04:00:02.297376Z -->
+
+Section 1. Short title and definitions
+Section 2. Federal Reserve Districts
+Section 2A. Monetary policy objectives
+Section 2B. Appearances Before and Reports to the Congress
+Section 3. Branch Offices
+Section 4. Federal Reserve Banks
+Section 5. Stock Issues; Increase and Decrease of Capital
+Section 6. Insolvency of member banks
+Section 7. Division of Earnings
+Section 8. Conversion of state banks into national banks
+Section 9. State Banks as Members
+Section 9A. Participation in lotteries prohibited
+Section 9B. Resolution of Clearing Banks
+Section 10. Board of Governors of the Federal Reserve System
+Section 10A. Emergency advances to groups of member banks*
+Section 10B. Advances to Individual Member Banks*
+Section 11. Powers of Board of Governors of the Federal Reserve System
+Section 11A. Pricing of Services
+Section 11B. Annual Independent Audits of Federal Reserve Banks and Board
+Section 11C. Master Account and Services Database
+Section 12. Federal Advisory Council
+Section 12A. Federal Open Market Committee
+Section 13. Powers of Federal Reserve Banks
+Section 13A.* Discount of agricultural paper
+Section 14. Open-Market Operations
+Section 15. Government Deposits
+Section 16. Note Issues
+Section 17. Deposit of bonds by national banks
+Section 18. Refunding Bonds
+Section 19. Bank Reserves
+Section 20. National bank notes redemption fund as reserve
+Section 21. Bank Examinations
+Section 22. Offenses of examiners, member banks, officers, and directors
+Section 23. Interbank Liabilities*
+Section 23A. Relations with affiliates
+Section 23B. Restrictions on Transactions with Affiliates
+Section 24. Real Estate Loans
+Section 24A. Investment in Bank Premises or Stock of Corporation Holding Premises
+Section 25. Foreign Branches
+Section 25A. Banking Corporations Authorized to Do Foreign Banking Business*
+Section 25B. Jurisdiction of suits*
+Section 25C. Potential Liability on Foreign Accounts
+Section 26. [Repealed]
+Section 27. Tax on national bank notes
+Section 28. Reduction of capital of national banks
+Section 29. Civil Money Penalty
+Section 30. Saving clause
+Section 31. Reservation of right to amend
+Section 25C. Potential Liability on Foreign Accounts
+(a) Exceptions From Repayment Requirement.
+A member bank shall not be required to repay any deposit made at a foreign branch of the bank if the branch cannot repay the deposit due to--
+an act of war, insurrection, or civil strife; or
+an action by a foreign government or instrumentality (whether de jure or de facto) in the country in which the branch is located;
+unless the member bank has expressly agreed in writing to repay the deposit under those circumstances.
+(b) Regulations.
+The Board and the Comptroller of the Currency may jointly prescribe such regulations as they deem necessary to implement this section.
+[12 USC 633. As added by act of Sept. 23, 1994 (108 Stat. 2229). Section 326(c) of the Riegle Community Development and Regulatory Improvement Act of 1994 (12 USC 633 note) provides as follows:
+(c) Section 25C of the Federal Reserve Act (as added by subsection (a)) shall not be applied retroactively and shall not be construed to affect or apply to any claim or cause of action addressed by that section arising from events or circumstances that occurred before the date of enactment of this Act.]
+Back to Top

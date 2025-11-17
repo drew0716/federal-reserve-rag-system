@@ -1,0 +1,81 @@
+<!-- source_url: https://www.federalreserve.gov/aboutthefed/section23.htm#_ednref1 -->
+<!-- title: Federal Reserve Board - Section 23. Interbank Liabilities* -->
+<!-- date_fetched: 2025-11-17T04:00:06.008454Z -->
+
+Section 1. Short title and definitions
+Section 2. Federal Reserve Districts
+Section 2A. Monetary policy objectives
+Section 2B. Appearances Before and Reports to the Congress
+Section 3. Branch Offices
+Section 4. Federal Reserve Banks
+Section 5. Stock Issues; Increase and Decrease of Capital
+Section 6. Insolvency of member banks
+Section 7. Division of Earnings
+Section 8. Conversion of state banks into national banks
+Section 9. State Banks as Members
+Section 9A. Participation in lotteries prohibited
+Section 9B. Resolution of Clearing Banks
+Section 10. Board of Governors of the Federal Reserve System
+Section 10A. Emergency advances to groups of member banks*
+Section 10B. Advances to Individual Member Banks*
+Section 11. Powers of Board of Governors of the Federal Reserve System
+Section 11A. Pricing of Services
+Section 11B. Annual Independent Audits of Federal Reserve Banks and Board
+Section 11C. Master Account and Services Database
+Section 12. Federal Advisory Council
+Section 12A. Federal Open Market Committee
+Section 13. Powers of Federal Reserve Banks
+Section 13A.* Discount of agricultural paper
+Section 14. Open-Market Operations
+Section 15. Government Deposits
+Section 16. Note Issues
+Section 17. Deposit of bonds by national banks
+Section 18. Refunding Bonds
+Section 19. Bank Reserves
+Section 20. National bank notes redemption fund as reserve
+Section 21. Bank Examinations
+Section 22. Offenses of examiners, member banks, officers, and directors
+Section 23. Interbank Liabilities*
+Section 23A. Relations with affiliates
+Section 23B. Restrictions on Transactions with Affiliates
+Section 24. Real Estate Loans
+Section 24A. Investment in Bank Premises or Stock of Corporation Holding Premises
+Section 25. Foreign Branches
+Section 25A. Banking Corporations Authorized to Do Foreign Banking Business*
+Section 25B. Jurisdiction of suits*
+Section 25C. Potential Liability on Foreign Accounts
+Section 26. [Repealed]
+Section 27. Tax on national bank notes
+Section 28. Reduction of capital of national banks
+Section 29. Civil Money Penalty
+Section 30. Saving clause
+Section 31. Reservation of right to amend
+Section 23. Interbank Liabilities*
+(a) Purpose.
+The purpose of this section is to limit the risks that the failure of a large depository institution (whether or not that institution is an insured depository institution) would pose to insured depository institutions.
+(b) Aggregate Limits On Insured Depository Institutions' Exposure To Other Depository Institutions.
+The Board shall, by regulation or order, prescribe standards that have the effect of limiting the risks posed by an insured depository institution's exposure to any other depository institution.
+[12 USC 371b-2(b). As added by act of Dec. 19, 1991 (105 Stat. 2362).]
+(c)
+In General. For purposes of subsection (b), an insured depository institution's "exposure" to another depository institution means--
+all extensions of credit to the other depository institution, regardless of name or description, including--
+all deposits at the other depository institution;
+all purchases of securities or other assets from the other depository institution subject to an agreement to repurchase; and
+all guarantees, acceptances, or letters of credit (including endorsements or standby letters of credit) on behalf of the other depository institution;
+all purchases of or investments in securities issued by the other depository institution;
+all securities issued by the other depository institution accepted as collateral for an extension of credit to any person; and
+all similar transactions that the Board by regulation determines to be exposure for purposes of this section.
+Exemptions. The Board may, at its discretion, by regulation or order, exempt transactions from the definition of "exposure" if it finds the exemptions to be in the public interest and consistent with the purpose of this section.
+Attribution Rule. For purposes of this section, any transaction by an insured depository institution with any person is a transaction with another depository institution to the extent that the proceeds of the transaction are used for the benefit of, or transferred to, that other depository institution.
+[12 USC 371b-2(c). As added by act of Dec. 19, 1991 (105 Stat. 2362.]
+(d)
+Insured Depository Institution.
+For purposes of this section, the term "insured depository institution" has the same meaning as in section 3 of the Federal Deposit Insurance Act.
+[12 USC 371b-2(d). As added by act of Dec. 19, 1991 (105 Stat. 2362).]
+(e)
+Rulemaking Authority; Enforcement.
+The Board may issue such regulations and orders, including definitions consistent with this section, as may be necessary to administer and carry out the purpose of this section. The appropriate Federal banking agency shall enforce compliance with those regulations under section 8 of the Federal Deposit Insurance Act.
+[12 USC 371b-2(e). As added by act of Dec. 19, 1991 (105 Stat. 2362).]
+*
+The original section 23 was repealed by section 7 of the act of Sept. 8, 1959 (73 Stat. 457). This section 23 is effective Dec. 19, 1992.
+Back to Top

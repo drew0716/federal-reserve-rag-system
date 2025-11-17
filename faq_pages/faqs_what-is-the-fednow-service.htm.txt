@@ -1,0 +1,18 @@
+<!-- source_url: https://www.federalreserve.gov/faqs/what-is-the-fednow-service.htm -->
+<!-- title: The Fed - What is the FedNow® Service? -->
+<!-- date_fetched: 2025-11-17T04:00:14.088775Z -->
+
+Most Frequently Asked Questions
+Federal Reserve’s Renovation of Two Historic Buildings
+About the Fed
+Banking and the Financial System
+Money, Interest Rates, and Monetary Policy
+Credit, Loans, and Mortgages
+Currency and Coin
+Economy, Jobs, and Prices
+Federal Open Market Committee
+Regulations
+What is the FedNow® Service?
+The FedNow Service is a new service for instant payments built by the Federal Reserve to help make everyday payments fast and convenient for American households and businesses. Banks and credit unions of all sizes can sign up for the FedNow Service and offer new instant payment services to their customers. In the coming years, customers of banks and credit unions who sign up for the FedNow Service will be able to use their financial institution’s app, website, and other interfaces to send instant payments directly from their bank accounts quickly and securely. The FedNow Service enables individuals and businesses to send and receive payments within seconds at any time of the day, on any day of the year, so that the receiver of a payment can use the funds immediately.
+The Federal Reserve has always served as a provider of payment services to banks and credit unions across the country. These services are the backbone of commerce in the United States, allowing financial institutions to transfer money to each other on behalf of their customers for transactions like bill payments, vendor payments, payroll deposits, and large-dollar wire transfers. The FedNow Service is a modern payment system that operates alongside these other services.
+Related Information

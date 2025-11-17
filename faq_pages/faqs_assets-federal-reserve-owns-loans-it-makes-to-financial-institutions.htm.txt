@@ -1,0 +1,25 @@
+<!-- source_url: https://www.federalreserve.gov/faqs/assets-federal-reserve-owns-loans-it-makes-to-financial-institutions.htm -->
+<!-- title: The Fed - How can I learn more about the securities the Federal Reserve owns and the loans it makes to financial institutions? -->
+<!-- date_fetched: 2025-11-17T04:00:13.522066Z -->
+
+Most Frequently Asked Questions
+Federal Reserve’s Renovation of Two Historic Buildings
+About the Fed
+Banking and the Financial System
+Money, Interest Rates, and Monetary Policy
+Credit, Loans, and Mortgages
+Currency and Coin
+Economy, Jobs, and Prices
+Federal Open Market Committee
+Regulations
+How can I learn more about the securities the Federal Reserve owns and the loans it makes to financial institutions?
+The Federal Reserve regularly provides a great deal of information concerning all the basic tools of monetary policy, including open market operations and discount window lending. Each week the Federal Reserve Board releases the H.4.1 statistical release ("
+Factors Affecting Reserve Balances of Depository Institutions and Condition Statement of Federal Reserve Banks
+"). That release contains aggregate information about the Federal Reserve's securities holdings, lending, and other assets. The Board also publishes "The Quarterly Report on Federal Reserve Balance Sheet Developments" as part of its efforts to enhance transparency about its balance sheet.
+The Federal Reserve Bank of New York publishes the latest data on securities holdings on its
+website
+. In addition, the Treasury securities awarded to the Fed's portfolio at auction are reported in the auction results released by the Treasury Department upon the conclusion of each auction. Finally, summary information about the Fed's security holdings is available in the Open Market Operations Annual Report each year.
+The Federal Reserve releases detailed, transaction-level, data on discount window lending and open market operations as required by the Dodd-Frank Wall Street Reform and Consumer Protection Act. The detail on discount window loans includes the name of the borrowing institution, the amount borrowed, the interest rate charged, and information about collateral pledged. Information on open market operations includes the name of the counterparty, the CUSIP--a number similar to a serial number--of individual securities purchased or sold, and the price at which the operation was conducted. These transaction-level details on lending and on open market operations, released with a two-year delay as the law requires, supplement the aggregate information provided in weekly and quarterly reports.
+Related Information
+Regulatory Reform: Transaction Data Released Quarterly
+Back to Top

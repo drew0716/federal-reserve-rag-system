@@ -1,0 +1,76 @@
+<!-- source_url: https://www.federalreserve.gov/aboutthefed/section13a.htm#_ednref1 -->
+<!-- title: Federal Reserve Board - Section 13A.* Discount of agricultural paper -->
+<!-- date_fetched: 2025-11-17T04:00:05.961954Z -->
+
+Section 1. Short title and definitions
+Section 2. Federal Reserve Districts
+Section 2A. Monetary policy objectives
+Section 2B. Appearances Before and Reports to the Congress
+Section 3. Branch Offices
+Section 4. Federal Reserve Banks
+Section 5. Stock Issues; Increase and Decrease of Capital
+Section 6. Insolvency of member banks
+Section 7. Division of Earnings
+Section 8. Conversion of state banks into national banks
+Section 9. State Banks as Members
+Section 9A. Participation in lotteries prohibited
+Section 9B. Resolution of Clearing Banks
+Section 10. Board of Governors of the Federal Reserve System
+Section 10A. Emergency advances to groups of member banks*
+Section 10B. Advances to Individual Member Banks*
+Section 11. Powers of Board of Governors of the Federal Reserve System
+Section 11A. Pricing of Services
+Section 11B. Annual Independent Audits of Federal Reserve Banks and Board
+Section 11C. Master Account and Services Database
+Section 12. Federal Advisory Council
+Section 12A. Federal Open Market Committee
+Section 13. Powers of Federal Reserve Banks
+Section 13A.* Discount of agricultural paper
+Section 14. Open-Market Operations
+Section 15. Government Deposits
+Section 16. Note Issues
+Section 17. Deposit of bonds by national banks
+Section 18. Refunding Bonds
+Section 19. Bank Reserves
+Section 20. National bank notes redemption fund as reserve
+Section 21. Bank Examinations
+Section 22. Offenses of examiners, member banks, officers, and directors
+Section 23. Interbank Liabilities*
+Section 23A. Relations with affiliates
+Section 23B. Restrictions on Transactions with Affiliates
+Section 24. Real Estate Loans
+Section 24A. Investment in Bank Premises or Stock of Corporation Holding Premises
+Section 25. Foreign Branches
+Section 25A. Banking Corporations Authorized to Do Foreign Banking Business*
+Section 25B. Jurisdiction of suits*
+Section 25C. Potential Liability on Foreign Accounts
+Section 26. [Repealed]
+Section 27. Tax on national bank notes
+Section 28. Reduction of capital of national banks
+Section 29. Civil Money Penalty
+Section 30. Saving clause
+Section 31. Reservation of right to amend
+Section 13A.* Discount of agricultural paper
+1. Authority of Federal reserve banks to discount agricultural paper
+Upon the indorsement of any of its member banks, which shall be deemed a waiver of demand, notice, and protest by such bank as to its own indorsement exclusively, any Federal reserve bank may, subject to regulations and limitations to be prescribed by the Board of Governors of the Federal Reserve System, discount notes, drafts, and bills of exchange issued or drawn for an agricultural purpose, or based upon live stock, and having a maturity, at the time of discount, exclusive of days of grace, not exceeding nine months, and such notes, drafts, and bills of exchange may be offered as collateral security for the issuance of Federal reserve notes under the provisions of section 16 of this Act:
+Provided,
+That notes, drafts, and bills of exchange with maturities in excess of six months shall not be eligible as a basis for the issuance of Federal reserve notes unless secured by warehouse receipts or other such negotiable documents conveying or securing title to readily marketable staple agricultural products or by chattel mortgage upon live stock which is being fattened for market.
+[12 USC 348. As added by act of March 4, 1923 (42 Stat. 1479).]
+2. Rediscounts for, and discount of notes payable to, Federal Intermediate Credit Banks
+That any Federal reserve bank may, subject to regulations and limitations to be prescribed by the Board of Governors of the Federal Reserve System, rediscount such notes, drafts, and bills for any Federal Intermediate Credit Bank, except that no Federal reserve bank shall rediscount for a Federal Intermediate Credit Bank any such note or obligation which bears the indorsement of a nonmember State bank or trust company which is eligible for membership in the Federal reserve system, in accordance with section 9 of this Act. Any Federal reserve bank may also, subject to regulations and limitations to be prescribed by the Board of Governors of the Federal Reserve System, discount notes payable to and bearing the indorsement of any Federal intermediate credit bank, covering loans or advances made by such bank pursuant to the provisions of section 202(a) of Title II of the Federal Farm Loan Act, as amended (U.S.C., title 12, ch. 8, sec. 1031), which have maturities at the time of discount of not more than nine months, exclusive of days of grace, and which are secured by notes, drafts, or bills of exchange eligible for rediscount by Federal Reserve banks.
+[12 USC 349. As added by act of March 4, 1923 (42 Stat. 1480); and amended by act of May 19, 1932 (47 Stat. 160).]
+3. Purchase and sale of debentures of Federal Intermediate Credit Banks
+Any Federal reserve bank may also buy and sell debentures and other such obligations issued by a Federal Intermediate Credit Bank or by a National Agricultural Credit Corporation, but only to the same extent as and subject to the same limitations as those upon which it may buy and sell bonds issued under Title I of the Federal Farm Loan Act.
+[12 USC 350. As added by act of March 4, 1923 (42 Stat. 1480). The meaning of the term "debentures", as used above, was affected by act of Aug. 19, 1937 (50 Stat. 718), 12 USC 1040, which provides:
+"The terms 'debenture' and 'debentures', when used in any Act of Congress, whenever enacted, except the Federal Farm Loan Act, relating to the purchase, sale, or use as security, of debentures issued by or for the benefit and account of any Federal intermediate credit bank or banks, shall be deemed to mean debentures issued by any such bank individually and consolidated debentures issued by such banks acting together."]
+4. Paper of cooperative marketing associations
+Notes, drafts, bills of exchange or acceptances issued or drawn by cooperative marketing associations composed of producers of agricultural products shall be deemed to have been issued or drawn for an agricultural purpose, within the meaning of this section, if the proceeds thereof have been or are to be advanced by such association to any members thereof for an agricultural purpose, or have been or are to be used by such association in making payments to any members thereof on account of agricultural products delivered by such members to the association, or if such proceeds have been or are to be used by such association to meet expenditures incurred or to be incurred by the association in connection with the grading, processing, packing, preparation for market, or marketing of any agricultural product handled by such association for any of its members:
+Provided,
+That the express enumeration in this paragraph of certain classes of paper of cooperative marketing associations as eligible for rediscount shall not be construed as rendering ineligible any other class of paper of such associations which is now eligible for rediscount.
+[12 USC 351. As added by act of March 4, 1923 (42 Stat. 1480).]
+5. Limitations
+The Board of Governors of the Federal Reserve System may, by regulation, limit to a percentage of the assets of a Federal reserve bank the amount of notes, drafts, acceptances, or bills having a maturity in excess of three months, but not exceeding six months, exclusive of days of grace, which may be discounted by such bank, and the amount of notes, drafts, bills, or acceptance having a maturity in excess of six months, but not exceeding nine months, which may be rediscounted by such bank.
+[12 USC 352. As added by act of March 4, 1923 (42 Stat. 1480).]
+*
+Previously section 13a, this section was redesignated by act of Dec. 19, 1991 (105 Stat. 2281).
+Back to Top

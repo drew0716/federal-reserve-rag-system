@@ -1,0 +1,101 @@
+<!-- source_url: https://federalreserve.gov/aboutthefed/fedexplained/payment-systems.htm -->
+<!-- title: The Fed Explained - Payment Systems -->
+<!-- date_fetched: 2025-11-17T04:00:03.444729Z -->
+
+How We Foster Payment System Safety and Efficiency
+An
+efficient, effective, and safe U.S. and global payment and settlement system is vital to you
+and our economy, and the Federal Reserve plays an important role by providing the nation's currency and operating some elements of this system.
+What Is the Payment System?
+Whether you're paying your babysitter in cash, writing a check to the plumber, swiping your debit card at the grocery store, or getting your paycheck by direct deposit,
+you are a participant in the payment system.
+The payment system facilitates financial transactions and purchases of goods and services by individuals and institutions, consumers and businesses, and investors and securities issuers.
+It includes
+currency, or Federal Reserve notes, issued and circulated by the Federal Reserve;
+checks deposited by banks and collected by Federal Reserve Banks;
+automated clearinghouse transactions to process small-value electronic credit and debit transfers like recurring electronic payments; and
+wholesale payments processed via Fedwire® Funds and Fedwire Securities for large-value financial transactions among businesses, banks, and individuals.
+The Federal Reserve's Role in Maintaining a Reliable U.S. Currency
+Although
+the issuance of paper money in this country dates back to 1690
+, the U.S. government did not issue paper currency until 1861, when Congress approved the issuance of demand Treasury notes. All currency issued by the U.S. government since then remains legal tender.
+Today,
+virtually all currency in circulation is in the form of Federal Reserve notes
+, which were first issued in 1914.
+As the issuing authority for Federal Reserve notes, the Board has a wide range of responsibilities related to paper money, from ensuring an adequate supply of currency to protecting and maintaining confidence in the currency.
+To
+protect the integrity of Federal Reserve notes
+, the Board works with the Reserve Banks, the U.S. Department of the Treasury, the Treasury's Bureau of Engraving and Printing, and the United States Secret Service to
+monitor counterfeiting threats for each denomination
+and to redesign notes to counter these threats.
+Federal Reserve notes are periodically redesigned to make notes more difficult to counterfeit but still easy to authenticate as genuine. The Board manages a program to educate the public on the security and design features in Federal Reserve notes to help protect and maintain confidence in U.S. currency. The Reserve Banks also help maintain confidence in our nation's currency by ensuring the quality and integrity of Federal Reserve notes in circulation.
+Innovating as the Bank for Banks … and the U.S. Government
+The Reserve Banks also distribute coins and act as a
+“bank for banks.”
+In that role, they collect checks deposited by banks, and return unpaid checks to banks on which the funds are drawn.
+In addition, the Fed offers financial services to banks that help process your everyday credit and debit transactions—like grocery store purchases or recurring bill payments.
+Since 1915, through its regional Reserve Banks, the Fed has also
+provided services to the U.S. government, acting as the government's fiscal agent.
+For example, the financing efforts associated with World War II increased the scope of Reserve Bank fiscal agency functions to include the sale and redemption of Series E savings bonds beginning in 1941. While initially known as Defense Bonds and War Savings Bonds, Series E bond issuance continued until 1980, with millions of Americans purchasing these bonds.
+Fed innovations continue to this day. In 2023, the Federal Reserve launched an instant payment service called FedNow
+®
+to help make everyday payments fast and convenient for American households and businesses. Banks and credit unions of all sizes can sign up for the FedNow Service and offer instant payment services to their consumer and business customers.
+Watch: Launch of new FedNow instant payment service
+“From its founding, the Federal Reserve has played a central role in payments. We seek to foster a payment and settlement system that is safe and efficient. Such a system promotes a vibrant economy, since it allows for participation from a broad range of individuals and businesses.”
+—Governor Christopher Waller
+Serving as a Catalyst for Potential Payment System Evolutions
+The Federal Reserve continues to act as a catalyst to improve the
+safety and efficiency of the payment and settlement system,
+working in cooperation with Congress, the private sector, and other public-sector institutions, both domestically and internationally.
+It conducts periodic and special research and analysis on a wide range of topics related to the design and activities of payment, clearing, and settlement (PCS) systems and financial market infrastructures, as well as the role of these systems in the commercial activities of consumers, businesses, and government.
+Watch: Fed works to secure payments against fraud and hacking.
+An
+efficient, effective, and safe U.S. and global payment and settlement system is vital to you
+and our economy, and the Federal Reserve plays an important role by providing the nation's currency and operating some elements of this system.
+What Is the Payment System?
+Whether you're paying your babysitter in cash, writing a check to the plumber, swiping your debit card at the grocery store, or getting your paycheck by direct deposit,
+you are a participant in the payment system.
+The payment system facilitates financial transactions and purchases of goods and services by individuals and institutions, consumers and businesses, and investors and securities issuers.
+It includes
+currency, or Federal Reserve notes, issued and circulated by the Federal Reserve;
+checks deposited by banks and collected by Federal Reserve Banks;
+automated clearinghouse transactions to process small-value electronic credit and debit transfers like recurring electronic payments; and
+wholesale payments processed via Fedwire® Funds and Fedwire Securities for large-value financial transactions among businesses, banks, and individuals.
+The Federal Reserve's Role in Maintaining a Reliable U.S. Currency
+Although
+the issuance of paper money in this country dates back to 1690
+, the U.S. government did not issue paper currency until 1861, when Congress approved the issuance of demand Treasury notes. All currency issued by the U.S. government since then remains legal tender.
+Today,
+virtually all currency in circulation is in the form of Federal Reserve notes
+, which were first issued in 1914.
+As the issuing authority for Federal Reserve notes, the Board has a wide range of responsibilities related to paper money, from ensuring an adequate supply of currency to protecting and maintaining confidence in the currency.
+To
+protect the integrity of Federal Reserve notes
+, the Board works with the Reserve Banks, the U.S. Department of the Treasury, the Treasury's Bureau of Engraving and Printing, and the United States Secret Service to
+monitor counterfeiting threats for each denomination
+and to redesign notes to counter these threats.
+Federal Reserve notes are periodically redesigned to make notes more difficult to counterfeit but still easy to authenticate as genuine. The Board manages a program to educate the public on the security and design features in Federal Reserve notes to help protect and maintain confidence in U.S. currency. The Reserve Banks also help maintain confidence in our nation's currency by ensuring the quality and integrity of Federal Reserve notes in circulation.
+Innovating as the Bank for Banks … and the U.S. Government
+The Reserve Banks also distribute coins and act as a
+“bank for banks.”
+In that role, they collect checks deposited by banks, and return unpaid checks to banks on which the funds are drawn.
+In addition, the Fed offers financial services to banks that help process your everyday credit and debit transactions—like grocery store purchases or recurring bill payments.
+Since 1915, through its regional Reserve Banks, the Fed has also
+provided services to the U.S. government, acting as the government's fiscal agent.
+For example, the financing efforts associated with World War II increased the scope of Reserve Bank fiscal agency functions to include the sale and redemption of Series E savings bonds beginning in 1941. While initially known as Defense Bonds and War Savings Bonds, Series E bond issuance continued until 1980, with millions of Americans purchasing these bonds.
+Fed innovations continue to this day. In 2023, the Federal Reserve launched an instant payment service called FedNow
+®
+to help make everyday payments fast and convenient for American households and businesses. Banks and credit unions of all sizes can sign up for the FedNow Service and offer instant payment services to their consumer and business customers.
+“From its founding, the Federal Reserve has played a central role in payments. We seek to foster a payment and settlement system that is safe and efficient. Such a system promotes a vibrant economy, since it allows for participation from a broad range of individuals and businesses.” –Governor Christopher Waller
+Serving as a Catalyst for Potential Payment System Evolutions
+The Federal Reserve continues to act as a catalyst to improve the
+safety and efficiency of the payment and settlement system,
+working in cooperation with Congress, the private sector, and other public-sector institutions, both domestically and internationally.
+It conducts periodic and special research and analysis on a wide range of topics related to the design and activities of payment, clearing, and settlement (PCS) systems and financial market infrastructures, as well as the role of these systems in the commercial activities of consumers, businesses, and government.
+Want to learn more? See
+The Fed Explained
+The Fed sets U.S. monetary policy to promote maximum employment and stable prices in the U.S. economy.
+The Fed monitors financial system risks to help ensure the system supports a healthy economy for U.S. households, communities, and businesses.
+The Fed promotes the safety and soundness of individual financial institutions and monitors their impact on the financial system as a whole.
+The Fed works to promote a safe, efficient, and accessible system for U.S. dollar transactions.
+The Fed advances supervision and research to improve understanding of the impacts of financial services policies on consumers and communities.

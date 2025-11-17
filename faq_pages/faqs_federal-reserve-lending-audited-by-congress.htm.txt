@@ -1,0 +1,27 @@
+<!-- source_url: https://www.federalreserve.gov/faqs/federal-reserve-lending-audited-by-congress.htm -->
+<!-- title: The Fed - Is the Fed’s emergency lending audited by the Congress?  Is information about the Fed’s emergency lending provided to the public? -->
+<!-- date_fetched: 2025-11-17T04:00:13.564424Z -->
+
+Most Frequently Asked Questions
+Federal Reserve’s Renovation of Two Historic Buildings
+About the Fed
+Banking and the Financial System
+Money, Interest Rates, and Monetary Policy
+Credit, Loans, and Mortgages
+Currency and Coin
+Economy, Jobs, and Prices
+Federal Open Market Committee
+Regulations
+Is the Fed’s emergency lending audited by the Congress?  Is information about the Fed’s emergency lending provided to the public?
+The Congress established several mechanisms to enhance transparency and accountability for the Federal Reserve's emergency lending authorized under section 13(3) of the Federal Reserve Act:
+The Government Accountability Office (GAO) conducted an "operational audit" of the emergency lending facilities that the Federal Reserve established during the financial crisis. The GAO issued a report on July 21, 2011. The audit found no conflicts of interest or material weaknesses in internal controls in the emergency facilities.
+The GAO also conducted an audit of Reserve Bank governance and provided a report (including recommendations) to the Congress on October 19, 2011.
+On December 1, 2010, the Board disclosed the identities of borrowers and participants in the Term Auction Facility, the government-sponsored enterprise mortgage-backed securities purchase program, and foreign currency swap lines.
+In the case of broad-based facilities, details provided by the Board included the name of the borrower; the amount borrowed; the date the credit was extended; the interest rate charged; and information about collateral and other relevant credit terms.
+Similar information was provided for the draws of foreign central banks on their dollar liquidity swap lines with the Federal Reserve.
+For agency mortgage-backed securities transactions, details included the name of the counterparty; the security purchased or sold; and the date, amount, and price of the transaction.
+The Congress also established important new reporting requirements for any future use of the Federal Reserve's emergency lending authority under section 13(3) of the Federal Reserve Act.
+Within seven days of establishment of any 13(3) program, the Board must report detailed transaction-level information to the Congress on any lending activity conducted under those programs.
+The GAO may conduct "operational audits" of any future 13(3) facilities for the purpose of assessing the operational integrity of a credit facility and assessing the effectiveness of collateral policies in mitigating risks to the taxpayer.
+Within one year after the termination of a credit facility, the Board must provide detailed transaction-level information to the public, including the names of the borrowers, the amounts borrowed, the rate charged, and information on the types and amounts of collateral pledged.
+Back to Top

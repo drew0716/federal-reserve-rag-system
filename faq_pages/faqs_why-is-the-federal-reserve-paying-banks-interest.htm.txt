@@ -1,0 +1,18 @@
+<!-- source_url: https://www.federalreserve.gov/faqs/why-is-the-federal-reserve-paying-banks-interest.htm -->
+<!-- title: The Fed - Why does the Federal Reserve pay banks interest? -->
+<!-- date_fetched: 2025-11-17T04:00:12.671898Z -->
+
+Most Frequently Asked Questions
+Federal Reserve’s Renovation of Two Historic Buildings
+About the Fed
+Banking and the Financial System
+Money, Interest Rates, and Monetary Policy
+Credit, Loans, and Mortgages
+Currency and Coin
+Economy, Jobs, and Prices
+Federal Open Market Committee
+Regulations
+Why does the Federal Reserve pay banks interest?
+Banks and other depository institutions hold deposits with the Federal Reserve, known as reserve balances, and the Fed pays interest on these deposits. Congress authorized the Fed to pay interest on balances in 2008. The Federal Reserve Board sets the interest rate paid on reserve balances (IORB) to help implement the Federal Open Market Committee's (FOMC) monetary policy decisions.
+Adjustments to the IORB rate help to move the federal funds rate into the target range set by the FOMC. (The federal funds rate is the primary tool to conduct monetary policy and the rate that banks pay for overnight borrowing in the federal funds market.) Banks typically are unwilling to lend to any private counterparty at a rate lower than the rate they can earn on balances maintained at the Fed. As a result, an increase in the IORB rate will put upward pressure on a range of short-term interest rates. The opposite holds for a decrease in the IORB rate. Typically, changes in the FOMC's target range are accompanied by commensurate changes in the IORB rate to keep the federal funds rate at a level consistent with the FOMC's target range.
+Back to Top

@@ -1,0 +1,60 @@
+<!-- source_url: https://www.federalreserve.gov/aboutthefed/section6.htm -->
+<!-- title: Federal Reserve Board - Section 6. Insolvency of member banks -->
+<!-- date_fetched: 2025-11-17T04:00:00.547715Z -->
+
+Section 1. Short title and definitions
+Section 2. Federal Reserve Districts
+Section 2A. Monetary policy objectives
+Section 2B. Appearances Before and Reports to the Congress
+Section 3. Branch Offices
+Section 4. Federal Reserve Banks
+Section 5. Stock Issues; Increase and Decrease of Capital
+Section 6. Insolvency of member banks
+Section 7. Division of Earnings
+Section 8. Conversion of state banks into national banks
+Section 9. State Banks as Members
+Section 9A. Participation in lotteries prohibited
+Section 9B. Resolution of Clearing Banks
+Section 10. Board of Governors of the Federal Reserve System
+Section 10A. Emergency advances to groups of member banks*
+Section 10B. Advances to Individual Member Banks*
+Section 11. Powers of Board of Governors of the Federal Reserve System
+Section 11A. Pricing of Services
+Section 11B. Annual Independent Audits of Federal Reserve Banks and Board
+Section 11C. Master Account and Services Database
+Section 12. Federal Advisory Council
+Section 12A. Federal Open Market Committee
+Section 13. Powers of Federal Reserve Banks
+Section 13A.* Discount of agricultural paper
+Section 14. Open-Market Operations
+Section 15. Government Deposits
+Section 16. Note Issues
+Section 17. Deposit of bonds by national banks
+Section 18. Refunding Bonds
+Section 19. Bank Reserves
+Section 20. National bank notes redemption fund as reserve
+Section 21. Bank Examinations
+Section 22. Offenses of examiners, member banks, officers, and directors
+Section 23. Interbank Liabilities*
+Section 23A. Relations with affiliates
+Section 23B. Restrictions on Transactions with Affiliates
+Section 24. Real Estate Loans
+Section 24A. Investment in Bank Premises or Stock of Corporation Holding Premises
+Section 25. Foreign Branches
+Section 25A. Banking Corporations Authorized to Do Foreign Banking Business*
+Section 25B. Jurisdiction of suits*
+Section 25C. Potential Liability on Foreign Accounts
+Section 26. [Repealed]
+Section 27. Tax on national bank notes
+Section 28. Reduction of capital of national banks
+Section 29. Civil Money Penalty
+Section 30. Saving clause
+Section 31. Reservation of right to amend
+Section 6. Insolvency of member banks
+1. Insolvency of member banks
+If any member bank shall be declared insolvent and a receiver appointed therefor, the stock held by it in said Federal reserve bank shall be canceled, without impairment of its liability, and all cash-paid subscriptions on said stock, with one-half of 1 per centum per month from the period of last dividend, if earned, not to exceed the book value thereof, shall be first applied to all debts of the insolvent member bank to the Federal reserve bank, and the balance, if any, shall be paid to the receiver of the insolvent bank.
+[12 USC 288. As amended by act of April 23, 1930 (46 Stat. 250).]
+2. National bank discontinuing banking operations
+If any national bank which has not gone into liquidation as provided in section 5220 of the Revised Statutes (United States Code, title 12, section 181) and for which a receiver has not already been appointed for other lawful cause, shall discontinue its banking operations for a period of sixty days the Comptroller of the Currency may, if he deems it advisable, appoint a receiver for such bank. The stock held by the said national bank in the Federal reserve bank of its district shall thereupon be canceled and said national bank shall receive in payment therefor, under regulations to be prescribed by the Board of Governors of the Federal Reserve System, a sum equal to its cash-paid subscriptions on the shares canceled and one-half of 1 per centum a month from the period of the last dividend, if earned, not to exceed the book value thereof, less any liability of such national bank to the Federal reserve bank.
+[12 USC 288. As added by act of April 23, 1930 (46 Stat. 250). As amended by act of Aug. 23, 1935 (49 Stat. 713).]
+Back to Top

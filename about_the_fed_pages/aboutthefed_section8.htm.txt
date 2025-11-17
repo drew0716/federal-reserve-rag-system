@@ -1,0 +1,65 @@
+<!-- source_url: https://www.federalreserve.gov/aboutthefed/section8.htm -->
+<!-- title: Federal Reserve Board - Section 8. Conversion of state banks into national banks -->
+<!-- date_fetched: 2025-11-17T04:00:00.638510Z -->
+
+Section 1. Short title and definitions
+Section 2. Federal Reserve Districts
+Section 2A. Monetary policy objectives
+Section 2B. Appearances Before and Reports to the Congress
+Section 3. Branch Offices
+Section 4. Federal Reserve Banks
+Section 5. Stock Issues; Increase and Decrease of Capital
+Section 6. Insolvency of member banks
+Section 7. Division of Earnings
+Section 8. Conversion of state banks into national banks
+Section 9. State Banks as Members
+Section 9A. Participation in lotteries prohibited
+Section 9B. Resolution of Clearing Banks
+Section 10. Board of Governors of the Federal Reserve System
+Section 10A. Emergency advances to groups of member banks*
+Section 10B. Advances to Individual Member Banks*
+Section 11. Powers of Board of Governors of the Federal Reserve System
+Section 11A. Pricing of Services
+Section 11B. Annual Independent Audits of Federal Reserve Banks and Board
+Section 11C. Master Account and Services Database
+Section 12. Federal Advisory Council
+Section 12A. Federal Open Market Committee
+Section 13. Powers of Federal Reserve Banks
+Section 13A.* Discount of agricultural paper
+Section 14. Open-Market Operations
+Section 15. Government Deposits
+Section 16. Note Issues
+Section 17. Deposit of bonds by national banks
+Section 18. Refunding Bonds
+Section 19. Bank Reserves
+Section 20. National bank notes redemption fund as reserve
+Section 21. Bank Examinations
+Section 22. Offenses of examiners, member banks, officers, and directors
+Section 23. Interbank Liabilities*
+Section 23A. Relations with affiliates
+Section 23B. Restrictions on Transactions with Affiliates
+Section 24. Real Estate Loans
+Section 24A. Investment in Bank Premises or Stock of Corporation Holding Premises
+Section 25. Foreign Branches
+Section 25A. Banking Corporations Authorized to Do Foreign Banking Business*
+Section 25B. Jurisdiction of suits*
+Section 25C. Potential Liability on Foreign Accounts
+Section 26. [Repealed]
+Section 27. Tax on national bank notes
+Section 28. Reduction of capital of national banks
+Section 29. Civil Money Penalty
+Section 30. Saving clause
+Section 31. Reservation of right to amend
+Section 8. Conversion of state banks into national banks
+1. Conversion of State banks into national banks
+Section fifty-one hundred and fifty-four, United States Revised Statutes, is hereby amended to read as follows:
+Any bank incorporated by special law of any State or of the United States or organized under the general laws of any State or of the United States and having an unimpaired capital sufficient to entitle it to become a national banking association under the provisions of the existing laws may, by the vote of the shareholders owning not less than fifty-one per centum of the capital stock of such bank or banking association, with the approval of the Comptroller of the Currency be converted into a national banking association, with a name that contains the word "national":
+[12 USC 35. Part of original Federal Reserve Act. As amended by act of Jan. 12, 1983 (96 Stat. 2509).]
+2. Organization of new bank; amount of shares; powers and duties
+Provided, however
+, That said conversion shall not be in contravention of the State law. In such case the articles of association and organization certificate may be executed by a majority of the directors of the bank or banking institution, and the certificate shall declare that the owners of fifty-one per centum of the capital stock have authorized the directors to make such certificate and to change or convert the bank or banking institution into a national association. A majority of the directors, after executing the articles of association and the organization certificate, shall have power to execute all other papers and to do whatever may be required to make its organization perfect and complete as a national association. The shares of any such bank may continue to be for the same amount each as they were before the conversion, and the directors may continue to be directors of the association until others are elected or appointed in accordance with the provisions of the statutes of the United States. When the Comptroller has given to such bank or banking association a certificate that the provisions of this Act have been complied with, such bank or banking association, and all its stockholders, officers, and employees, shall have the same powers and privileges, and shall be subject to the same duties, liabilities, and regulations, in all respects, as shall have been prescribed by the Federal Reserve Act and by the National Banking Act for associations originally organized as national banking associations.
+[12 USC 35. Part of original Federal Reserve Act; not amended.]
+3. Assets of converting bank; certain disapprovals
+The Comptroller of the Currency may, in his discretion and subject to such conditions as he may prescribe, permit such converting bank to retain and carry at a value determined by the Comptroller such of the assets of such converting bank as do not conform to the legal requirements relative to assets acquired and held by national banking associations. The Comptroller of the Currency may not approve the conversion of a State bank or State savings association to a national banking association or Federal savings association during any period in which the State bank or State savings association is subject to a cease and desist order (or other formal enforcement order) issued by, or a memorandum of understanding entered into with, a State bank supervisor or the appropriate Federal banking agency with respect to a significant supervisory matter or a final enforcement action by a State Attorney General.
+[12 USC 35. The first sentence was added by act of Aug. 23, 1935 (49 Stat. 711) and the second sentence was added by act of July 21, 2010 (124 Stat. 1612).]
+Back to Top

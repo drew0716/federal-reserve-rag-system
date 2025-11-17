@@ -1,0 +1,69 @@
+<!-- source_url: https://www.federalreserve.gov/aboutthefed/section24a.htm -->
+<!-- title: Federal Reserve Board - Section 24A. Investment in Bank Premises or Stock of Corporation Holding Premises -->
+<!-- date_fetched: 2025-11-17T04:00:02.101388Z -->
+
+Section 1. Short title and definitions
+Section 2. Federal Reserve Districts
+Section 2A. Monetary policy objectives
+Section 2B. Appearances Before and Reports to the Congress
+Section 3. Branch Offices
+Section 4. Federal Reserve Banks
+Section 5. Stock Issues; Increase and Decrease of Capital
+Section 6. Insolvency of member banks
+Section 7. Division of Earnings
+Section 8. Conversion of state banks into national banks
+Section 9. State Banks as Members
+Section 9A. Participation in lotteries prohibited
+Section 9B. Resolution of Clearing Banks
+Section 10. Board of Governors of the Federal Reserve System
+Section 10A. Emergency advances to groups of member banks*
+Section 10B. Advances to Individual Member Banks*
+Section 11. Powers of Board of Governors of the Federal Reserve System
+Section 11A. Pricing of Services
+Section 11B. Annual Independent Audits of Federal Reserve Banks and Board
+Section 11C. Master Account and Services Database
+Section 12. Federal Advisory Council
+Section 12A. Federal Open Market Committee
+Section 13. Powers of Federal Reserve Banks
+Section 13A.* Discount of agricultural paper
+Section 14. Open-Market Operations
+Section 15. Government Deposits
+Section 16. Note Issues
+Section 17. Deposit of bonds by national banks
+Section 18. Refunding Bonds
+Section 19. Bank Reserves
+Section 20. National bank notes redemption fund as reserve
+Section 21. Bank Examinations
+Section 22. Offenses of examiners, member banks, officers, and directors
+Section 23. Interbank Liabilities*
+Section 23A. Relations with affiliates
+Section 23B. Restrictions on Transactions with Affiliates
+Section 24. Real Estate Loans
+Section 24A. Investment in Bank Premises or Stock of Corporation Holding Premises
+Section 25. Foreign Branches
+Section 25A. Banking Corporations Authorized to Do Foreign Banking Business*
+Section 25B. Jurisdiction of suits*
+Section 25C. Potential Liability on Foreign Accounts
+Section 26. [Repealed]
+Section 27. Tax on national bank notes
+Section 28. Reduction of capital of national banks
+Section 29. Civil Money Penalty
+Section 30. Saving clause
+Section 31. Reservation of right to amend
+Section 24A. Investment in Bank Premises or Stock of Corporation Holding Premises
+(a) Conditions Of Investment.
+No national bank or State member bank shall invest in bank premises, or in the stock, bonds, debentures, or other such obligations of any corporation holding the premises of such bank, or make loans to or upon the security of any such corporation--
+unless the bank receives the prior approval of the Comptroller of the Currency (with respect to a national bank) or the Board (with respect to a State member bank);
+unless the aggregate of all such investments and loans, together with the amount of any indebtedness incurred by any such corporation that is an affiliate of the bank, is less than or equal to the amount of the capital stock of such bank; or
+unless--
+the aggregate of all such investments and loans, together with the amount of any indebtedness incurred by any such corporation that is an affiliate of the bank, is less than or equal to 150 percent of the capital and surplus of the bank; and
+the bank--
+has a CAMEL composite rating of 1 or 2 under the Uniform Financial Institutions Rating System (or an equivalent rating under a comparable rating system) as of the most recent examination of such bank;
+is well capitalized and will continue to be well capitalized after the investment or loan; and
+provides notification to the Comptroller of the Currency (with respect to a national bank) or to the Board (with respect to a State member bank) not later than 30 days after making the investment or loan.
+(b) Definitions.
+For purposes of this section--
+the term "affiliate" has the same meaning as in section 2 of the Banking Act of 1933; and
+the term "well capitalized" has the same meaning as in section 38(b) of the Federal Deposit Insurance Act.
+[12 USC 371d. As added by act of June 16, 1933 (48 Stat. 183); amended by acts of June 30, 1954 (68 Stat. 358) and Sept. 30, 1996 (110 Stat. 3009-405).]
+Back to Top

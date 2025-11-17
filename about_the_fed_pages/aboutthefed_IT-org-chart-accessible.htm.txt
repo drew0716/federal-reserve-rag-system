@@ -1,0 +1,77 @@
+<!-- source_url: https://www.federalreserve.gov/aboutthefed/IT-org-chart-accessible.htm -->
+<!-- title: The Fed - Division of Information Technology -->
+<!-- date_fetched: 2025-11-17T04:00:03.953052Z -->
+
+Division of Information Technology
+Board of Governors of the Federal Reserve System
+October 5, 2025
+Director & CIO, Jeff Riedel
+485
+Senior Associate Director, Chip Young
+Information Security & Privacy Program
+Zero Trust Program
+Deputy Assistant Director, Tannaz Haddadi
+Information Security Operations
+Identity, Credential & Access Mgt
+Deputy Director, Vacant
+Senior Associate Director, Vacant
+Associate Director, Brian Lester
+Applications Infrastructure
+Compute & Storage Infrastructure
+Deputy Associate Director, Fred Vu
+Data Center & Help Desk
+Messaging Services
+End Point Computing Services
+Deputy Associate Director, Bill Dennison
+Enterprise Hosting
+Network Infrastructure
+AV/Voice
+Senior Associate Director, Raj Yelisetty
+Associate Director, Jonathan Shrier
+FOMC Systems
+Executive Support Systems
+Deputy Associate Director, Muazzam Ali
+Cloud Adoption & Maturity
+Cloud Architecture & Administration
+DevSecOps Platform Support
+Assistant Director, Arsema Dejene
+Middleware and Business Analytics Services
+User Experience Services
+Associate Director, Virginia Wall
+Statistical Support Systems
+Financial Systems
+Deputy Associate Director, Scott Meyerle
+CALL/BHC Systems
+Consumer Affairs Systems
+Deputy Associate Director, Tom Nguyen
+NIC Production Support
+Data Modeling Systems
+NIC Systems
+Enterprise Data Support Systems
+Senior Associate Director, Sherrie Warren
+Admin & Budget
+Workforce Development & Communications
+Associate Director, Amy Kelley
+TOC Secretariat
+Deputy Director, Stephen Olden
+Deputy Associate Director, Herman Ip
+Applications Architecture
+IT Transformation Office
+Associate Director, Nischala Nimmakayala
+IT Operating Model
+Strategy & Business Partnerhsip
+Chief Data Officer, Katherine Tom
+Artificial Intelligence (AI) Program
+Data Governance and Strategy
+Data Compliance and Reporting
+Enterprise Data Management
+Deputy Chief Data Officer, Deborah Prespare
+Assistant Director, Michelle Bagg
+Statistics Function Management Office
+Statistics Function PMO
+Associate Director, Langston Shaw
+Monetary & Research Reports
+Supervisory Capital Reports
+Associate Director, Edgar Wang
+FFIEC & Structure Reports
+Financial Statements

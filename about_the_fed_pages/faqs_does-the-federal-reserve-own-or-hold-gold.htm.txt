@@ -1,0 +1,43 @@
+<!-- source_url: https://www.federalreserve.gov/faqs/does-the-federal-reserve-own-or-hold-gold.htm -->
+<!-- title: The Fed - Does the Federal Reserve own or hold gold? -->
+<!-- date_fetched: 2025-11-17T04:00:08.345254Z -->
+
+Most Frequently Asked Questions
+Federal Reserve’s Renovation of Two Historic Buildings
+About the Fed
+Banking and the Financial System
+Money, Interest Rates, and Monetary Policy
+Credit, Loans, and Mortgages
+Currency and Coin
+Economy, Jobs, and Prices
+Federal Open Market Committee
+Regulations
+Does the Federal Reserve own or hold gold?
+The Federal Reserve does not own gold.
+The Gold Reserve Act of 1934 required the Federal Reserve System to transfer ownership of all of its gold to the Department of the Treasury. In exchange, the Secretary of the Treasury issued gold certificates to the Federal Reserve for the amount of gold transferred at the then-applicable statutory price for gold held by the Treasury.
+Gold certificates are denominated in U.S. dollars. Their value is based on the statutory price for gold at the time the certificates are issued. Gold certificates do not give the Federal Reserve any right to redeem the certificates for gold.
+The statutory price of gold is set by law. It does not fluctuate with the market price of gold and has been constant at $42 2/9, or $42.2222, per fine troy ounce since 1973. The book value of the gold held by the Treasury is determined using the statutory price.
+Although the Federal Reserve does not own any gold, the Federal Reserve Bank of New York acts as the custodian of gold owned by account holders such as the U.S. government, foreign governments, other central banks, and official international organizations. No individuals or private sector entities are permitted to store gold in the vault of the Federal Reserve Bank of New York or at any Federal Reserve Bank.
+A small portion of the gold held by the U.S. Treasury (roughly $600 million in book value)--about five percent--is held in custody for the Treasury by the Federal Reserve Banks, as fiscal agents of the United States. The vast majority of this gold is located in the vault at the Federal Reserve Bank of New York, and a very small portion is on display in several Federal Reserve Banks. The remaining 95 percent of U.S. Treasury gold ($10.4 billion in book value) is held in custody for the Treasury by the U.S. Mint.
+Related Information
+Gold vault operations
+of the Federal Reserve Bank of New York
+The Federal Reserve reports information on gold and gold certificates weekly in its
+H.4.1
+statistical release. The "Factors Affecting Reserve Balances of Depository Institutions" table reports the book value of gold held by the Treasury under "Gold stock." The "Consolidated Statement of Condition of All Federal Reserve Banks" table reports the value of gold certificates held by the Federal Reserve under "Gold certificate account."
+1
+The Federal Reserve also reports information on gold in its monthly
+International Summary Statistics
+release. Table 3.12 reports the book value of the Treasury's gold holdings under "Gold stock." Table 3.13 reports the book value of the gold held in custody at the Federal Reserve Bank of New York for foreign and international accounts under "Earmarked gold."
+The Treasury's monthly
+Status Report of U.S. Treasury-Owned Gold
+reports the Treasury's gold holdings by location.
+The Treasury's
+provides information on gold and gold certificates in the table "United States Central Summary General Ledger Account Balances."
+The Treasury's
+Agency Financial Report
+provides information on the Treasury's gold holdings in the Consolidated Balance Sheets under "Gold and Silver Reserves."
+The Mint's gold holdings are included in the entry "Inventory" on the Mint's balance sheet in the bureau's
+Annual Report
+The reported value for "gold stock" is not the same as the reported value for "gold certificates." By law, the value of gold certificates held by the Federal Reserve must be less than or equal to the book value of gold held by the Treasury, and the Treasury has not issued gold certificates against all the gold it owns. In 2002, the Treasury set aside a stock of 100,000 fine troy ounces of gold to help ensure that the book value of gold held by the Treasury would always exceed the value of gold certificates held by the Federal Reserve. This stock, which is sometimes referred to as "unmonetized" gold, has a book value of $4.22 million.
+Return to text

@@ -1,0 +1,24 @@
+<!-- source_url: https://www.federalreserve.gov/faqs/does-the-federal-reserve-maintain-accounts-for-individuals-can-individuals-use-such-accounts-to-pay-bills-and-get-money.htm -->
+<!-- title: The Fed - Does the Federal Reserve maintain accounts for individuals? Can individuals use such accounts to pay bills and get money? -->
+<!-- date_fetched: 2025-11-17T04:00:12.172263Z -->
+
+Most Frequently Asked Questions
+Federal Reserve’s Renovation of Two Historic Buildings
+About the Fed
+Banking and the Financial System
+Money, Interest Rates, and Monetary Policy
+Credit, Loans, and Mortgages
+Currency and Coin
+Economy, Jobs, and Prices
+Federal Open Market Committee
+Regulations
+Does the Federal Reserve maintain accounts for individuals? Can individuals use such accounts to pay bills and get money?
+No. The Federal Reserve Banks provide financial services to banks and governmental entities only. Individuals cannot, by law, have accounts at the Federal Reserve.
+A recent hoax circulating on the internet asserts that the Federal Reserve maintains accounts for individuals that are tied to the individual's Social Security number, and that individuals can access these accounts to pay bills and obtain money. These claims are
+false
+. The Federal Reserve does not maintain accounts for individuals, and individuals should not attempt to make payments using Federal Reserve Bank routing numbers or false routing numbers. Individuals who attempt to pay bills or conduct other transactions using a Federal Reserve Bank routing number may face penalty fees from the company they were attempting to pay, or the suspension or closure of their commercial bank or payment service provider accounts. Law enforcement, including the Federal Bureau of Investigation (FBI), is aware of this scheme, and individuals who participate in such schemes could also face criminal charges.
+Victims of internet fraud are advised to make a report to the FBI's Internet Crime Complaint Center at
+www.ic3.gov
+Scams Involving the Federal Reserve Name
+Consumer Scam Alert: Do Not Use Federal Reserve Routing Account Numbers to Pay Bills; Could Face Late Fees, Other Charges
+Back to Top

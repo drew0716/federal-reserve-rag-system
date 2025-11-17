@@ -1,0 +1,23 @@
+<!-- source_url: https://www.federalreserve.gov/faqs/cat_21427.htm -->
+<!-- title: The Fed - What is the difference between a bank’s liquidity and its capital? -->
+<!-- date_fetched: 2025-11-17T04:00:08.795298Z -->
+
+Most Frequently Asked Questions
+Federal Reserve’s Renovation of Two Historic Buildings
+About the Fed
+Banking and the Financial System
+Money, Interest Rates, and Monetary Policy
+Credit, Loans, and Mortgages
+Currency and Coin
+Economy, Jobs, and Prices
+Federal Open Market Committee
+Regulations
+What is the difference between a bank’s liquidity and its capital?
+Liquidity is a measure of the cash and other assets banks have available to quickly pay bills and meet short-term business and financial obligations. Capital is a measure of the resources banks have to absorb losses.
+Liquid assets are cash and assets that can be converted to cash quickly if needed to meet financial obligations. Examples of liquid assets generally include central bank reserves and government bonds. To remain viable, a financial institution must have enough liquid assets to meet withdrawals by depositors and other near-term obligations.
+Capital is the difference between all of a firm's assets and its liabilities. Capital acts as a financial cushion to absorb losses. The value of a firm's assets must exceed its liabilities for it to remain solvent.
+A typical family's household finances help to illustrate these two concepts. The family's assets can include liquid assets, such as money in a checking account or savings account that can be used to quickly and easily pay bills. So a gauge of the family's liquidity position would include how much money is in the checking account as well as the family's cash on hand and some other investments such as money market funds.
+The family's assets includes not just liquid assets but also their home and perhaps other investments that are not liquid, meaning they could be sold quickly to realize their value. A measure of the family's capital position would be the difference between the value of their assets (both liquid and non-liquid) and the family's liabilities, or the money it owes, such as a mortgage.
+Over time, banks have failed or required government assistance because they do not have enough capital, lack liquidity, or a combination of the two.
+The Federal Reserve since the financial crisis has worked to increase the levels of both liquidity and capital at banking organizations.
+Back to Top

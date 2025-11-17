@@ -1,0 +1,43 @@
+<!-- source_url: https://www.federalreserve.gov/faqs/about_12593.htm -->
+<!-- title: The Fed - How is the Federal Reserve System structured? -->
+<!-- date_fetched: 2025-11-17T04:00:12.955524Z -->
+
+Most Frequently Asked Questions
+Federal Reserve’s Renovation of Two Historic Buildings
+About the Fed
+Banking and the Financial System
+Money, Interest Rates, and Monetary Policy
+Credit, Loans, and Mortgages
+Currency and Coin
+Economy, Jobs, and Prices
+Federal Open Market Committee
+Regulations
+How is the Federal Reserve System structured?
+There are three key entities in the Federal Reserve System: the Board of Governors, the Federal Open Market Committee (FOMC), and the 12
+Federal Reserve Banks
+. These components share responsibility for supervising and regulating certain financial institutions and activities; providing banking services to depository institutions and to the federal government; and ensuring that consumers receive adequate information and fair treatment in their business with the U.S. banking system.
+The
+--an agency of the federal government that reports to and is directly accountable to Congress--provides general guidance for the System and oversees the 12 Reserve Banks.
+The
+is the monetary policymaking body of the Federal Reserve System. The FOMC is composed of 12 members--the seven members of the Board of Governors and five of the 12 Reserve Bank presidents. The Board Chair serves as the Chair of the FOMC; the president of the Federal Reserve Bank of New York is a permanent member of the Committee and serves as the Vice Chair of the Committee. The presidents of the other Reserve Banks fill the remaining four voting positions on the FOMC on a rotating basis. All of the Reserve Bank presidents, including those who are not voting members, attend FOMC meetings, participate in the discussions, and contribute to the assessment of the economy and policy options. The FOMC oversees open market operations, which is the main tool used by the Federal Reserve to influence money market conditions and the growth of money and credit. The FOMC also authorizes currency swaps and large-scale asset purchases.
+Federal Reserve Banks
+were established by the Congress as the operating arms of the nation’s central banking system. Many of the services provided to depository institutions and the federal government by this network of Reserve Banks are similar to services provided by commercial banks and thrift institutions to business customers and individuals. However, the Federal Reserve Banks do not provide banking services, including accounts, to individuals.
+Reserve Banks
+provide accounts to depository institutions--banks, thrifts, and credit unions--in which those institutions hold reserve balances, make loans to depository institutions, move currency and coin into and out of circulation, collect and process millions of checks and other payments each day, provide checking accounts and other services for the Treasury, issue and redeem government securities, and act in other ways as fiscal agent for the U.S. government;
+supervise and examine all bank holding companies and commercial banks that are members of the Federal Reserve System for safety and soundness; and
+participate in the setting of monetary policy.
+Eight times a year, each Federal Reserve Bank gathers anecdotal information on current economic conditions in its District and summarizes this information in the
+Beige Book
+report, published on the Board's website.
+Related Information
+of the Federal Reserve System
+Contact information
+for Federal Reserve Banks
+Federal Reserve Act
+Why doesn't the Federal Reserve lend to state and local governments?
+Why does the Federal Reserve lend money to banks?
+What does it mean that the Federal Reserve is "independent within the government"?
+What is the purpose of the Federal Reserve System?
+Who owns the Federal Reserve?
+What is the FOMC and when does it meet?
+Back to Top
