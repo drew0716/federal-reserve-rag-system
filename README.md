@@ -615,9 +615,13 @@ WITH (lists = 50);
 - **sentence-transformers** - Embedding models
 - **Federal Reserve** - Source content
 
-## License
+## License & Disclaimer
 
-[Add your license here]
+This project is provided as-is for educational and learning purposes. There are no license restrictions on use.
+
+**Important**: This project is **not affiliated with, endorsed by, or connected to the Federal Reserve Board or any Federal Reserve Bank**. This is an independent learning project created to explore and demonstrate Retrieval Augmented Generation (RAG) systems using publicly available Federal Reserve content.
+
+The content used by this system is sourced from publicly accessible pages on federalreserve.gov. This tool should be used for educational purposes only and does not represent official Federal Reserve communications or policy.
 
 ## Support
 
@@ -627,5 +631,3 @@ For issues and questions:
 - Review troubleshooting section above
 
 ---
-
-**Built with ❤️ for Federal Reserve policy research and education**

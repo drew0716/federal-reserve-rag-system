@@ -110,91 +110,111 @@ def query_page():
                 rag = get_rag_system()
                 response = rag.query(query, top_k=top_k, max_tokens=max_tokens)
 
-                # Store response ID in session state for rating
-                st.session_state.last_response_id = response['id']
-                st.session_state.last_query = query
-                st.session_state.last_response_text = response['text']
-
-                # Display response section
-                st.markdown("---")
-                st.markdown("## 📝 Response")
-
-                # Copy button
-                if st.button("📋 Copy Response", key="copy_response", help="Copy response to clipboard"):
-                    st.code(st.session_state.last_response_text, language=None)
-                    st.success("Response text displayed above - copy it from the code block!")
-
-                # Display the response in a clean container
-                st.markdown('<div class="response-box">', unsafe_allow_html=True)
-                st.markdown(response['text'])
-                st.markdown('</div>', unsafe_allow_html=True)
-
-                # Show retrieved documents
-                st.markdown("---")
-                with st.expander("📚 View Retrieved Documents"):
-                    for i, doc in enumerate(response['retrieved_documents'], 1):
-                        st.markdown(f"#### Document {i}")
-                        st.markdown(f"**Similarity Score:** {doc['similarity']:.3f}")
-                        with st.container():
-                            st.text(doc['content'][:500] + "..." if len(doc['content']) > 500 else doc['content'])
-                        if i < len(response['retrieved_documents']):
-                            st.divider()
-
-                # Metadata
-                with st.expander("ℹ️ Response Metadata"):
-                    col1, col2, col3 = st.columns(3)
-                    with col1:
-                        st.metric("Query ID", response['query_id'])
-                    with col2:
-                        st.metric("Response ID", response['id'])
-                    with col3:
-                        st.metric("Documents Retrieved", len(response['retrieved_documents']))
-
-                # Rating section (show immediately after response)
-                st.markdown("---")
-                st.markdown("## 📊 Rate this Response")
-
-                col1, col2 = st.columns([1, 2])
-                with col1:
-                    rating = st.select_slider(
-                        "Rating",
-                        options=[1, 2, 3, 4, 5],
-                        value=3,
-                        format_func=lambda x: "⭐" * x,
-                        key=f"rating_{response['id']}"
-                    )
-
-                with col2:
-                    comment = st.text_area(
-                        "Additional feedback (optional)",
-                        height=100,
-                        placeholder="What did you think of this response?",
-                        key=f"comment_{response['id']}"
-                    )
-
-                if st.button("Submit Rating", type="secondary", key=f"submit_rating_{response['id']}"):
-                    try:
-                        conn = get_db_connection()
-                        cursor = conn.cursor()
-                        cursor.execute(
-                            """
-                            INSERT INTO feedback (response_id, rating, comment)
-                            VALUES (%s, %s, %s)
-                            """,
-                            (response['id'], rating, comment if comment else None)
-                        )
-                        conn.commit()
-                        cursor.close()
-                        conn.close()
-
-                        st.success("✅ Thank you for your feedback!")
-
-                    except Exception as e:
-                        st.error(f"Error submitting feedback: {e}")
+                # Store complete response data in session state
+                st.session_state.current_response = {
+                    'id': response['id'],
+                    'query_id': response['query_id'],
+                    'text': response['text'],
+                    'query': query,
+                    'retrieved_documents': response['retrieved_documents'],
+                    'model': response['model']
+                }
+                st.session_state.show_copy_code = False  # Reset copy state
 
             except Exception as e:
                 st.error(f"Error generating response: {e}")
                 return
+
+    # Display response if available (persists across reruns)
+    if 'current_response' in st.session_state:
+        response = st.session_state.current_response
+
+        # Display response section
+        st.markdown("---")
+        st.markdown("## 📝 Response")
+
+        # Copy button with improved UX
+        col1, col2 = st.columns([1, 5])
+        with col1:
+            if st.button("📋 Copy Response", key="copy_response", help="Show text for copying"):
+                st.session_state.show_copy_code = not st.session_state.get('show_copy_code', False)
+
+        # Show copyable text if button was clicked
+        if st.session_state.get('show_copy_code', False):
+            st.code(response['text'], language=None)
+            st.info("💡 Select the text above and copy it (Cmd+C or Ctrl+C)")
+
+        # Display the response in a clean container
+        st.markdown('<div class="response-box">', unsafe_allow_html=True)
+        st.markdown(response['text'])
+        st.markdown('</div>', unsafe_allow_html=True)
+
+        # Show retrieved documents
+        st.markdown("---")
+        with st.expander("📚 View Retrieved Documents"):
+            for i, doc in enumerate(response['retrieved_documents'], 1):
+                st.markdown(f"#### Document {i}")
+                st.markdown(f"**Similarity Score:** {doc['similarity']:.3f}")
+                with st.container():
+                    st.text(doc['content'][:500] + "..." if len(doc['content']) > 500 else doc['content'])
+                if i < len(response['retrieved_documents']):
+                    st.divider()
+
+        # Metadata
+        with st.expander("ℹ️ Response Metadata"):
+            col1, col2, col3 = st.columns(3)
+            with col1:
+                st.metric("Query ID", response['query_id'])
+            with col2:
+                st.metric("Response ID", response['id'])
+            with col3:
+                st.metric("Documents Retrieved", len(response['retrieved_documents']))
+
+        # Rating section (show immediately after response)
+        st.markdown("---")
+        st.markdown("## 📊 Rate this Response")
+
+        col1, col2 = st.columns([1, 2])
+        with col1:
+            rating = st.select_slider(
+                "Rating",
+                options=[1, 2, 3, 4, 5],
+                value=3,
+                format_func=lambda x: "⭐" * x,
+                key=f"rating_{response['id']}"
+            )
+
+        with col2:
+            comment = st.text_area(
+                "Additional feedback (optional)",
+                height=100,
+                placeholder="What did you think of this response?",
+                key=f"comment_{response['id']}"
+            )
+
+        if st.button("Submit Rating", type="secondary", key=f"submit_rating_{response['id']}"):
+            try:
+                conn = get_db_connection()
+                cursor = conn.cursor()
+                cursor.execute(
+                    """
+                    INSERT INTO feedback (response_id, rating, comment)
+                    VALUES (%s, %s, %s)
+                    """,
+                    (response['id'], rating, comment if comment else None)
+                )
+                conn.commit()
+                cursor.close()
+                conn.close()
+
+                st.success("✅ Thank you for your feedback!")
+
+                # Clear the response after successful feedback
+                del st.session_state.current_response
+                st.rerun()
+
+            except Exception as e:
+                st.error(f"Error submitting feedback: {e}")
 
 def review_page():
     """Review and rate unrated responses."""
