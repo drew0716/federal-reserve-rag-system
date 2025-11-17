@@ -435,6 +435,43 @@ def analytics_page():
 
         st.markdown("---")
 
+        # Query categories
+        st.markdown("### 📂 Query Categories")
+        cursor.execute("""
+            SELECT
+                category,
+                COUNT(*) as count
+            FROM queries
+            WHERE category IS NOT NULL
+            GROUP BY category
+            ORDER BY count DESC
+        """)
+        category_data = cursor.fetchall()
+
+        if category_data:
+            col1, col2 = st.columns([2, 1])
+
+            with col1:
+                df_categories = pd.DataFrame(category_data)
+                fig = px.pie(
+                    df_categories,
+                    values='count',
+                    names='category',
+                    title='Distribution of Query Topics',
+                    hole=0.3
+                )
+                fig.update_layout(height=400)
+                st.plotly_chart(fig, use_container_width=True)
+
+            with col2:
+                st.markdown("**Category Breakdown:**")
+                for cat in category_data:
+                    st.markdown(f"- **{cat['category']}**: {cat['count']} queries")
+        else:
+            st.info("No categorized queries yet. Submit some inquiries to see category statistics!")
+
+        st.markdown("---")
+
         # Recent feedback
         st.markdown("### 💬 Recent Feedback")
         cursor.execute("""

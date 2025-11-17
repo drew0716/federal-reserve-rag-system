@@ -115,16 +115,16 @@ class Database:
         self.cursor.execute(query, (feedback_weight, embedding_list, embedding_list, feedback_weight, top_k))
         return self.cursor.fetchall()
 
-    def add_query(self, query_text: str, query_embedding: np.ndarray) -> int:
+    def add_query(self, query_text: str, query_embedding: np.ndarray, category: Optional[str] = None) -> int:
         """Store a query in the database."""
         self.connect()
 
         query = """
-            INSERT INTO queries (query_text, query_embedding)
-            VALUES (%s, %s)
+            INSERT INTO queries (query_text, query_embedding, category)
+            VALUES (%s, %s, %s)
             RETURNING id;
         """
-        self.cursor.execute(query, (query_text, query_embedding.tolist()))
+        self.cursor.execute(query, (query_text, query_embedding.tolist(), category))
         query_id = self.cursor.fetchone()['id']
         self.conn.commit()
 
@@ -277,6 +277,22 @@ class Database:
         analytics['top_documents'] = self.cursor.fetchall()
 
         return analytics
+
+    def get_category_statistics(self) -> List[Dict]:
+        """Get query statistics by category."""
+        self.connect()
+
+        query = """
+            SELECT
+                category,
+                COUNT(*) as count
+            FROM queries
+            WHERE category IS NOT NULL
+            GROUP BY category
+            ORDER BY count DESC;
+        """
+        self.cursor.execute(query)
+        return self.cursor.fetchall()
 
     def get_all_responses(self, limit: int = 100, offset: int = 0,
                           min_rating: Optional[int] = None,

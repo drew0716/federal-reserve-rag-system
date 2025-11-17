@@ -12,7 +12,8 @@ This system crawls official Federal Reserve documentation, processes it into a s
 - **🔍 Intelligent Document Retrieval**: Vector similarity search with feedback-based reranking
 - **📚 Federal Reserve Content**: Automatically crawls and indexes federalreserve.gov content
 - **⭐ User Feedback System**: Ratings improve future retrieval results
-- **📊 Analytics Dashboard**: Track performance metrics and response quality
+- **📊 Analytics Dashboard**: Track performance metrics, response quality, and auto-categorized query topics
+- **🏷️ Automatic Query Categorization**: AI-powered topic detection for better analytics
 - **🗑️ Data Management**: Clean up old responses and feedback
 - **ℹ️ System Documentation**: Built-in "How It Works" page explaining RAG technology
 
@@ -131,6 +132,7 @@ CREATE EXTENSION IF NOT EXISTS vector;
 # Run schema setup
 psql -U rag_user -p 5433 -d rag_system -f schema.sql
 psql -U rag_user -p 5433 -d rag_system -f schema_update_sources.sql
+psql -U rag_user -p 5433 -d rag_system -f schema_update_categories.sql
 ```
 
 **Note:** You may be prompted for the password you set earlier.
@@ -313,6 +315,7 @@ When you're done:
 - View system-wide statistics (total queries, average ratings)
 - See rating distribution charts
 - Track queries over time
+- **View query categories** - Automatically categorized topics (Interest Rates, Banking, Currency, etc.)
 - Review recent feedback
 
 ### 4. Source Content Management
@@ -370,20 +373,21 @@ When you're done:
 ### Query Flow
 
 1. **User submits question** via Streamlit UI
-2. **Question → Vector embedding** (384-dim using MiniLM-L6-v2)
-3. **Vector similarity search** in PostgreSQL
-4. **Hybrid ranking**: Similarity × (Base Score × (1 + 0.3 × Feedback Score))
-5. **Top 10 documents retrieved** with source URLs
-6. **Claude generates response** with inline citations
-7. **Response stored** in database
-8. **User rates response** (1-5 stars)
-9. **Feedback updates document scores** for future queries
+2. **Claude detects query category** (e.g., Interest Rates, Banking, Currency)
+3. **Question → Vector embedding** (384-dim using MiniLM-L6-v2)
+4. **Vector similarity search** in PostgreSQL
+5. **Hybrid ranking**: Similarity × (Base Score × (1 + 0.3 × Feedback Score))
+6. **Top 10 documents retrieved** with source URLs
+7. **Claude generates response** with inline citations
+8. **Response stored** in database with category
+9. **User rates response** (1-5 stars)
+10. **Feedback updates document scores** for future queries
 
 ### Database Schema
 
 **Core Tables:**
 - `documents` - Chunked content with vector embeddings
-- `queries` - User questions with embeddings
+- `queries` - User questions with embeddings and auto-detected categories
 - `responses` - Generated responses with metadata
 - `feedback` - User ratings and comments
 - `document_scores` - Reranking scores based on feedback

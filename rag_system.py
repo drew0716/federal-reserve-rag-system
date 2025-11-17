@@ -81,12 +81,16 @@ class RAGSystem:
         """
         print(f"Processing query: {query_text}")
 
+        # Detect query category
+        category = self._detect_category(query_text)
+        print(f"Query category: {category}")
+
         # Generate query embedding
         query_embedding = self.embeddings.embed_query(query_text)
 
-        # Store query in database
+        # Store query in database with category
         with self.db as db:
-            query_id = db.add_query(query_text, query_embedding)
+            query_id = db.add_query(query_text, query_embedding, category)
 
             # Search for similar documents
             similar_docs = db.search_similar_documents(query_embedding, top_k=top_k)
@@ -140,6 +144,39 @@ class RAGSystem:
             )
 
         return "\n---\n".join(context_parts)
+
+    def _detect_category(self, query_text: str) -> str:
+        """Detect the category of a query using Claude."""
+        category_prompt = """Classify this Federal Reserve related question into ONE of these categories:
+
+- Interest Rates & Monetary Policy
+- Banking System & Supervision
+- Currency & Coin
+- Employment & Economy
+- Financial Stability
+- Payment Systems
+- Consumer Protection
+- Federal Reserve Structure
+- Complaints & Reporting
+- Other
+
+Question: {query}
+
+Respond with ONLY the category name, nothing else."""
+
+        try:
+            message = self.client.messages.create(
+                model=self.model,
+                max_tokens=50,
+                messages=[
+                    {"role": "user", "content": category_prompt.format(query=query_text)}
+                ]
+            )
+            category = message.content[0].text.strip()
+            return category
+        except Exception as e:
+            print(f"Error detecting category: {e}")
+            return "Other"
 
     def _generate_response(self, query: str, context: str, max_tokens: int) -> str:
         """Generate response using Claude."""
