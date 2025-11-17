@@ -6,6 +6,14 @@ A Retrieval Augmented Generation (RAG) system that provides professional respons
 
 This system crawls official Federal Reserve documentation, processes it into a searchable knowledge base, and generates professional, well-cited responses using AI. It includes advanced privacy protection, AI-powered feedback analysis, and continuous improvement based on user ratings and comments.
 
+## 🚀 Quick Links
+
+- **[Deployment Guide](DEPLOYMENT.md)** - Complete guide for deploying to production with PostgreSQL options
+- **[PII Redaction Documentation](PII_REDACTION.md)** - Details on privacy protection features
+- **[Feedback Analysis Documentation](FEEDBACK_ANALYSIS.md)** - How AI-powered feedback works
+
+> **New to deployment?** Check out [DEPLOYMENT.md](DEPLOYMENT.md) for step-by-step guides to deploy with Streamlit Cloud, Railway, AWS, or Docker. Includes detailed PostgreSQL setup options (managed services like Supabase/Neon or self-hosted).
+
 ## Features
 
 ### Core Capabilities
@@ -270,6 +278,12 @@ This creates three diagrams that are displayed in the "How It Works" page:
 - `rag_architecture.png` - System architecture
 - `rag_query_flow.png` - Query flow pipeline with PII redaction and feedback analysis
 - `rag_content_pipeline.png` - Content processing pipeline
+
+---
+
+> **💡 Deploying to Production?** This guide covers local development setup. For production deployment (Streamlit Cloud, Railway, AWS, Docker, etc.), see the **[Deployment Guide](DEPLOYMENT.md)** which includes detailed PostgreSQL hosting options and platform-specific instructions.
+
+---
 
 ## Running the Application
 
