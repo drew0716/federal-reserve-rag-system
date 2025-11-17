@@ -2,6 +2,7 @@
 Database connection and operations for RAG system.
 """
 import os
+import json
 import psycopg2
 from psycopg2.extras import RealDictCursor, execute_values
 from typing import List, Dict, Optional, Any
@@ -115,16 +116,42 @@ class Database:
         self.cursor.execute(query, (feedback_weight, embedding_list, embedding_list, feedback_weight, top_k))
         return self.cursor.fetchall()
 
-    def add_query(self, query_text: str, query_embedding: np.ndarray, category: Optional[str] = None) -> int:
-        """Store a query in the database."""
+    def add_query(self, query_text: str, query_embedding: np.ndarray, category: Optional[str] = None,
+                  has_pii: bool = False, redaction_count: int = 0,
+                  redaction_details: Optional[Dict] = None) -> int:
+        """
+        Store a query in the database with PII redaction tracking.
+
+        IMPORTANT: Only the redacted query is stored. Original queries with PII
+        are NEVER stored in the database for privacy protection.
+
+        Args:
+            query_text: Redacted query text (PII already removed if present)
+            query_embedding: Query embedding vector
+            category: Query category
+            has_pii: Whether PII was detected and redacted
+            redaction_count: Number of PII items redacted
+            redaction_details: Details of redactions (types, not values)
+
+        Returns:
+            Query ID
+        """
         self.connect()
 
         query = """
-            INSERT INTO queries (query_text, query_embedding, category)
-            VALUES (%s, %s, %s)
+            INSERT INTO queries (query_text, query_embedding, category,
+                               has_pii, redaction_count, redaction_details)
+            VALUES (%s, %s, %s, %s, %s, %s)
             RETURNING id;
         """
-        self.cursor.execute(query, (query_text, query_embedding.tolist(), category))
+        self.cursor.execute(query, (
+            query_text,  # Always redacted if PII was present
+            query_embedding.tolist(),
+            category,
+            has_pii,
+            redaction_count,
+            json.dumps(redaction_details) if redaction_details else None
+        ))
         query_id = self.cursor.fetchone()['id']
         self.conn.commit()
 
@@ -146,23 +173,69 @@ class Database:
 
         return response_id
 
-    def add_feedback(self, response_id: int, rating: int, comment: Optional[str] = None) -> int:
-        """Add user feedback for a response."""
+    def add_feedback(self, response_id: int, rating: int, comment: Optional[str] = None,
+                     analysis: Optional[Dict] = None) -> int:
+        """Add user feedback for a response with optional comment analysis."""
         self.connect()
 
         if not (1 <= rating <= 5):
             raise ValueError("Rating must be between 1 and 5")
 
-        query = """
-            INSERT INTO feedback (response_id, rating, comment)
-            VALUES (%s, %s, %s)
-            RETURNING id;
-        """
-        self.cursor.execute(query, (response_id, rating, comment))
+        if analysis:
+            query = """
+                INSERT INTO feedback (response_id, rating, comment, sentiment_score,
+                                    issue_types, severity, needs_review, analysis_confidence,
+                                    analysis_summary, analyzed_at)
+                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, CURRENT_TIMESTAMP)
+                RETURNING id;
+            """
+            self.cursor.execute(query, (
+                response_id, rating, comment,
+                analysis.get('sentiment_score', 0.0),
+                analysis.get('issue_types', []),
+                analysis.get('severity', 'none'),
+                analysis.get('needs_review', False),
+                analysis.get('confidence', 0.0),
+                analysis.get('summary', '')
+            ))
+        else:
+            query = """
+                INSERT INTO feedback (response_id, rating, comment)
+                VALUES (%s, %s, %s)
+                RETURNING id;
+            """
+            self.cursor.execute(query, (response_id, rating, comment))
+
         feedback_id = self.cursor.fetchone()['id']
         self.conn.commit()
 
         return feedback_id
+
+    def update_feedback_analysis(self, feedback_id: int, analysis: Dict) -> None:
+        """Update feedback with comment analysis results."""
+        self.connect()
+
+        query = """
+            UPDATE feedback
+            SET sentiment_score = %s,
+                issue_types = %s,
+                severity = %s,
+                needs_review = %s,
+                analysis_confidence = %s,
+                analysis_summary = %s,
+                analyzed_at = CURRENT_TIMESTAMP
+            WHERE id = %s;
+        """
+        self.cursor.execute(query, (
+            analysis.get('sentiment_score', 0.0),
+            analysis.get('issue_types', []),
+            analysis.get('severity', 'none'),
+            analysis.get('needs_review', False),
+            analysis.get('confidence', 0.0),
+            analysis.get('summary', ''),
+            feedback_id
+        ))
+        self.conn.commit()
 
     def get_response(self, response_id: int) -> Optional[Dict]:
         """Get a response by ID with query information."""
@@ -185,11 +258,13 @@ class Database:
         return self.cursor.fetchone()
 
     def get_feedback_for_response(self, response_id: int) -> List[Dict]:
-        """Get all feedback for a specific response."""
+        """Get all feedback for a specific response with analysis."""
         self.connect()
 
         query = """
-            SELECT id, rating, comment, created_at
+            SELECT id, rating, comment, created_at, sentiment_score,
+                   issue_types, severity, needs_review, analysis_confidence,
+                   analysis_summary, analyzed_at
             FROM feedback
             WHERE response_id = %s
             ORDER BY created_at DESC;
@@ -197,32 +272,68 @@ class Database:
         self.cursor.execute(query, (response_id,))
         return self.cursor.fetchall()
 
-    def calculate_document_feedback_scores(self):
-        """Recalculate feedback scores for all documents based on user ratings."""
+    def calculate_document_feedback_scores(self, use_enhanced_scores: bool = True):
+        """Recalculate feedback scores for all documents based on user ratings and comment analysis."""
         self.connect()
 
-        # Calculate average rating for each document across all responses that used it
-        query = """
-            WITH doc_feedback AS (
-                SELECT
-                    UNNEST(r.retrieved_doc_ids) as doc_id,
-                    AVG(f.rating) as avg_rating,
-                    COUNT(f.id) as feedback_count
-                FROM responses r
-                JOIN feedback f ON f.response_id = r.id
-                WHERE r.retrieved_doc_ids IS NOT NULL
-                GROUP BY UNNEST(r.retrieved_doc_ids)
-            )
-            UPDATE document_scores ds
-            SET
-                feedback_score = COALESCE(
-                    (df.avg_rating - 3.0) / 2.0,  -- Normalize: 5->1.0, 3->0.0, 1->-1.0
-                    0.0
-                ),
-                last_updated = CURRENT_TIMESTAMP
-            FROM doc_feedback df
-            WHERE ds.document_id = df.doc_id;
-        """
+        if use_enhanced_scores:
+            # Use enhanced scores that combine rating and sentiment analysis
+            query = """
+                WITH doc_feedback AS (
+                    SELECT
+                        UNNEST(r.retrieved_doc_ids) as doc_id,
+                        AVG(f.rating) as avg_rating,
+                        AVG(
+                            CASE
+                                WHEN f.sentiment_score IS NOT NULL AND f.analysis_confidence > 0.3 THEN
+                                    -- Combine rating and sentiment with severity penalties
+                                    0.7 * ((f.rating - 3.0) / 2.0) +
+                                    0.3 * f.sentiment_score * f.analysis_confidence +
+                                    CASE f.severity
+                                        WHEN 'minor' THEN -0.1
+                                        WHEN 'moderate' THEN -0.3
+                                        WHEN 'severe' THEN -0.5
+                                        ELSE 0.0
+                                    END
+                                ELSE
+                                    (f.rating - 3.0) / 2.0  -- Fallback to rating-based
+                            END
+                        ) as enhanced_score,
+                        COUNT(f.id) as feedback_count
+                    FROM responses r
+                    JOIN feedback f ON f.response_id = r.id
+                    WHERE r.retrieved_doc_ids IS NOT NULL
+                    GROUP BY UNNEST(r.retrieved_doc_ids)
+                )
+                INSERT INTO document_scores (document_id, feedback_score, enhanced_feedback_score, last_updated)
+                SELECT doc_id, COALESCE(avg_rating - 3.0) / 2.0, COALESCE(enhanced_score, 0.0), CURRENT_TIMESTAMP
+                FROM doc_feedback
+                ON CONFLICT (document_id) DO UPDATE
+                SET feedback_score = EXCLUDED.feedback_score,
+                    enhanced_feedback_score = EXCLUDED.enhanced_feedback_score,
+                    last_updated = EXCLUDED.last_updated;
+            """
+        else:
+            # Original rating-only method
+            query = """
+                WITH doc_feedback AS (
+                    SELECT
+                        UNNEST(r.retrieved_doc_ids) as doc_id,
+                        AVG(f.rating) as avg_rating,
+                        COUNT(f.id) as feedback_count
+                    FROM responses r
+                    JOIN feedback f ON f.response_id = r.id
+                    WHERE r.retrieved_doc_ids IS NOT NULL
+                    GROUP BY UNNEST(r.retrieved_doc_ids)
+                )
+                INSERT INTO document_scores (document_id, feedback_score, last_updated)
+                SELECT doc_id, COALESCE((avg_rating - 3.0) / 2.0, 0.0), CURRENT_TIMESTAMP
+                FROM doc_feedback
+                ON CONFLICT (document_id) DO UPDATE
+                SET feedback_score = EXCLUDED.feedback_score,
+                    last_updated = EXCLUDED.last_updated;
+            """
+
         self.cursor.execute(query)
         updated_count = self.cursor.rowcount
         self.conn.commit()
@@ -332,7 +443,23 @@ class Database:
                 q.query_text,
                 q.id as query_id,
                 COALESCE(AVG(f.rating), 0) as avg_rating,
-                COUNT(f.id) as feedback_count
+                COUNT(f.id) as feedback_count,
+                COUNT(f.comment) FILTER (WHERE f.comment IS NOT NULL AND f.comment != '') as comments_count,
+                array_agg(
+                    CASE
+                        WHEN f.id IS NOT NULL
+                        THEN jsonb_build_object(
+                            'rating', f.rating,
+                            'comment', COALESCE(f.comment, ''),
+                            'created_at', f.created_at,
+                            'sentiment_score', f.sentiment_score,
+                            'severity', f.severity,
+                            'issue_types', f.issue_types,
+                            'has_comment', f.comment IS NOT NULL AND f.comment != ''
+                        )
+                        ELSE NULL
+                    END
+                ) FILTER (WHERE f.id IS NOT NULL) as all_feedback
             FROM responses r
             JOIN queries q ON r.query_id = q.id
             LEFT JOIN feedback f ON f.response_id = r.id
@@ -416,3 +543,119 @@ class Database:
             self.conn.rollback()
             print(f"Error deleting old responses: {e}")
             return 0
+
+    def get_feedback_needing_review(self) -> List[Dict]:
+        """Get all feedback marked as needing review."""
+        self.connect()
+
+        query = """
+            SELECT
+                f.id,
+                f.response_id,
+                f.rating,
+                f.comment,
+                f.issue_types,
+                f.severity,
+                f.analysis_summary,
+                f.created_at,
+                r.response_text,
+                r.retrieved_doc_ids,
+                q.query_text
+            FROM feedback f
+            JOIN responses r ON f.response_id = r.id
+            JOIN queries q ON r.query_id = q.id
+            WHERE f.needs_review = TRUE
+            ORDER BY f.created_at DESC;
+        """
+        self.cursor.execute(query)
+        return self.cursor.fetchall()
+
+    def flag_document_for_review(self, document_id: int, reason: str,
+                                 common_issues: List, severity_dist: Dict,
+                                 total_feedbacks: int) -> int:
+        """Flag a document for manual review based on feedback patterns."""
+        self.connect()
+
+        query = """
+            INSERT INTO document_review_flags
+            (document_id, reason, common_issues, severity_distribution, total_feedbacks)
+            VALUES (%s, %s, %s, %s, %s)
+            ON CONFLICT (document_id) DO UPDATE
+            SET reason = EXCLUDED.reason,
+                common_issues = EXCLUDED.common_issues,
+                severity_distribution = EXCLUDED.severity_distribution,
+                total_feedbacks = EXCLUDED.total_feedbacks,
+                flagged_at = CURRENT_TIMESTAMP
+            RETURNING id;
+        """
+        self.cursor.execute(query, (
+            document_id, reason,
+            json.dumps(common_issues),
+            json.dumps(severity_dist),
+            total_feedbacks
+        ))
+        flag_id = self.cursor.fetchone()['id']
+        self.conn.commit()
+        return flag_id
+
+    def get_documents_needing_review(self, status: str = 'pending') -> List[Dict]:
+        """Get documents flagged for review."""
+        self.connect()
+
+        query = """
+            SELECT
+                drf.id,
+                drf.document_id,
+                drf.flagged_at,
+                drf.reason,
+                drf.common_issues,
+                drf.severity_distribution,
+                drf.total_feedbacks,
+                drf.status,
+                d.content,
+                d.metadata
+            FROM document_review_flags drf
+            JOIN documents d ON drf.document_id = d.id
+            WHERE drf.status = %s
+            ORDER BY drf.flagged_at DESC;
+        """
+        self.cursor.execute(query, (status,))
+        return self.cursor.fetchall()
+
+    def update_review_flag_status(self, flag_id: int, status: str, notes: Optional[str] = None) -> None:
+        """Update the status of a document review flag."""
+        self.connect()
+
+        query = """
+            UPDATE document_review_flags
+            SET status = %s,
+                reviewed_at = CURRENT_TIMESTAMP,
+                reviewer_notes = %s
+            WHERE id = %s;
+        """
+        self.cursor.execute(query, (status, notes, flag_id))
+        self.conn.commit()
+
+    def get_feedback_by_issue_type(self, issue_type: str) -> List[Dict]:
+        """Get all feedback containing a specific issue type."""
+        self.connect()
+
+        query = """
+            SELECT
+                f.id,
+                f.rating,
+                f.comment,
+                f.severity,
+                f.analysis_summary,
+                f.created_at,
+                r.response_text,
+                r.retrieved_doc_ids,
+                q.query_text
+            FROM feedback f
+            JOIN responses r ON f.response_id = r.id
+            JOIN queries q ON r.query_id = q.id
+            WHERE %s = ANY(f.issue_types)
+            ORDER BY f.created_at DESC;
+        """
+        self.cursor.execute(query, (issue_type,))
+        return self.cursor.fetchall()

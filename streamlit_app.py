@@ -13,6 +13,9 @@ import plotly.express as px
 import plotly.graph_objects as go
 from rag_system import RAGSystem
 from database import Database
+import subprocess
+from pathlib import Path
+from st_copy import copy_button
 
 # Load environment variables
 load_dotenv()
@@ -41,6 +44,31 @@ def get_db_connection():
 def get_rag_system():
     """Initialize RAG system."""
     return RAGSystem()
+
+# Generate diagrams helper
+def ensure_diagrams_exist():
+    """Generate pipeline diagrams if they don't exist."""
+    diagram_files = [
+        'rag_architecture.png',
+        'rag_query_flow.png',
+        'rag_content_pipeline.png'
+    ]
+
+    # Check if any diagrams are missing
+    missing = [f for f in diagram_files if not Path(f).exists()]
+
+    if missing:
+        try:
+            # Run the diagram generation script
+            subprocess.run(['python3', 'generate_pipeline_diagram.py'],
+                         check=True,
+                         capture_output=True,
+                         timeout=30)
+            return True
+        except Exception as e:
+            st.warning(f"Could not generate diagrams: {e}")
+            return False
+    return True
 
 # Custom CSS
 st.markdown("""
@@ -98,7 +126,7 @@ def query_page():
 
     # Fixed parameters (tuned for better retrieval)
     top_k = 10  # Retrieve top 10 most relevant documents (more context)
-    max_tokens = 500  # Keep responses concise
+    max_tokens = 2000  # Allow detailed responses
 
     if st.button("🔍 Submit Inquiry", type="primary", use_container_width=True):
         if not query.strip():
@@ -116,10 +144,13 @@ def query_page():
                     'query_id': response['query_id'],
                     'text': response['text'],
                     'query': query,
+                    'redacted_query': response.get('redacted_query', query),
+                    'has_pii': response.get('has_pii', False),
+                    'redaction_summary': response.get('redaction_summary'),
+                    'category': response.get('category'),
                     'retrieved_documents': response['retrieved_documents'],
                     'model': response['model']
                 }
-                st.session_state.show_copy_code = False  # Reset copy state
 
             except Exception as e:
                 st.error(f"Error generating response: {e}")
@@ -129,20 +160,30 @@ def query_page():
     if 'current_response' in st.session_state:
         response = st.session_state.current_response
 
+        # Display redacted query notice if PII was detected
+        st.markdown("---")
+        if response.get('has_pii'):
+            st.warning(f"🔒 **Privacy Protection:** {response.get('redaction_summary')}")
+            st.markdown("**Your Question (redacted):**")
+            st.info(response.get('redacted_query', response['query']))
+            st.caption("_For your privacy, sensitive information has been redacted before processing. The redacted version was sent to Claude._")
+        else:
+            st.markdown("**Your Question:**")
+            st.info(response['query'])
+
+        # Display category tag if available
+        if response.get('category'):
+            st.markdown(f"**Category:** :blue-background[{response['category']}]")
+
         # Display response section
         st.markdown("---")
-        st.markdown("## 📝 Response")
 
-        # Copy button with improved UX
-        col1, col2 = st.columns([1, 5])
+        # Header with copy button
+        col1, col2 = st.columns([6, 1])
         with col1:
-            if st.button("📋 Copy Response", key="copy_response", help="Show text for copying"):
-                st.session_state.show_copy_code = not st.session_state.get('show_copy_code', False)
-
-        # Show copyable text if button was clicked
-        if st.session_state.get('show_copy_code', False):
-            st.code(response['text'], language=None)
-            st.info("💡 Select the text above and copy it (Cmd+C or Ctrl+C)")
+            st.markdown("**📝 Response**")
+        with col2:
+            copy_button(response['text'], key=f"copy_{response['id']}")
 
         # Display the response in a clean container
         st.markdown('<div class="response-box">', unsafe_allow_html=True)
@@ -172,7 +213,7 @@ def query_page():
 
         # Rating section (show immediately after response)
         st.markdown("---")
-        st.markdown("## 📊 Rate this Response")
+        st.markdown("**📊 Rate this Response**")
 
         col1, col2 = st.columns([1, 2])
         with col1:
@@ -194,20 +235,17 @@ def query_page():
 
         if st.button("Submit Rating", type="secondary", key=f"submit_rating_{response['id']}"):
             try:
-                conn = get_db_connection()
-                cursor = conn.cursor()
-                cursor.execute(
-                    """
-                    INSERT INTO feedback (response_id, rating, comment)
-                    VALUES (%s, %s, %s)
-                    """,
-                    (response['id'], rating, comment if comment else None)
-                )
-                conn.commit()
-                cursor.close()
-                conn.close()
+                # Use RAG system to submit feedback with AI analysis
+                with st.spinner("Submitting feedback..."):
+                    rag = get_rag_system()
+                    feedback_id = rag.submit_feedback(
+                        response_id=response['id'],
+                        rating=rating,
+                        comment=comment if comment else None,
+                        analyze_comment=True  # Enable AI analysis
+                    )
 
-                st.success("✅ Thank you for your feedback!")
+                st.success(f"✅ Thank you for your feedback! (ID: {feedback_id})")
 
                 # Clear the response after successful feedback
                 del st.session_state.current_response
@@ -215,6 +253,8 @@ def query_page():
 
             except Exception as e:
                 st.error(f"Error submitting feedback: {e}")
+                import traceback
+                st.code(traceback.format_exc())
 
 def review_page():
     """Review and rate unrated responses."""
@@ -266,7 +306,7 @@ def review_page():
         st.markdown(f"### Response {current_page + 1} of {len(unrated_responses)}")
 
         st.markdown(f"**Query:** {response['query_text']}")
-        st.markdown(f"**Date:** {response['created_at'].strftime('%Y-%m-%d %H:%M:%S')}")
+        st.markdown(f"**Date:** {response['created_at'].strftime('%m/%d/%Y %I:%M %p')}")
         st.markdown(f"**Model:** {response['model_version']}")
 
         st.markdown('<div class="response-box">', unsafe_allow_html=True)
@@ -316,20 +356,17 @@ def review_page():
         with col4:
             if st.button("✅ Submit Rating", type="primary"):
                 try:
-                    conn = get_db_connection()
-                    cursor = conn.cursor()
-                    cursor.execute(
-                        """
-                        INSERT INTO feedback (response_id, rating, comment)
-                        VALUES (%s, %s, %s)
-                        """,
-                        (response['response_id'], rating, comment if comment else None)
-                    )
-                    conn.commit()
-                    cursor.close()
-                    conn.close()
+                    # Use RAG system to submit feedback with AI analysis
+                    with st.spinner("Submitting feedback..."):
+                        rag = get_rag_system()
+                        feedback_id = rag.submit_feedback(
+                            response_id=response['response_id'],
+                            rating=rating,
+                            comment=comment if comment else None,
+                            analyze_comment=True  # Enable AI analysis
+                        )
 
-                    st.success("✅ Feedback submitted!")
+                    st.success(f"✅ Feedback submitted! (ID: {feedback_id})")
                     # Move to next response
                     if current_page < len(unrated_responses) - 1:
                         st.session_state.review_page = current_page + 1
@@ -337,9 +374,41 @@ def review_page():
 
                 except Exception as e:
                     st.error(f"Error submitting feedback: {e}")
+                    import traceback
+                    st.code(traceback.format_exc())
 
     except Exception as e:
         st.error(f"Error loading unrated responses: {e}")
+
+@st.dialog("Feedback Details", width="large")
+def show_feedback_dialog(fb):
+    """Show detailed feedback in a dialog."""
+    # Display rating
+    st.markdown(f"**Rating:** {'⭐' * fb['rating']} ({fb['rating']}/5)")
+
+    st.markdown(f"**Query:** {fb['query_text']}")
+
+    if fb['comment']:
+        st.markdown("**Comment:**")
+        st.info(fb['comment'])
+
+    # Show analysis if available
+    if fb.get('analysis_summary'):
+        st.markdown(f"**AI Analysis:** {fb['analysis_summary']}")
+
+        if fb.get('issue_types') and fb['issue_types']:
+            issues = [i for i in fb['issue_types'] if i != 'none']
+            if issues:
+                st.markdown(f"**Issues:** {', '.join(issues).replace('_', ' ').title()}")
+
+        if fb.get('sentiment_score') is not None:
+            sentiment = fb['sentiment_score']
+            sentiment_label = 'Positive' if sentiment > 0.3 else 'Negative' if sentiment < -0.3 else 'Neutral'
+            st.markdown(f"**Sentiment:** {sentiment_label} ({sentiment:.2f})")
+
+    st.markdown("---")
+    st.markdown("**Response:**")
+    st.markdown(fb['response_text'])
 
 def analytics_page():
     """Analytics and statistics dashboard."""
@@ -472,6 +541,136 @@ def analytics_page():
 
         st.markdown("---")
 
+        # Feedback Insights
+        st.markdown("### 🔍 Feedback Analysis Insights")
+
+        col1, col2, col3 = st.columns(3)
+
+        # Count analyzed feedback
+        cursor.execute("SELECT COUNT(*) as count FROM feedback WHERE analyzed_at IS NOT NULL")
+        analyzed_count = cursor.fetchone()['count']
+        col1.metric("Analyzed Comments", analyzed_count)
+
+        # Count feedback needing review
+        cursor.execute("SELECT COUNT(*) as count FROM feedback WHERE needs_review = TRUE")
+        needs_review_count = cursor.fetchone()['count']
+        col2.metric("Comments Flagged", needs_review_count, help="Feedback requiring attention")
+
+        # Count documents flagged for review
+        cursor.execute("SELECT COUNT(*) as count FROM document_review_flags WHERE status = 'pending'")
+        docs_flagged = cursor.fetchone()['count']
+        col3.metric("Documents Flagged", docs_flagged, help="Documents needing manual review")
+
+        if analyzed_count > 0:
+            col1, col2 = st.columns(2)
+
+            # Issue type distribution
+            with col1:
+                st.markdown("**Common Issues Identified:**")
+                cursor.execute("""
+                    SELECT
+                        issue,
+                        COUNT(*) as count
+                    FROM feedback
+                    CROSS JOIN UNNEST(issue_types) as issue
+                    WHERE issue_types IS NOT NULL
+                      AND array_length(issue_types, 1) > 0
+                      AND issue != 'none'
+                    GROUP BY issue
+                    ORDER BY count DESC
+                    LIMIT 8;
+                """)
+                issue_data = cursor.fetchall()
+
+                if issue_data:
+                    df_issues = pd.DataFrame(issue_data)
+                    # Format issue names for display
+                    df_issues['issue'] = df_issues['issue'].str.replace('_', ' ').str.title()
+                    fig = px.bar(
+                        df_issues,
+                        x='count',
+                        y='issue',
+                        orientation='h',
+                        labels={'count': 'Count', 'issue': 'Issue Type'},
+                        color='count',
+                        color_continuous_scale='Reds'
+                    )
+                    fig.update_layout(showlegend=False, height=300)
+                    st.plotly_chart(fig, use_container_width=True)
+                else:
+                    st.info("No issues identified yet")
+
+            # Severity distribution
+            with col2:
+                st.markdown("**Issue Severity Distribution:**")
+                cursor.execute("""
+                    SELECT severity, COUNT(*) as count
+                    FROM feedback
+                    WHERE severity IS NOT NULL AND severity != 'none'
+                    GROUP BY severity
+                    ORDER BY
+                        CASE severity
+                            WHEN 'severe' THEN 1
+                            WHEN 'moderate' THEN 2
+                            WHEN 'minor' THEN 3
+                            ELSE 4
+                        END;
+                """)
+                severity_data = cursor.fetchall()
+
+                if severity_data:
+                    df_severity = pd.DataFrame(severity_data)
+                    df_severity['severity'] = df_severity['severity'].str.title()
+
+                    # Custom colors for severity
+                    colors = {'Severe': '#d62728', 'Moderate': '#ff7f0e', 'Minor': '#2ca02c'}
+                    df_severity['color'] = df_severity['severity'].map(colors)
+
+                    fig = px.pie(
+                        df_severity,
+                        values='count',
+                        names='severity',
+                        color='severity',
+                        color_discrete_map=colors,
+                        hole=0.4
+                    )
+                    fig.update_layout(height=300)
+                    st.plotly_chart(fig, use_container_width=True)
+                else:
+                    st.info("No severity data yet")
+
+        # Documents needing review
+        if docs_flagged > 0:
+            st.markdown("**📋 Documents Requiring Review:**")
+            cursor.execute("""
+                SELECT
+                    drf.document_id,
+                    drf.reason,
+                    drf.total_feedbacks,
+                    drf.flagged_at,
+                    d.content,
+                    d.metadata
+                FROM document_review_flags drf
+                JOIN documents d ON drf.document_id = d.id
+                WHERE drf.status = 'pending'
+                ORDER BY drf.flagged_at DESC
+                LIMIT 5;
+            """)
+            flagged_docs = cursor.fetchall()
+
+            for doc in flagged_docs:
+                source_title = doc['metadata'].get('source_title', 'Unknown') if doc['metadata'] else 'Unknown'
+                source_url = doc['metadata'].get('source_url', '') if doc['metadata'] else ''
+                with st.expander(f"⚠️ Document #{doc['document_id']}: {source_title[:60]}..."):
+                    st.markdown(f"**Reason:** {doc['reason']}")
+                    st.markdown(f"**Total Feedback:** {doc['total_feedbacks']}")
+                    st.markdown(f"**Flagged:** {doc['flagged_at'].strftime('%m/%d/%Y %I:%M %p')}")
+                    st.markdown(f"**Content Preview:** {doc['content'][:300]}...")
+                    if source_url:
+                        st.markdown(f"**Source:** [{source_url}]({source_url})")
+
+        st.markdown("---")
+
         # Recent feedback
         st.markdown("### 💬 Recent Feedback")
         cursor.execute("""
@@ -479,6 +678,10 @@ def analytics_page():
                 f.rating,
                 f.comment,
                 f.created_at,
+                f.sentiment_score,
+                f.issue_types,
+                f.severity,
+                f.analysis_summary,
                 q.query_text,
                 r.response_text
             FROM feedback f
@@ -490,12 +693,23 @@ def analytics_page():
         recent_feedback = cursor.fetchall()
 
         if recent_feedback:
-            for fb in recent_feedback:
-                with st.expander(f"{'⭐' * fb['rating']} - {fb['created_at'].strftime('%Y-%m-%d %H:%M')}"):
-                    st.markdown(f"**Query:** {fb['query_text']}")
-                    if fb['comment']:
-                        st.markdown(f"**Comment:** {fb['comment']}")
-                    st.markdown(f"**Response:** {fb['response_text'][:200]}...")
+            for i, fb in enumerate(recent_feedback):
+                # Create title with severity indicator
+                severity_emoji = ''
+                if fb.get('severity') and fb['severity'] != 'none':
+                    severity_emoji = {'minor': '⚡', 'moderate': '⚠️', 'severe': '🚨'}.get(fb['severity'], '') + ' '
+
+                # Display as list item with button
+                col1, col2 = st.columns([6, 1])
+                with col1:
+                    st.markdown(f"{severity_emoji}{'⭐' * fb['rating']} - {fb['created_at'].strftime('%m/%d/%Y %I:%M %p')}")
+                    st.caption(f"{fb['query_text'][:100]}...")
+                with col2:
+                    if st.button("View", key=f"view_fb_{i}"):
+                        show_feedback_dialog(fb)
+
+                if i < len(recent_feedback) - 1:
+                    st.divider()
         else:
             st.info("No feedback yet")
 
@@ -563,7 +777,7 @@ def source_management_page():
             # Most recent refresh
             most_recent = max((s['last_refresh'] for s in sources if s['last_refresh']), default=None)
             if most_recent:
-                col3.metric("Last Refresh", most_recent.strftime('%Y-%m-%d %H:%M'))
+                col3.metric("Last Refresh", most_recent.strftime('%m/%d/%Y %I:%M %p'))
             else:
                 col3.metric("Last Refresh", "Never")
 
@@ -572,7 +786,7 @@ def source_management_page():
             st.markdown("### 📋 Source Breakdown")
             df_sources = pd.DataFrame(sources)
             df_sources['last_refresh'] = df_sources['last_refresh'].apply(
-                lambda x: x.strftime('%Y-%m-%d %H:%M') if x else 'Never'
+                lambda x: x.strftime('%m/%d/%Y %I:%M %p') if x else 'Never'
             )
             st.dataframe(df_sources, use_container_width=True, hide_index=True)
         else:
@@ -600,7 +814,7 @@ def source_management_page():
         if refresh_log:
             for log in refresh_log:
                 status_icon = "✅" if log['status'] == 'completed' else "❌" if log['status'] == 'failed' else "⏳"
-                with st.expander(f"{status_icon} {log['source_type']} - {log['refresh_started'].strftime('%Y-%m-%d %H:%M')}"):
+                with st.expander(f"{status_icon} {log['source_type']} - {log['refresh_started'].strftime('%m/%d/%Y %I:%M %p')}"):
                     col1, col2, col3 = st.columns(3)
                     col1.metric("Added", log['documents_added'])
                     col2.metric("Deleted", log['documents_deleted'])
@@ -680,7 +894,7 @@ def source_management_page():
             for doc in samples:
                 with st.expander(f"{doc['source_type']}: {doc['source_title']}"):
                     st.markdown(f"**URL:** {doc['source_url']}")
-                    st.markdown(f"**Refreshed:** {doc['last_refreshed'].strftime('%Y-%m-%d %H:%M')}")
+                    st.markdown(f"**Refreshed:** {doc['last_refreshed'].strftime('%m/%d/%Y %I:%M %p')}")
                     st.markdown(f"**Preview:** {doc['preview']}...")
         else:
             st.info("No source documents yet")
@@ -710,6 +924,60 @@ def how_it_works_page():
     solely on a language model's training data, the system retrieves relevant source documents
     and uses them to generate accurate, well-cited responses.
     """)
+
+    # Architecture Diagrams
+    st.markdown("---")
+    st.markdown("## 🏗️ System Architecture")
+
+    # Generate diagrams if they don't exist
+    if ensure_diagrams_exist():
+        # Create tabs for different diagrams
+        tab1, tab2, tab3 = st.tabs(["🏗️ System Architecture", "🔄 Query Flow Pipeline", "📥 Content Processing"])
+
+        with tab1:
+            st.markdown("""
+            This diagram shows the high-level architecture of the Federal Reserve RAG system,
+            including:
+            - **PII Redactor** (spaCy NER) for privacy protection
+            - **Streamlit UI** with multiple pages
+            - **RAG Core Components** including query processing, embedding, retrieval, and response generation
+            - **Feedback Analyzer** using Claude for AI-powered sentiment analysis
+            - **Claude Sonnet 4** integration for categorization and response generation
+            - **PostgreSQL + pgvector** for vector similarity search and data storage
+            """)
+            if Path('rag_architecture.png').exists():
+                st.image('rag_architecture.png', use_container_width=True)
+            else:
+                st.warning("Architecture diagram not available")
+
+        with tab2:
+            st.markdown("""
+            This diagram illustrates the complete flow of a user query through the system:
+
+            **Main Query Flow (left to right):**
+            1. **Privacy Protection**: PII redaction with spaCy before storage
+            2. **Query Analysis**: Category detection and vector embedding
+            3. **Document Retrieval**: Vector search and hybrid ranking with enhanced feedback scores
+            4. **Response Generation**: Claude generates cited responses
+            5. **AI Feedback Analysis**: Comments analyzed for sentiment, issues, and severity
+
+            The **feedback loop** (shown in blue dashed line) connects back to ranking,
+            enabling continuous improvement based on user ratings and AI-analyzed comments.
+            """)
+            if Path('rag_query_flow.png').exists():
+                st.image('rag_query_flow.png', use_container_width=True)
+            else:
+                st.warning("Query flow diagram not available")
+
+        with tab3:
+            st.markdown("""
+            This diagram shows how Federal Reserve content is crawled from the website,
+            processed into chunks, converted to vector embeddings, and stored in the PostgreSQL database.
+            """)
+            if Path('rag_content_pipeline.png').exists():
+                st.image('rag_content_pipeline.png', use_container_width=True)
+            else:
+                st.warning("Content pipeline diagram not available")
 
     # Data Sources
     st.markdown("---")
@@ -748,9 +1016,56 @@ def how_it_works_page():
 
             st.metric("Total Documents", f"{doc_count:,}")
             if last_update:
-                st.metric("Last Updated", last_update.strftime('%Y-%m-%d'))
+                st.metric("Last Updated", last_update.strftime('%m/%d/%Y'))
         except:
             st.info("Database statistics unavailable")
+
+    # Privacy Protection
+    st.markdown("---")
+    st.markdown("## 🔒 Privacy Protection (PII Redaction)")
+
+    col1, col2 = st.columns([2, 1])
+
+    with col1:
+        st.markdown("""
+        **Automatic PII Detection and Redaction:**
+
+        Before your question is processed or stored, the system automatically detects and redacts:
+
+        **Pattern-Based Detection:**
+        - 📧 Email addresses → `[REDACTED_EMAIL]`
+        - 📞 Phone numbers → `[REDACTED_PHONE]`
+        - 🆔 Social Security Numbers → `[REDACTED_SSN]`
+        - 💳 Credit card numbers → `[REDACTED_CARD]`
+        - 🌐 IP addresses → `[REDACTED_IP]`
+        - 🏦 Account numbers → `[REDACTED_ACCOUNT]`
+
+        **AI-Based Detection (spaCy NER):**
+        - 👤 Person names → `[REDACTED_NAME]`
+        - 📍 Locations → `[REDACTED_LOCATION]`
+        - 🏢 Organizations (except Federal Reserve entities)
+
+        **Important:** Original queries with PII are **NEVER stored** in the database. Only redacted versions are kept.
+        """)
+
+    with col2:
+        st.info("""
+        **Privacy by Design:**
+
+        ✅ Local processing (spaCy)
+        ✅ Redacted before Claude API
+        ✅ Redacted before database
+        ✅ No PII in embeddings
+        ✅ Transparent to users
+
+        **Example:**
+
+        "My name is John Smith"
+
+        becomes
+
+        "My name is [REDACTED_NAME]"
+        """)
 
     # How Retrieval Works
     st.markdown("---")
@@ -759,67 +1074,97 @@ def how_it_works_page():
     st.markdown("""
     When you submit a question, the system:
 
-    1. **Converts your question to a vector embedding** - A numerical representation that captures semantic meaning
-    2. **Searches the document database** - Uses vector similarity to find the most relevant content
-    3. **Ranks results using a hybrid scoring system:**
+    1. **Detects and redacts PII** - Removes sensitive information locally using spaCy
+    2. **Detects query category** - Uses Claude to classify the topic (e.g., "Monetary Policy")
+    3. **Converts your question to a vector embedding** - A numerical representation that captures semantic meaning
+    4. **Searches the document database** - Uses vector similarity to find the most relevant content
+    5. **Ranks results using a hybrid scoring system:**
     """)
 
     st.code("""
-Final Score = Similarity Score × (Base Score × (1 + Feedback Weight × Feedback Score))
+Final Score = Similarity Score × (Base Score × (1 + Feedback Weight × Enhanced Feedback Score))
 
 Where:
 - Similarity Score: How well the document matches your question (0-1)
 - Base Score: Default quality score (1.0 for all documents)
-- Feedback Score: Adjustment based on user ratings (-1.0 to +1.0)
+- Enhanced Feedback Score: Combines ratings + AI sentiment analysis (-1.0 to +1.0)
 - Feedback Weight: How much feedback influences ranking (0.3 = 30%)
     """, language="python")
 
     st.markdown("""
-    4. **Retrieves top 10 most relevant documents** - Provides comprehensive context
-    5. **Generates response** - Claude processes the retrieved documents and your question
+    6. **Retrieves top 10 most relevant documents** - Provides comprehensive context
+    7. **Generates response** - Claude processes the retrieved documents and your question
     """)
 
     # Feedback System
     st.markdown("---")
-    st.markdown("## 📊 How Feedback Gets Incorporated")
+    st.markdown("## 📊 AI-Powered Feedback Analysis")
+
+    st.markdown("""
+    The system uses **Claude Sonnet 4** to analyze feedback comments and extract quality signals
+    that go beyond simple star ratings.
+    """)
 
     col1, col2 = st.columns(2)
 
     with col1:
         st.markdown("""
-        **User Ratings Impact Future Results:**
+        **When you provide feedback, the system:**
 
-        When you rate a response (1-5 stars), the system:
+        1. **Analyzes your comment with AI** (if provided):
+           - Extracts sentiment: Positive, Neutral, or Negative
+           - Identifies issues: outdated_info, incorrect_info, too_technical, missing_citations, etc.
+           - Assigns severity: minor, moderate, or severe
+           - Generates a summary of your feedback
 
-        1. **Associates your rating with all documents** used in that response
-        2. **Calculates average ratings** for each document across all responses
-        3. **Converts ratings to feedback scores:**
-           - 5 stars → +1.0 (boost ranking)
-           - 3 stars → 0.0 (neutral)
-           - 1 star → -1.0 (lower ranking)
+        2. **Calculates Enhanced Feedback Score:**
+           - Combines star rating (70%) + sentiment analysis (30%)
+           - Applies penalties for severe issues
+           - Adjusts based on confidence level
 
-        4. **Updates document scores** in the database
-        5. **Applies scores to future searches** - Better-rated documents rank higher
+        3. **Flags documents for review** when:
+           - Multiple users report similar issues
+           - Severe problems are detected
+           - Consistently low ratings with negative comments
+
+        4. **Updates document rankings** - Better documents rank higher in future searches
         """)
 
     with col2:
         st.markdown("""
-        **Feedback Score Calculation:**
+        **Enhanced Feedback Score Formula:**
         """)
         st.code("""
-Feedback Score = (Average Rating - 3.0) / 2.0
+# Base score from ratings
+rating_score = (avg_rating - 3.0) / 2.0
 
-Examples:
-- Avg 5.0 stars → +1.0
-- Avg 4.0 stars → +0.5
-- Avg 3.0 stars →  0.0
-- Avg 2.0 stars → -0.5
-- Avg 1.0 stars → -1.0
+# Sentiment contribution (if comments exist)
+sentiment_contribution =
+    sentiment_score × confidence × 0.3
+
+# Severity penalties
+severity_penalty:
+  - severe: -0.3
+  - moderate: -0.15
+  - minor: -0.05
+
+# Issue-specific penalties
+issue_penalties:
+  - outdated_info: -0.15
+  - incorrect_info: -0.20
+  - too_technical: -0.10
+  - missing_citations: -0.08
+
+Enhanced Score =
+  (0.7 × rating_score) +
+  (0.3 × sentiment_contribution) +
+  severity_penalty +
+  issue_penalties
         """, language="python")
 
         st.info("""
-        💡 **Continuous Learning:** The system improves over time as it learns
-        which documents provide the most helpful information for different types of questions.
+        💡 **Continuous Learning:** The system learns from both ratings AND detailed
+        feedback to identify specific problems and improve document selection.
         """)
 
     # Reranking Schedule
@@ -863,7 +1208,7 @@ Examples:
         """)
 
     with col2:
-        st.metric("Max Response Length", "500 tokens")
+        st.metric("Max Response Length", "2000 tokens")
         st.metric("Documents Retrieved", "10")
         st.metric("Embedding Model", "MiniLM-L6")
 
@@ -871,22 +1216,39 @@ Examples:
     st.markdown("---")
     st.markdown("## 🔒 Data Storage and Privacy")
 
-    st.markdown("""
-    **What Gets Stored:**
-    - Your questions and the generated responses
-    - Ratings and feedback comments you provide
-    - Response metadata (timestamp, model version, retrieved documents)
+    col1, col2 = st.columns(2)
 
-    **Data Retention:**
-    - Stored indefinitely by default to improve system learning
-    - Can be deleted using the **Data Management** page
-    - Bulk deletion available by date or rating
+    with col1:
+        st.markdown("""
+        **What Gets Stored:**
+        - Your questions (**with PII redacted**)
+        - Generated responses with source citations
+        - Star ratings (1-5)
+        - Feedback comments and AI analysis results
+        - Response metadata (timestamp, model version, retrieved documents)
+        - Redaction metadata (types detected, NOT the actual PII values)
 
-    **Privacy Notes:**
-    - All data stored locally in PostgreSQL database
-    - No personal identifying information collected
-    - Questions are anonymized - not linked to users
-    """)
+        **Data Retention:**
+        - Stored indefinitely by default to improve system learning
+        - Can be deleted using the **Data Management** page
+        - Bulk deletion available by date or rating
+        """)
+
+    with col2:
+        st.markdown("""
+        **Privacy-First Design:**
+        - ✅ **PII automatically redacted** before storage
+        - ✅ **Original queries with PII are NEVER stored**
+        - ✅ All processing done locally in PostgreSQL
+        - ✅ No personal identifying information collected
+        - ✅ Questions are anonymized - not linked to users
+        - ✅ Redaction metadata excludes actual PII values
+
+        **Compliance:**
+        - Supports GDPR Article 25 (Privacy by Design)
+        - Data minimization principle
+        - Safe for handling sensitive inquiries
+        """)
 
     # Technical Details
     st.markdown("---")
@@ -909,6 +1271,84 @@ Examples:
         - Document search: Milliseconds (indexed vector search)
         - Concurrent users: Supports multiple simultaneous queries
         """)
+
+@st.dialog("Response Details", width="large")
+def show_response_dialog(response, db):
+    """Show detailed response in a dialog."""
+    from datetime import datetime
+
+    # Selection checkbox
+    is_selected = st.checkbox(
+        f"Select response #{response['id']}",
+        value=response['id'] in st.session_state.selected_responses,
+        key=f"dialog_select_{response['id']}"
+    )
+
+    if is_selected:
+        st.session_state.selected_responses.add(response['id'])
+    else:
+        st.session_state.selected_responses.discard(response['id'])
+
+    st.markdown(f"**Query:** {response['query_text']}")
+    st.markdown("**Response:**")
+    st.markdown(response['response_text'])
+    st.markdown(f"**Model:** {response['model_version']}")
+    st.markdown(f"**Average Rating:** {response['avg_rating']:.2f} ({response['feedback_count']} ratings)")
+    st.markdown(f"**Created:** {response['created_at'].strftime('%m/%d/%Y %I:%M %p')}")
+
+    # Display all feedback if available
+    if response.get('all_feedback') and response['all_feedback']:
+        st.markdown("---")
+        fb_with_comments = sum(1 for fb in response['all_feedback'] if fb and fb.get('has_comment'))
+        st.markdown(f"**📝 Feedback ({response.get('feedback_count', 0)} total, {fb_with_comments} with comments):**")
+
+        for i, fb in enumerate(response['all_feedback'], 1):
+            if fb:  # fb might be None from the array_agg
+                # Format the feedback display
+                fb_date = fb.get('created_at', '')
+                if fb_date:
+                    if isinstance(fb_date, str):
+                        fb_date = datetime.fromisoformat(fb_date).strftime('%m/%d/%Y %I:%M %p')
+                    else:
+                        fb_date = fb_date.strftime('%m/%d/%Y %I:%M %p')
+
+                # Build severity indicator
+                severity_emoji = ''
+                if fb.get('severity') and fb['severity'] != 'none':
+                    severity_map = {'minor': '⚡', 'moderate': '⚠️', 'severe': '🚨'}
+                    severity_emoji = severity_map.get(fb['severity'], '')
+
+                # Display rating and date
+                st.markdown(f"{severity_emoji} **{i}.** {'⭐' * fb.get('rating', 0)} - {fb_date}")
+
+                # Display comment if present
+                if fb.get('has_comment') and fb.get('comment'):
+                    st.info(fb.get('comment', ''))
+                else:
+                    st.caption("_(No comment provided)_")
+
+                # Show analysis if available
+                analysis_parts = []
+                if fb.get('sentiment_score') is not None:
+                    sentiment = fb['sentiment_score']
+                    sentiment_label = 'Positive' if sentiment > 0.3 else 'Negative' if sentiment < -0.3 else 'Neutral'
+                    analysis_parts.append(f"Sentiment: {sentiment_label} ({sentiment:.2f})")
+
+                if fb.get('issue_types') and fb['issue_types']:
+                    issues = [issue for issue in fb['issue_types'] if issue != 'none']
+                    if issues:
+                        analysis_parts.append(f"Issues: {', '.join(issues).replace('_', ' ').title()}")
+
+                if analysis_parts:
+                    st.caption(" | ".join(analysis_parts))
+
+    # Delete button
+    st.markdown("---")
+    if st.button(f"🗑️ Delete Response #{response['id']}", type="secondary", use_container_width=True):
+        with db:
+            if db.delete_response(response['id']):
+                st.success(f"Deleted response #{response['id']}")
+                st.rerun()
 
 def data_management_page():
     """Page for managing responses and feedback."""
@@ -1024,40 +1464,39 @@ def data_management_page():
                     st.session_state.selected_responses.clear()
                     st.rerun()
 
-            # Display responses
-            for response in responses:
+            # Display responses as list
+            for i, response in enumerate(responses):
                 response_id = response['id']
 
-                with st.expander(
-                    f"**Q:** {response['query_text'][:100]}... | "
-                    f"Rating: {'⭐' * int(response['avg_rating']) if response['avg_rating'] > 0 else 'No rating'} | "
-                    f"{response['created_at'].strftime('%Y-%m-%d %H:%M')}"
-                ):
-                    # Selection checkbox
-                    is_selected = st.checkbox(
-                        f"Select response {response_id}",
-                        value=response_id in st.session_state.selected_responses,
-                        key=f"select_{response_id}"
-                    )
+                # Build list item
+                has_comments = response.get('comments_count', 0) > 0
+                comment_indicator = f" | 💬 {response.get('comments_count', 0)}" if has_comments else ""
 
+                # Checkbox + Query + View button
+                col1, col2, col3 = st.columns([0.5, 5, 1])
+                with col1:
+                    is_selected = st.checkbox(
+                        "Select",
+                        value=response_id in st.session_state.selected_responses,
+                        key=f"select_{response_id}",
+                        label_visibility="collapsed"
+                    )
                     if is_selected:
                         st.session_state.selected_responses.add(response_id)
                     else:
                         st.session_state.selected_responses.discard(response_id)
 
-                    st.markdown(f"**Query:** {response['query_text']}")
-                    st.markdown(f"**Response:**")
-                    st.markdown(response['response_text'])
-                    st.markdown(f"**Model:** {response['model_version']}")
-                    st.markdown(f"**Average Rating:** {response['avg_rating']:.2f} ({response['feedback_count']} ratings)")
-                    st.markdown(f"**Created:** {response['created_at']}")
+                with col2:
+                    st.markdown(f"**Q:** {response['query_text'][:100]}...")
+                    rating_display = '⭐' * int(response['avg_rating']) if response['avg_rating'] > 0 else 'No rating'
+                    st.caption(f"{rating_display}{comment_indicator} | {response['created_at'].strftime('%m/%d/%Y %I:%M %p')}")
 
-                    # Individual delete button
-                    if st.button(f"Delete Response #{response_id}", key=f"delete_{response_id}"):
-                        with db:
-                            if db.delete_response(response_id):
-                                st.success(f"Deleted response #{response_id}")
-                                st.rerun()
+                with col3:
+                    if st.button("View", key=f"view_response_{response_id}"):
+                        show_response_dialog(response, db)
+
+                if i < len(responses) - 1:
+                    st.divider()
         else:
             st.info("No responses found with the selected filters")
 

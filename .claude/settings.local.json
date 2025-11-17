@@ -5,7 +5,8 @@
       "Bash(pg_isready:*)",
       "Bash(psql:*)",
       "Bash(brew services restart:*)",
-      "Bash(pgrep:*)"
+      "Bash(pgrep:*)",
+      "Bash(rm:*)"
     ],
     "deny": [],
     "ask": []
