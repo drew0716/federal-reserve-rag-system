@@ -971,7 +971,7 @@ def how_it_works_page():
             st.markdown("""
             This diagram shows the high-level architecture of the Federal Reserve RAG system,
             including:
-            - **PII Redactor** (spaCy NER) for privacy protection
+            - **PII Redactor** (Microsoft Presidio with spaCy NER) for privacy protection
             - **Streamlit UI** with multiple pages
             - **RAG Core Components** including query processing, embedding, retrieval, and response generation
             - **Feedback Analyzer** using Claude for AI-powered sentiment analysis
@@ -988,7 +988,7 @@ def how_it_works_page():
             This diagram illustrates the complete flow of a user query through the system:
 
             **Main Query Flow (left to right):**
-            1. **Privacy Protection**: PII redaction with spaCy before storage
+            1. **Privacy Protection**: PII redaction with Microsoft Presidio (spaCy NER) before storage
             2. **Query Analysis**: Category detection and vector embedding
             3. **Document Retrieval**: Vector search and hybrid ranking with enhanced feedback scores
             4. **Response Generation**: Claude generates cited responses
@@ -1063,9 +1063,10 @@ def how_it_works_page():
         st.markdown("""
         **Automatic PII Detection and Redaction:**
 
-        Before your question is processed or stored, the system automatically detects and redacts:
+        Before your question is processed or stored, the system uses **Microsoft Presidio**
+        with **spaCy NER** to automatically detect and redact:
 
-        **Pattern-Based Detection:**
+        **Pattern-Based Detection (Regex):**
         - 📧 Email addresses → `[REDACTED_EMAIL]`
         - 📞 Phone numbers → `[REDACTED_PHONE]`
         - 🆔 Social Security Numbers → `[REDACTED_SSN]`
@@ -1073,10 +1074,13 @@ def how_it_works_page():
         - 🌐 IP addresses → `[REDACTED_IP]`
         - 🏦 Account numbers → `[REDACTED_ACCOUNT]`
 
-        **AI-Based Detection (spaCy NER):**
+        **AI-Based Detection (Presidio + spaCy NER):**
         - 👤 Person names → `[REDACTED_NAME]`
         - 📍 Locations → `[REDACTED_LOCATION]`
-        - 🏢 Organizations (except Federal Reserve entities)
+        - 🏢 Organizations → `[REDACTED_ORG]` (except Federal Reserve entities)
+        - 📅 Dates → `[REDACTED_DATE]`
+        - 🆔 IDs (driver licenses, passports) → `[REDACTED_ID]`
+        - 🔗 URLs → `[REDACTED_URL]`
 
         **Important:** Original queries with PII are **NEVER stored** in the database. Only redacted versions are kept.
         """)
@@ -1085,11 +1089,12 @@ def how_it_works_page():
         st.info("""
         **Privacy by Design:**
 
-        ✅ Local processing (spaCy)
+        ✅ Local processing (Presidio + spaCy)
         ✅ Redacted before Claude API
         ✅ Redacted before database
         ✅ No PII in embeddings
         ✅ Transparent to users
+        ✅ Industry-standard framework
 
         **Example:**
 
@@ -1107,7 +1112,7 @@ def how_it_works_page():
     st.markdown("""
     When you submit a question, the system:
 
-    1. **Detects and redacts PII** - Removes sensitive information locally using spaCy
+    1. **Detects and redacts PII** - Removes sensitive information locally using Microsoft Presidio with spaCy NER
     2. **Detects query category** - Uses Claude to classify the topic (e.g., "Monetary Policy")
     3. **Converts your question to a vector embedding** - A numerical representation that captures semantic meaning
     4. **Searches the document database** - Uses vector similarity to find the most relevant content

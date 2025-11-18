@@ -29,10 +29,12 @@ This system crawls official Federal Reserve documentation, processes it into a s
 
 ### Privacy & Security
 - **🔒 PII Redaction**: Automatic detection and redaction of personally identifiable information before processing
+  - **Microsoft Presidio framework** with **spaCy NER** for industry-standard privacy protection
   - Pattern-based: Emails, phones, SSNs, credit cards, IP addresses, account numbers
-  - AI-based (spaCy NER): Person names, locations, organizations
+  - AI-based (Presidio + spaCy NER): Person names, locations, organizations, dates, IDs, URLs
   - Context-aware: Preserves Federal Reserve entities while protecting user privacy
   - **Data minimization**: Original queries with PII are NEVER stored
+  - Optional GLiNER support for enhanced accuracy
 
 ### AI-Powered Feedback System
 - **⭐ Enhanced Feedback Analysis**: Claude-powered sentiment analysis of user comments
@@ -87,26 +89,25 @@ pip install -r requirements.txt
 
 **Key packages** (automatically installed from `requirements.txt`):
 ```
-anthropic>=0.18.0          # Claude Sonnet 4 API
-psycopg2-binary>=2.9.9     # PostgreSQL adapter
-pgvector>=0.2.0            # Vector similarity search
-python-dotenv>=1.0.0       # Environment management
-sentence-transformers>=2.2.0  # Text embeddings
-streamlit>=1.28.0          # Web UI framework
-st-copy>=1.1.0             # One-click copy functionality
-spacy>=3.7.0               # PII detection with NER
-diagrams>=0.23.0           # Architecture diagram generation
-pandas>=2.0.0              # Data analysis
-plotly>=5.17.0             # Interactive charts
+anthropic>=0.18.0                    # Claude Sonnet 4 API
+psycopg2-binary>=2.9.9               # PostgreSQL adapter
+pgvector>=0.2.0                      # Vector similarity search
+python-dotenv>=1.0.0                 # Environment management
+sentence-transformers>=2.2.0         # Text embeddings
+streamlit>=1.28.0                    # Web UI framework
+st-copy>=1.1.0                       # One-click copy functionality
+presidio-analyzer[gliner]>=2.2.0     # PII detection framework
+presidio-anonymizer>=2.2.0           # PII anonymization
+diagrams>=0.23.0                     # Architecture diagram generation
+pandas>=2.0.0                        # Data analysis
+plotly>=5.17.0                       # Interactive charts
 ```
 
-### 4. Install spaCy Language Model
+### 4. Verify spaCy Model Installation
 
-```bash
-python3 -m spacy download en_core_web_sm
-```
+The spaCy English language model (en_core_web_sm-3.8.0) is automatically installed via `requirements.txt` using a GitHub release URL. This is required for Presidio's NER-based PII detection.
 
-This downloads the English language model needed for PII detection.
+No manual installation is needed - it's included in the dependencies.
 
 ### 5. Install Graphviz (for diagrams)
 
@@ -509,7 +510,7 @@ streamlit run streamlit_app.py
 
 ### 5. How It Works Page
 
-- **Privacy Protection**: Learn about PII redaction with spaCy
+- **Privacy Protection**: Learn about PII redaction with Microsoft Presidio and spaCy
 - **Document Retrieval**: Understand vector similarity search and hybrid ranking
 - **AI-Powered Feedback Analysis**: See how Claude analyzes comments
 - **Enhanced Scoring Formula**: Ratings + sentiment + issue penalties
@@ -543,7 +544,7 @@ streamlit run streamlit_app.py
                             ▼
 ┌─────────────────────────────────────────────────────────┐
 │                    RAG System Core                       │
-│  • PII Redactor (spaCy)    • Response Generation        │
+│  • PII Redactor (Presidio) • Response Generation        │
 │  • Query Processing        • Feedback Analyzer (Claude) │
 │  • Document Retrieval      • Category Detection         │
 └─────────────────────────────────────────────────────────┘
@@ -566,7 +567,7 @@ streamlit run streamlit_app.py
 ### Query Flow (15 Steps)
 
 1. **User submits question** via Streamlit UI
-2. **PII Detection & Redaction** (spaCy NER) - Removes sensitive information locally
+2. **PII Detection & Redaction** (Presidio + spaCy NER) - Removes sensitive information locally
 3. **Store redacted query only** - Original with PII is never stored
 4. **Claude detects query category** (e.g., Interest Rates, Banking, Currency)
 5. **Question → Vector embedding** (384-dim using MiniLM-L6-v2)
@@ -609,7 +610,7 @@ streamlit run streamlit_app.py
 
 ### PII Redaction
 
-The system uses a **privacy-first design** with local PII detection:
+The system uses a **privacy-first design** with **Microsoft Presidio** and **spaCy NER** for local PII detection:
 
 **What Gets Redacted:**
 - 📧 Email addresses
@@ -618,9 +619,12 @@ The system uses a **privacy-first design** with local PII detection:
 - 💳 Credit card numbers
 - 🌐 IP addresses
 - 🏦 Account numbers
-- 👤 Person names (via spaCy NER)
-- 📍 Locations (via spaCy NER)
-- 🏢 Organizations (via spaCy NER)
+- 👤 Person names (via Presidio + spaCy NER)
+- 📍 Locations (via Presidio + spaCy NER)
+- 🏢 Organizations (via Presidio + spaCy NER)
+- 📅 Dates (via Presidio + spaCy NER)
+- 🆔 IDs - driver licenses, passports (via Presidio)
+- 🔗 URLs (via Presidio)
 
 **What's NOT Redacted:**
 - Federal Reserve Board, FRB, Board of Governors
@@ -630,12 +634,14 @@ The system uses a **privacy-first design** with local PII detection:
 - Federal Reserve officials (e.g., Jerome Powell)
 
 **Privacy Guarantees:**
-- ✅ Local processing with spaCy (no external API for redaction)
+- ✅ Local processing with Presidio + spaCy (no external API for redaction)
+- ✅ Industry-standard Microsoft Presidio framework
 - ✅ Redacted BEFORE Claude API call
 - ✅ Redacted BEFORE database storage
 - ✅ Original queries with PII are **NEVER stored**
 - ✅ Redaction metadata excludes actual PII values
 - ✅ GDPR Article 25 compliant (Privacy by Design)
+- ✅ Optional GLiNER support for enhanced accuracy
 
 See `PII_REDACTION.md` for detailed documentation.
 
@@ -751,12 +757,14 @@ sudo make install
 
 ### spaCy Model Not Found
 
-```bash
-# Download the English model
-python3 -m spacy download en_core_web_sm
+The spaCy model should be automatically installed from `requirements.txt`. If you encounter issues:
 
-# Verify installation
+```bash
+# Verify the model is installed
 python3 -c "import spacy; nlp = spacy.load('en_core_web_sm'); print('✓ Model loaded')"
+
+# If not found, reinstall dependencies
+pip install -r requirements.txt --force-reinstall
 ```
 
 ### Module Not Found Errors
@@ -803,7 +811,7 @@ python3 -c "from anthropic import Anthropic; c = Anthropic(); print('✓ API key
 ├── rag_system.py                       # RAG core logic
 ├── database.py                         # Database operations
 ├── embeddings.py                       # Embedding service
-├── pii_redactor.py                     # PII detection and redaction
+├── pii_redactor.py                     # PII detection (Presidio + spaCy)
 ├── feedback_analyzer.py                # AI-powered comment analysis
 ├── fed_content_importer.py             # Content importer
 ├── crawl_about_fed.py                  # Web crawler
