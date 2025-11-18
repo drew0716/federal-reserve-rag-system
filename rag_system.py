@@ -311,9 +311,12 @@ Please provide a professional, well-structured response with inline citations li
                         query_text=response_data['query_text'],
                         response_text=response_data['response_text']
                     )
-                    print(f"  Sentiment: {analysis['sentiment_score']:.2f}, "
+                    # Support both old and new format
+                    sentiment_display = analysis.get('sentiment') or f"{analysis.get('sentiment_score', 0):.2f}"
+                    issues = analysis.get('issues') or analysis.get('issue_types', [])
+                    print(f"  Sentiment: {sentiment_display}, "
                           f"Severity: {analysis['severity']}, "
-                          f"Issues: {', '.join(analysis['issue_types'][:3]) if analysis['issue_types'] else 'none'}")
+                          f"Issues: {', '.join(issues[:3]) if issues else 'none'}")
             except Exception as e:
                 print(f"Warning: Comment analysis failed: {e}")
                 analysis = None
@@ -346,16 +349,16 @@ Please provide a professional, well-structured response with inline citations li
                         FROM feedback f
                         JOIN responses r ON f.response_id = r.id
                         WHERE %s = ANY(r.retrieved_doc_ids)
-                        AND f.analyzed_at IS NOT NULL;
+                        AND f.summary IS NOT NULL;
                     """, (doc_id,))
                     feedbacks = db.cursor.fetchall()
 
                     if feedbacks:
-                        # Analyze patterns
+                        # Analyze patterns (support both old and new column names)
                         patterns = self.feedback_analyzer.analyze_document_feedback_patterns(
                             [{'analysis': {
-                                'issue_types': fb.get('issue_types', []),
-                                'needs_review': fb.get('needs_review', False),
+                                'issue_types': fb.get('issues') or fb.get('issue_types', []),
+                                'needs_review': fb.get('severity') in ['severe', 'moderate'],
                                 'severity': fb.get('severity', 'none')
                             }} for fb in feedbacks]
                         )
@@ -408,11 +411,11 @@ Please provide a professional, well-structured response with inline citations li
             # Count issues by type
             db.cursor.execute("""
                 SELECT
-                    UNNEST(issue_types) as issue,
+                    UNNEST(issues) as issue,
                     COUNT(*) as count
                 FROM feedback
-                WHERE issue_types IS NOT NULL AND array_length(issue_types, 1) > 0
-                GROUP BY UNNEST(issue_types)
+                WHERE issues IS NOT NULL AND array_length(issues, 1) > 0
+                GROUP BY UNNEST(issues)
                 ORDER BY count DESC;
             """)
             issue_counts = db.cursor.fetchall()

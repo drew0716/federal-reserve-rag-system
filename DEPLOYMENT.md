@@ -45,7 +45,7 @@ PostgreSQL is the most critical component. Here are your options:
 
 ### Option 1: Managed PostgreSQL Services (⭐ Recommended)
 
-#### A. **Supabase** (Free tier available, pgvector included)
+#### A. **Supabase** (Free tier available, pgvector included) ⭐ **Easiest Setup**
 
 **Pros:**
 - ✅ Free tier with 500MB database
@@ -53,34 +53,65 @@ PostgreSQL is the most critical component. Here are your options:
 - ✅ Automatic backups
 - ✅ Easy setup (5 minutes)
 - ✅ Web UI for database management
+- ✅ No command line required for schema setup
 
 **Setup:**
 
-1. Create account at [supabase.com](https://supabase.com)
-2. Create new project (choose region close to you)
-3. Get connection string from Settings → Database
-4. Enable pgvector (already enabled by default)
-5. Update `.env`:
+1. **Create Supabase Project**
+   - Go to [supabase.com](https://supabase.com) and sign up/login
+   - Click **"New Project"**
+   - Choose organization, name, database password, and region
+   - Click **"Create new project"**
+   - Wait 2-3 minutes for provisioning
 
-```bash
-DATABASE_URL=postgresql://postgres:[PASSWORD]@db.[PROJECT-ID].supabase.co:5432/postgres
-```
+2. **Get Connection String**
+   - Go to **Settings** → **Database** in Supabase dashboard
+   - Scroll to **Connection string** section
+   - Select **Transaction** tab (port 6543, **NOT** Session mode)
+   - Copy the connection string
 
-**Example connection string:**
-```bash
-DATABASE_URL=postgresql://postgres:mypassword123@db.abcdefghijklmnop.supabase.co:5432/postgres
-```
+   Example format:
+   ```
+   postgresql://postgres.PROJECT_ID:YOUR_PASSWORD@aws-0-region.pooler.supabase.com:6543/postgres
+   ```
 
-6. Run schema setup:
-```bash
-psql $DATABASE_URL -f schema.sql
-psql $DATABASE_URL -f schema_update_sources.sql
-psql $DATABASE_URL -f schema_update_categories.sql
-psql $DATABASE_URL -f schema_update_feedback_analysis.sql
-psql $DATABASE_URL -f schema_update_pii_no_storage.sql
-```
+3. **Run Database Schema in Web UI**
+   - In Supabase dashboard, go to **SQL Editor**
+   - Click **"New query"**
+   - Open `supabase_setup.sql` from your project directory
+   - Copy **all contents** (146 lines) and paste into SQL Editor
+   - Click **Run** (or `Cmd/Ctrl + Enter`)
+   - You should see: `Success. No rows returned`
 
-**Cost:** Free tier → $25/month for Pro (8GB database)
+4. **Verify Tables Created**
+
+   Run this in SQL Editor:
+   ```sql
+   SELECT table_name FROM information_schema.tables
+   WHERE table_schema = 'public' ORDER BY table_name;
+   ```
+
+   You should see 7 tables: `document_review_flags`, `document_scores`, `documents`, `feedback`, `queries`, `responses`, `source_refresh_log`
+
+5. **Update .env:**
+
+   ```bash
+   # Database Configuration
+   DATABASE_MODE=supabase
+   SUPABASE_URL=postgresql://postgres.abcd1234:YOUR_PASSWORD@aws-0-region.pooler.supabase.com:6543/postgres
+   ```
+
+6. **Test Connection:**
+
+   ```bash
+   python3 test_db_connection.py
+   ```
+
+   You should see: `✓ Successfully connected to Supabase database!`
+
+**Cost:** Free tier (500MB) → $25/month for Pro (8GB database)
+
+**Note:** The system automatically uses the correct connection pooling mode (Transaction pooler on port 6543) which is required for pgvector operations.
 
 ---
 

@@ -30,14 +30,35 @@ st.set_page_config(
 
 # Database connection helper
 def get_db_connection():
-    """Get a new database connection."""
-    return psycopg2.connect(
-        host=os.getenv('DB_HOST', 'localhost'),
-        port=os.getenv('DB_PORT', '5433'),
-        database=os.getenv('DB_NAME', 'rag_system'),
-        user=os.getenv('DB_USER', 'rag_user'),
-        password=os.getenv('DB_PASSWORD', '')
-    )
+    """Get a new database connection using DATABASE_MODE switcher."""
+    from urllib.parse import urlparse
+
+    db_mode = os.getenv('DATABASE_MODE', 'local').lower()
+
+    if db_mode == 'supabase':
+        # Use Supabase
+        supabase_url = os.getenv('SUPABASE_URL')
+        if not supabase_url:
+            raise ValueError("SUPABASE_URL not set in .env file")
+
+        # Parse the Supabase URL
+        parsed = urlparse(supabase_url)
+        return psycopg2.connect(
+            host=parsed.hostname,
+            port=parsed.port,
+            database=parsed.path[1:],  # Remove leading '/'
+            user=parsed.username,
+            password=parsed.password
+        )
+    else:
+        # Use local PostgreSQL (default)
+        return psycopg2.connect(
+            host=os.getenv('LOCAL_DB_HOST', 'localhost'),
+            port=os.getenv('LOCAL_DB_PORT', '5433'),
+            database=os.getenv('LOCAL_DB_NAME', 'rag_system'),
+            user=os.getenv('LOCAL_DB_USER', 'rag_user'),
+            password=os.getenv('LOCAL_DB_PASSWORD', '')
+        )
 
 # Initialize RAG system
 @st.cache_resource
@@ -392,19 +413,25 @@ def show_feedback_dialog(fb):
         st.markdown("**Comment:**")
         st.info(fb['comment'])
 
-    # Show analysis if available
-    if fb.get('analysis_summary'):
-        st.markdown(f"**AI Analysis:** {fb['analysis_summary']}")
+    # Show analysis if available (support both old and new column names)
+    summary = fb.get('summary') or fb.get('analysis_summary')
+    if summary:
+        st.markdown(f"**AI Analysis:** {summary}")
 
-        if fb.get('issue_types') and fb['issue_types']:
-            issues = [i for i in fb['issue_types'] if i != 'none']
-            if issues:
-                st.markdown(f"**Issues:** {', '.join(issues).replace('_', ' ').title()}")
+        issues = fb.get('issues') or fb.get('issue_types') or []
+        if issues:
+            issue_list = [i for i in issues if i != 'none']
+            if issue_list:
+                st.markdown(f"**Issues:** {', '.join(issue_list).replace('_', ' ').title()}")
 
-        if fb.get('sentiment_score') is not None:
-            sentiment = fb['sentiment_score']
-            sentiment_label = 'Positive' if sentiment > 0.3 else 'Negative' if sentiment < -0.3 else 'Neutral'
-            st.markdown(f"**Sentiment:** {sentiment_label} ({sentiment:.2f})")
+        # Handle both string sentiment and numeric sentiment_score
+        sentiment = fb.get('sentiment')
+        if sentiment:
+            st.markdown(f"**Sentiment:** {sentiment.title()}")
+        elif fb.get('sentiment_score') is not None:
+            score = fb['sentiment_score']
+            sentiment_label = 'Positive' if score > 0.3 else 'Negative' if score < -0.3 else 'Neutral'
+            st.markdown(f"**Sentiment:** {sentiment_label} ({score:.2f})")
 
     st.markdown("---")
     st.markdown("**Response:**")
@@ -547,12 +574,12 @@ def analytics_page():
         col1, col2, col3 = st.columns(3)
 
         # Count analyzed feedback
-        cursor.execute("SELECT COUNT(*) as count FROM feedback WHERE analyzed_at IS NOT NULL")
+        cursor.execute("SELECT COUNT(*) as count FROM feedback WHERE summary IS NOT NULL")
         analyzed_count = cursor.fetchone()['count']
         col1.metric("Analyzed Comments", analyzed_count)
 
-        # Count feedback needing review
-        cursor.execute("SELECT COUNT(*) as count FROM feedback WHERE needs_review = TRUE")
+        # Count feedback needing review (severe or moderate severity)
+        cursor.execute("SELECT COUNT(*) as count FROM feedback WHERE severity IN ('severe', 'moderate')")
         needs_review_count = cursor.fetchone()['count']
         col2.metric("Comments Flagged", needs_review_count, help="Feedback requiring attention")
 
@@ -572,9 +599,9 @@ def analytics_page():
                         issue,
                         COUNT(*) as count
                     FROM feedback
-                    CROSS JOIN UNNEST(issue_types) as issue
-                    WHERE issue_types IS NOT NULL
-                      AND array_length(issue_types, 1) > 0
+                    CROSS JOIN UNNEST(issues) as issue
+                    WHERE issues IS NOT NULL
+                      AND array_length(issues, 1) > 0
                       AND issue != 'none'
                     GROUP BY issue
                     ORDER BY count DESC
@@ -678,10 +705,10 @@ def analytics_page():
                 f.rating,
                 f.comment,
                 f.created_at,
-                f.sentiment_score,
-                f.issue_types,
+                f.sentiment,
+                f.issues,
                 f.severity,
-                f.analysis_summary,
+                f.summary,
                 q.query_text,
                 r.response_text
             FROM feedback f
@@ -1327,17 +1354,22 @@ def show_response_dialog(response, db):
                 else:
                     st.caption("_(No comment provided)_")
 
-                # Show analysis if available
+                # Show analysis if available (support both old and new column names)
                 analysis_parts = []
-                if fb.get('sentiment_score') is not None:
+                # Handle both string sentiment and numeric sentiment_score
+                sentiment_str = fb.get('sentiment')
+                if sentiment_str:
+                    analysis_parts.append(f"Sentiment: {sentiment_str.title()}")
+                elif fb.get('sentiment_score') is not None:
                     sentiment = fb['sentiment_score']
                     sentiment_label = 'Positive' if sentiment > 0.3 else 'Negative' if sentiment < -0.3 else 'Neutral'
                     analysis_parts.append(f"Sentiment: {sentiment_label} ({sentiment:.2f})")
 
-                if fb.get('issue_types') and fb['issue_types']:
-                    issues = [issue for issue in fb['issue_types'] if issue != 'none']
-                    if issues:
-                        analysis_parts.append(f"Issues: {', '.join(issues).replace('_', ' ').title()}")
+                issues = fb.get('issues') or fb.get('issue_types') or []
+                if issues:
+                    issue_list = [issue for issue in issues if issue != 'none']
+                    if issue_list:
+                        analysis_parts.append(f"Issues: {', '.join(issue_list).replace('_', ' ').title()}")
 
                 if analysis_parts:
                     st.caption(" | ".join(analysis_parts))

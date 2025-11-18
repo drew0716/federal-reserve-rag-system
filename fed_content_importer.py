@@ -13,6 +13,7 @@ from pathlib import Path
 import re
 import json
 from pgvector.psycopg2 import register_vector
+from urllib.parse import urlparse
 
 # Script directory
 script_dir = Path(__file__).parent
@@ -26,13 +27,36 @@ class FedContentImporter:
 
     def __init__(self):
         """Initialize the importer."""
-        self.db_params = {
-            'host': os.getenv('DB_HOST', 'localhost'),
-            'port': os.getenv('DB_PORT', '5433'),
-            'database': os.getenv('DB_NAME', 'rag_system'),
-            'user': os.getenv('DB_USER', 'rag_user'),
-            'password': os.getenv('DB_PASSWORD', '')
-        }
+        # Use DATABASE_MODE to determine connection params
+        db_mode = os.getenv('DATABASE_MODE', 'local').lower()
+
+        if db_mode == 'supabase':
+            # Use Supabase
+            supabase_url = os.getenv('SUPABASE_URL')
+            if not supabase_url:
+                raise ValueError("SUPABASE_URL not set in .env file")
+
+            # Parse the Supabase URL
+            parsed = urlparse(supabase_url)
+            self.db_params = {
+                'host': parsed.hostname,
+                'port': parsed.port,
+                'database': parsed.path[1:],  # Remove leading '/'
+                'user': parsed.username,
+                'password': parsed.password
+            }
+            self.db_mode = 'supabase'
+        else:
+            # Use local PostgreSQL (default)
+            self.db_params = {
+                'host': os.getenv('LOCAL_DB_HOST', 'localhost'),
+                'port': os.getenv('LOCAL_DB_PORT', '5433'),
+                'database': os.getenv('LOCAL_DB_NAME', 'rag_system'),
+                'user': os.getenv('LOCAL_DB_USER', 'rag_user'),
+                'password': os.getenv('LOCAL_DB_PASSWORD', '')
+            }
+            self.db_mode = 'local'
+
         self.embeddings = EmbeddingService()
         self.chunk_size = 500  # characters per chunk
         self.chunk_overlap = 50  # overlap between chunks

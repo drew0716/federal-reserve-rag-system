@@ -9,6 +9,7 @@ This system crawls official Federal Reserve documentation, processes it into a s
 ## 🚀 Quick Links
 
 - **[Pipeline Architecture](PIPELINE_ARCHITECTURE.md)** - System architecture diagrams, data flows, and component details
+- **[Database Switching Guide](DATABASE_SWITCHING.md)** - ⭐ NEW: Easily switch between local PostgreSQL and Supabase
 - **[Deployment Guide](DEPLOYMENT.md)** - Complete guide for deploying to production with PostgreSQL options
 - **[Local Model Migration Guide](LOCAL_MODEL_MIGRATION.md)** - Replace Claude Sonnet 4 with local open-source models (Llama, Qwen, Mistral)
 - **[PII Redaction Documentation](PII_REDACTION.md)** - Details on privacy protection features
@@ -53,10 +54,14 @@ This system crawls official Federal Reserve documentation, processes it into a s
 ## Prerequisites
 
 - **Python 3.9+** (tested with Python 3.11.9)
-- **PostgreSQL 18** with pgvector extension (Note: Homebrew installs on port 5433 by default)
+- **Database** (choose one):
+  - **Local PostgreSQL 18** with pgvector extension (free, runs on your machine)
+  - **Supabase** (free tier available, cloud-hosted PostgreSQL)
 - **Anthropic API Key** with Claude access
 - **macOS, Linux, or Windows** (instructions provided for macOS)
 - **Graphviz** (for generating architecture diagrams)
+
+> **📊 Database Options:** This system supports both local PostgreSQL and Supabase. You can easily switch between them by changing `DATABASE_MODE` in your `.env` file. See [DATABASE_SWITCHING.md](DATABASE_SWITCHING.md) for details.
 
 ## Installation
 
@@ -120,9 +125,14 @@ sudo apt-get install graphviz
 sudo yum install graphviz
 ```
 
-### 6. Install and Set Up PostgreSQL
+### 6. Set Up Database (Choose One)
 
-#### macOS (Homebrew)
+You can use either **Local PostgreSQL** (free, runs on your machine) or **Supabase** (free tier, cloud-hosted). You can easily switch between them later by changing `DATABASE_MODE` in `.env`.
+
+<details>
+<summary><b>Option A: Local PostgreSQL Setup (Recommended for Development)</b></summary>
+
+#### Install PostgreSQL (macOS)
 
 ```bash
 # Install PostgreSQL 18
@@ -150,7 +160,7 @@ make install  # May require sudo
 cd ..
 ```
 
-### 7. Create Database and User
+#### Create Database and User
 
 ```bash
 # Connect to PostgreSQL
@@ -173,7 +183,7 @@ GRANT ALL PRIVILEGES ON DATABASE rag_system TO rag_user;
 \q
 ```
 
-### 8. Set Up Database Schema
+#### Set Up Database Schema
 
 ```bash
 # Connect to the new database
@@ -198,7 +208,63 @@ psql -U rag_user -p 5433 -d rag_system -f schema_update_pii_no_storage.sql
 
 **Note:** You may be prompted for the password you set earlier. Use `PGPASSWORD='your_secure_password'` prefix if needed.
 
-### 9. Configure Environment Variables
+</details>
+
+<details>
+<summary><b>Option B: Supabase Setup (Recommended for Production/Cloud)</b></summary>
+
+#### Create Supabase Project
+
+1. Go to [supabase.com](https://supabase.com) and sign up/login
+2. Click **"New Project"**
+3. Choose:
+   - **Organization**: Create or select one
+   - **Name**: `federal-reserve-rag` (or your choice)
+   - **Database Password**: Create a strong password (save it!)
+   - **Region**: Choose closest to you
+4. Click **"Create new project"**
+5. Wait 2-3 minutes for provisioning
+
+#### Get Connection String
+
+1. Go to **Settings** → **Database** in Supabase dashboard
+2. Scroll to **Connection string** section
+3. Select **Transaction** mode tab (port 6543, **NOT** Session mode)
+4. Copy the connection string
+
+Example format:
+```
+postgresql://postgres.abcd1234:YOUR_PASSWORD@aws-0-region.pooler.supabase.com:6543/postgres
+```
+
+#### Run Database Schema
+
+1. In Supabase dashboard, go to **SQL Editor**
+2. Click **"New query"**
+3. Open `supabase_setup.sql` from your project directory
+4. Copy **all contents** (146 lines)
+5. Paste into the SQL Editor
+6. Click **Run** (or `Cmd/Ctrl + Enter`)
+
+You should see: `Success. No rows returned`
+
+#### Verify Setup
+
+Run this query in the SQL Editor to verify tables were created:
+```sql
+SELECT table_name
+FROM information_schema.tables
+WHERE table_schema = 'public'
+ORDER BY table_name;
+```
+
+You should see 7 tables: `document_review_flags`, `document_scores`, `documents`, `feedback`, `queries`, `responses`, `source_refresh_log`
+
+</details>
+
+---
+
+### 7. Configure Environment Variables
 
 Copy the example environment file and edit it:
 
@@ -208,16 +274,22 @@ cp .env.example .env
 
 Edit `.env` with your settings:
 
+**If you chose Local PostgreSQL:**
 ```bash
 # Anthropic API Key (REQUIRED - get from https://console.anthropic.com/)
 ANTHROPIC_API_KEY=your_anthropic_api_key_here
 
-# PostgreSQL Configuration
-DB_HOST=localhost
-DB_PORT=5433
-DB_NAME=rag_system
-DB_USER=rag_user
-DB_PASSWORD=your_secure_password
+# ============================================================
+# DATABASE CONFIGURATION
+# ============================================================
+DATABASE_MODE=local
+
+# Local PostgreSQL Configuration
+LOCAL_DB_HOST=localhost
+LOCAL_DB_PORT=5433
+LOCAL_DB_NAME=rag_system
+LOCAL_DB_USER=rag_user
+LOCAL_DB_PASSWORD=your_secure_password
 
 # Model Configuration
 CLAUDE_MODEL=claude-sonnet-4-20250514
@@ -230,7 +302,53 @@ ENABLE_PII_REDACTION=true
 FEEDBACK_WEIGHT=0.3
 ```
 
-### 10. Import Federal Reserve Content
+**If you chose Supabase:**
+```bash
+# Anthropic API Key (REQUIRED - get from https://console.anthropic.com/)
+ANTHROPIC_API_KEY=your_anthropic_api_key_here
+
+# ============================================================
+# DATABASE CONFIGURATION
+# ============================================================
+DATABASE_MODE=supabase
+
+# Supabase Configuration (paste your connection string from Supabase dashboard)
+SUPABASE_URL=postgresql://postgres.abcd1234:YOUR_PASSWORD@aws-0-region.pooler.supabase.com:6543/postgres
+
+# Model Configuration
+CLAUDE_MODEL=claude-sonnet-4-20250514
+EMBEDDING_MODEL=sentence-transformers/all-MiniLM-L6-v2
+
+# PII Redaction (enabled by default)
+ENABLE_PII_REDACTION=true
+
+# Reranking Configuration
+FEEDBACK_WEIGHT=0.3
+```
+
+> **💡 Switching Databases:** You can switch between local and Supabase at any time by changing `DATABASE_MODE` in your `.env` file. See [DATABASE_SWITCHING.md](DATABASE_SWITCHING.md) for details.
+
+### 8. Test Database Connection
+
+Verify your database is set up correctly:
+
+```bash
+python3 test_db_connection.py
+```
+
+**Expected output:**
+```
+=================================================
+DATABASE CONNECTION TEST
+=================================================
+DATABASE_MODE: local  (or supabase)
+...
+✓ Successfully connected to [local/Supabase] database!
+✓ Connection test passed!
+=================================================
+```
+
+### 9. Import Federal Reserve Content
 
 The system needs to crawl and import Federal Reserve content before it can answer questions.
 
@@ -272,7 +390,7 @@ Total: 2,625+ documents
 ============================================================
 ```
 
-### 11. Generate Architecture Diagrams
+### 10. Generate Architecture Diagrams
 
 ```bash
 python3 generate_pipeline_diagram.py
@@ -285,10 +403,6 @@ This creates three diagrams that are displayed in the "How It Works" page:
 
 ---
 
-> **💡 Deploying to Production?** This guide covers local development setup. For production deployment (Streamlit Cloud, Railway, AWS, Docker, etc.), see the **[Deployment Guide](DEPLOYMENT.md)** which includes detailed PostgreSQL hosting options and platform-specific instructions.
-
----
-
 ## Running the Application
 
 ### Start the Streamlit Interface
@@ -298,6 +412,14 @@ streamlit run streamlit_app.py
 ```
 
 The application will open in your browser at `http://localhost:8501`
+
+---
+
+> **💡 Deploying to Production?** This guide covers local development setup. For production deployment (Streamlit Cloud, Railway, AWS, Docker, etc.), see the **[Deployment Guide](DEPLOYMENT.md)** which includes detailed PostgreSQL hosting options and platform-specific instructions.
+>
+> **🔄 Switching Databases?** You can easily switch between local PostgreSQL and Supabase by changing `DATABASE_MODE` in your `.env` file. See [DATABASE_SWITCHING.md](DATABASE_SWITCHING.md) for complete instructions.
+
+---
 
 ## Quick Start for Returning Users
 
@@ -466,10 +588,11 @@ streamlit run streamlit_app.py
 - `queries` - Redacted user questions with embeddings and categories (**PII never stored**)
 - `responses` - Generated responses with metadata
 - `feedback` - User ratings, comments, and AI analysis
-  - `sentiment_score` - Float from -1.0 to +1.0
-  - `issue_types` - Array of detected issues
-  - `severity` - Enum: none, minor, moderate, severe
-  - `analysis_summary` - AI-generated summary
+  - `sentiment` - VARCHAR: positive, negative, neutral
+  - `issues` - Array of detected issues (outdated, incorrect, too_technical, etc.)
+  - `severity` - VARCHAR: none, minor, moderate, severe
+  - `confidence` - Float: AI confidence level (0.0-1.0)
+  - `summary` - AI-generated summary
 - `document_scores` - Enhanced reranking scores based on feedback
 - `document_review_flags` - Auto-flagged documents needing attention
 

@@ -8,6 +8,7 @@ from psycopg2.extras import RealDictCursor, execute_values
 from typing import List, Dict, Optional, Any
 from dotenv import load_dotenv
 import numpy as np
+from urllib.parse import urlparse
 
 load_dotenv()
 
@@ -17,19 +18,43 @@ class Database:
 
     def __init__(self):
         """Initialize database connection."""
-        self.conn_params = {
-            'host': os.getenv('DB_HOST', 'localhost'),
-            'port': os.getenv('DB_PORT', '5432'),
-            'database': os.getenv('DB_NAME', 'rag_system'),
-            'user': os.getenv('DB_USER', 'rag_user'),
-            'password': os.getenv('DB_PASSWORD', '')
-        }
+        # Check DATABASE_MODE to determine which database to use
+        db_mode = os.getenv('DATABASE_MODE', 'local').lower()
+
+        if db_mode == 'supabase':
+            # Use Supabase
+            supabase_url = os.getenv('SUPABASE_URL')
+            if not supabase_url:
+                raise ValueError("SUPABASE_URL not set in .env file")
+
+            # Parse the Supabase URL
+            parsed = urlparse(supabase_url)
+            self.conn_params = {
+                'host': parsed.hostname,
+                'port': parsed.port,
+                'database': parsed.path[1:],  # Remove leading '/'
+                'user': parsed.username,
+                'password': parsed.password
+            }
+            self.db_mode = 'supabase'
+        else:
+            # Use local PostgreSQL (default)
+            self.conn_params = {
+                'host': os.getenv('LOCAL_DB_HOST', 'localhost'),
+                'port': os.getenv('LOCAL_DB_PORT', '5433'),
+                'database': os.getenv('LOCAL_DB_NAME', 'rag_system'),
+                'user': os.getenv('LOCAL_DB_USER', 'rag_user'),
+                'password': os.getenv('LOCAL_DB_PASSWORD', '')
+            }
+            self.db_mode = 'local'
+
         self.conn = None
         self.cursor = None
 
     def connect(self):
         """Establish database connection."""
         if not self.conn or self.conn.closed:
+            # conn_params is now always a dict
             self.conn = psycopg2.connect(**self.conn_params)
             self.cursor = self.conn.cursor(cursor_factory=RealDictCursor)
 
@@ -182,21 +207,32 @@ class Database:
             raise ValueError("Rating must be between 1 and 5")
 
         if analysis:
+            # Convert sentiment_score (float) to sentiment (string) if needed
+            sentiment = analysis.get('sentiment')
+            if not sentiment and 'sentiment_score' in analysis:
+                score = analysis['sentiment_score']
+                if score > 0.2:
+                    sentiment = 'positive'
+                elif score < -0.2:
+                    sentiment = 'negative'
+                else:
+                    sentiment = 'neutral'
+            else:
+                sentiment = sentiment or 'neutral'
+
             query = """
-                INSERT INTO feedback (response_id, rating, comment, sentiment_score,
-                                    issue_types, severity, needs_review, analysis_confidence,
-                                    analysis_summary, analyzed_at)
-                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, CURRENT_TIMESTAMP)
+                INSERT INTO feedback (response_id, rating, comment, sentiment,
+                                    issues, severity, confidence, summary)
+                VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
                 RETURNING id;
             """
             self.cursor.execute(query, (
                 response_id, rating, comment,
-                analysis.get('sentiment_score', 0.0),
-                analysis.get('issue_types', []),
+                sentiment,
+                analysis.get('issues', analysis.get('issue_types', [])),
                 analysis.get('severity', 'none'),
-                analysis.get('needs_review', False),
                 analysis.get('confidence', 0.0),
-                analysis.get('summary', '')
+                analysis.get('summary', analysis.get('analysis_summary', ''))
             ))
         else:
             query = """
@@ -215,24 +251,34 @@ class Database:
         """Update feedback with comment analysis results."""
         self.connect()
 
+        # Convert sentiment_score (float) to sentiment (string) if needed
+        sentiment = analysis.get('sentiment')
+        if not sentiment and 'sentiment_score' in analysis:
+            score = analysis['sentiment_score']
+            if score > 0.2:
+                sentiment = 'positive'
+            elif score < -0.2:
+                sentiment = 'negative'
+            else:
+                sentiment = 'neutral'
+        else:
+            sentiment = sentiment or 'neutral'
+
         query = """
             UPDATE feedback
-            SET sentiment_score = %s,
-                issue_types = %s,
+            SET sentiment = %s,
+                issues = %s,
                 severity = %s,
-                needs_review = %s,
-                analysis_confidence = %s,
-                analysis_summary = %s,
-                analyzed_at = CURRENT_TIMESTAMP
+                confidence = %s,
+                summary = %s
             WHERE id = %s;
         """
         self.cursor.execute(query, (
-            analysis.get('sentiment_score', 0.0),
-            analysis.get('issue_types', []),
+            sentiment,
+            analysis.get('issues', analysis.get('issue_types', [])),
             analysis.get('severity', 'none'),
-            analysis.get('needs_review', False),
             analysis.get('confidence', 0.0),
-            analysis.get('summary', ''),
+            analysis.get('summary', analysis.get('analysis_summary', '')),
             feedback_id
         ))
         self.conn.commit()
@@ -262,9 +308,8 @@ class Database:
         self.connect()
 
         query = """
-            SELECT id, rating, comment, created_at, sentiment_score,
-                   issue_types, severity, needs_review, analysis_confidence,
-                   analysis_summary, analyzed_at
+            SELECT id, rating, comment, created_at, sentiment,
+                   issues, severity, confidence, summary
             FROM feedback
             WHERE response_id = %s
             ORDER BY created_at DESC;
@@ -285,10 +330,16 @@ class Database:
                         AVG(f.rating) as avg_rating,
                         AVG(
                             CASE
-                                WHEN f.sentiment_score IS NOT NULL AND f.analysis_confidence > 0.3 THEN
+                                WHEN f.sentiment IS NOT NULL AND f.confidence > 0.3 THEN
                                     -- Combine rating and sentiment with severity penalties
+                                    -- Convert sentiment VARCHAR to numeric score
                                     0.7 * ((f.rating - 3.0) / 2.0) +
-                                    0.3 * f.sentiment_score * f.analysis_confidence +
+                                    0.3 * (CASE f.sentiment
+                                        WHEN 'positive' THEN 1.0
+                                        WHEN 'negative' THEN -1.0
+                                        WHEN 'neutral' THEN 0.0
+                                        ELSE 0.0
+                                    END) * f.confidence +
                                     CASE f.severity
                                         WHEN 'minor' THEN -0.1
                                         WHEN 'moderate' THEN -0.3
@@ -452,9 +503,9 @@ class Database:
                             'rating', f.rating,
                             'comment', COALESCE(f.comment, ''),
                             'created_at', f.created_at,
-                            'sentiment_score', f.sentiment_score,
+                            'sentiment', f.sentiment,
                             'severity', f.severity,
-                            'issue_types', f.issue_types,
+                            'issues', f.issues,
                             'has_comment', f.comment IS NOT NULL AND f.comment != ''
                         )
                         ELSE NULL
@@ -545,7 +596,7 @@ class Database:
             return 0
 
     def get_feedback_needing_review(self) -> List[Dict]:
-        """Get all feedback marked as needing review."""
+        """Get all feedback marked as needing review (severe or moderate severity)."""
         self.connect()
 
         query = """
@@ -554,9 +605,9 @@ class Database:
                 f.response_id,
                 f.rating,
                 f.comment,
-                f.issue_types,
+                f.issues,
                 f.severity,
-                f.analysis_summary,
+                f.summary,
                 f.created_at,
                 r.response_text,
                 r.retrieved_doc_ids,
@@ -564,7 +615,7 @@ class Database:
             FROM feedback f
             JOIN responses r ON f.response_id = r.id
             JOIN queries q ON r.query_id = q.id
-            WHERE f.needs_review = TRUE
+            WHERE f.severity IN ('severe', 'moderate')
             ORDER BY f.created_at DESC;
         """
         self.cursor.execute(query)
@@ -646,7 +697,7 @@ class Database:
                 f.rating,
                 f.comment,
                 f.severity,
-                f.analysis_summary,
+                f.summary,
                 f.created_at,
                 r.response_text,
                 r.retrieved_doc_ids,
@@ -654,7 +705,7 @@ class Database:
             FROM feedback f
             JOIN responses r ON f.response_id = r.id
             JOIN queries q ON r.query_id = q.id
-            WHERE %s = ANY(f.issue_types)
+            WHERE %s = ANY(f.issues)
             ORDER BY f.created_at DESC;
         """
         self.cursor.execute(query, (issue_type,))
