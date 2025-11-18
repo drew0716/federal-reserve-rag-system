@@ -22,20 +22,13 @@ class PIIRedactor:
         """
         try:
             self.nlp = spacy.load(model_name)
+            self.nlp_available = True
         except OSError as e:
-            error_msg = f"""
-            spaCy model '{model_name}' not found.
-
-            For Streamlit Cloud deployment:
-            - The model should be installed automatically from requirements.txt
-            - Ensure this line is in requirements.txt:
-              https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.7.1/en_core_web_sm-3.7.1-py3-none-any.whl
-
-            For local development:
-            - Run: python3 -m spacy download {model_name}
-            """
-            print(error_msg)
-            raise RuntimeError(error_msg) from e
+            print(f"⚠️  Warning: spaCy model '{model_name}' not available.")
+            print(f"   PII redaction will use regex patterns only (no NER).")
+            print(f"   To enable full PII redaction, install: python3 -m spacy download {model_name}")
+            self.nlp = None
+            self.nlp_available = False
 
         # Entity types to redact
         self.entity_types = {
@@ -120,30 +113,32 @@ class PIIRedactor:
                     redacted_text[match.end():]
                 )
 
-        # Step 2: spaCy NER-based redaction
-        doc = self.nlp(redacted_text)
+        # Step 2: spaCy NER-based redaction (only if model is available)
         entities_to_redact = []
 
-        for ent in doc.ents:
-            if ent.label_ in self.entity_types:
-                # Skip if it's a Federal Reserve related term
-                if self._is_federal_reserve_term(ent.text):
-                    continue
+        if self.nlp_available and self.nlp is not None:
+            doc = self.nlp(redacted_text)
 
-                # Skip if it's part of a Federal Reserve Bank name
-                # Check context around the entity
-                start_context = max(0, ent.start_char - 30)
-                end_context = min(len(redacted_text), ent.end_char + 30)
-                context = redacted_text[start_context:end_context].lower()
-                if 'federal reserve bank of' in context and ent.label_ == 'GPE':
-                    # This is likely a location that's part of a Federal Reserve Bank name
-                    continue
+            for ent in doc.ents:
+                if ent.label_ in self.entity_types:
+                    # Skip if it's a Federal Reserve related term
+                    if self._is_federal_reserve_term(ent.text):
+                        continue
 
-                # Skip common financial terms
-                if self._is_financial_term(ent.text):
-                    continue
+                    # Skip if it's part of a Federal Reserve Bank name
+                    # Check context around the entity
+                    start_context = max(0, ent.start_char - 30)
+                    end_context = min(len(redacted_text), ent.end_char + 30)
+                    context = redacted_text[start_context:end_context].lower()
+                    if 'federal reserve bank of' in context and ent.label_ == 'GPE':
+                        # This is likely a location that's part of a Federal Reserve Bank name
+                        continue
 
-                entities_to_redact.append(ent)
+                    # Skip common financial terms
+                    if self._is_financial_term(ent.text):
+                        continue
+
+                    entities_to_redact.append(ent)
 
         # Sort entities by start position (reverse order for replacement)
         entities_to_redact.sort(key=lambda e: e.start_char, reverse=True)
