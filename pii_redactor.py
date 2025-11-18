@@ -6,8 +6,16 @@ Uses spaCy NER and regex patterns for local, privacy-preserving redaction.
 
 import re
 from typing import Dict, List, Tuple
-import spacy
-from spacy.matcher import Matcher
+
+# Try to import spaCy, but make it optional
+try:
+    import spacy
+    from spacy.matcher import Matcher
+    SPACY_AVAILABLE = True
+except ImportError:
+    SPACY_AVAILABLE = False
+    spacy = None
+    Matcher = None
 
 
 class PIIRedactor:
@@ -20,15 +28,22 @@ class PIIRedactor:
         Args:
             model_name: spaCy model to use (default: en_core_web_sm)
         """
-        try:
-            self.nlp = spacy.load(model_name)
-            self.nlp_available = True
-        except OSError as e:
-            print(f"⚠️  Warning: spaCy model '{model_name}' not available.")
+        if not SPACY_AVAILABLE:
+            print(f"⚠️  Warning: spaCy library not installed.")
             print(f"   PII redaction will use regex patterns only (no NER).")
-            print(f"   To enable full PII redaction, install: python3 -m spacy download {model_name}")
+            print(f"   To enable full PII redaction, install: pip install spacy && python3 -m spacy download {model_name}")
             self.nlp = None
             self.nlp_available = False
+        else:
+            try:
+                self.nlp = spacy.load(model_name)
+                self.nlp_available = True
+            except OSError as e:
+                print(f"⚠️  Warning: spaCy model '{model_name}' not available.")
+                print(f"   PII redaction will use regex patterns only (no NER).")
+                print(f"   To enable full PII redaction, install: python3 -m spacy download {model_name}")
+                self.nlp = None
+                self.nlp_available = False
 
         # Entity types to redact
         self.entity_types = {
