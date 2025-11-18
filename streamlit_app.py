@@ -886,8 +886,10 @@ def source_management_page():
                         st.success("✅ Refresh completed successfully!")
 
                         # Also recalculate URL-level scores after refresh
-                        with db:
-                            db.calculate_source_document_scores(use_enhanced_scores=True)
+                        from database import Database
+                        refresh_db = Database()
+                        with refresh_db:
+                            refresh_db.calculate_source_document_scores(use_enhanced_scores=True)
 
                         st.rerun()
                     except Exception as e:
