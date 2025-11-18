@@ -43,7 +43,7 @@ def is_valid_link(href):
         "audited-annual",  # Audited annual reports
         "annual-report",  # Annual reports
         "auditors-report",  # Auditor reports
-        "/bios/",         # Biography pages
+        # NOTE: /bios/ removed to include Fed Chair and Governor biographies
         "sunshine",       # Sunshine act notices
         "appendix-",      # Technical appendices
         "annualreports",  # Annual report listings
