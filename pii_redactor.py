@@ -105,20 +105,21 @@ class PIIRedactor:
         }
 
     def _initialize_presidio(self):
-        """Initialize Presidio Analyzer and Anonymizer with GLiNER."""
+        """Initialize Presidio Analyzer and Anonymizer with spaCy."""
         try:
-            # Create NLP engine configuration
+            # Create NLP engine configuration for spaCy
             configuration = {
                 "nlp_engine_name": "spacy",
                 "models": [{"lang_code": "en", "model_name": "en_core_web_sm"}],
             }
 
-            # Try to create NLP engine (spaCy for tokenization)
+            # Try to create NLP engine (spaCy for NER)
             try:
                 nlp_engine = NlpEngineProvider(nlp_configuration=configuration).create_engine()
+                print(f"✅ spaCy NLP engine loaded successfully")
             except Exception as e:
                 print(f"⚠️  Note: Could not load spaCy model: {e}")
-                print(f"   Attempting to use Presidio without spaCy...")
+                print(f"   Attempting to use Presidio without spaCy NLP...")
                 nlp_engine = None
 
             # Create recognizer registry
@@ -175,14 +176,14 @@ class PIIRedactor:
 
                 except Exception as e:
                     print(f"⚠️  Note: Could not load GLiNER model: {e}")
-                    print(f"   Using Presidio's built-in recognizers only...")
+                    print(f"   Using Presidio's built-in recognizers with spaCy NER...")
                     registry.load_predefined_recognizers(nlp_engine=nlp_engine)
             else:
-                # Use built-in recognizers (default - fast and effective)
+                # Use built-in recognizers with spaCy (default - effective NER)
                 if use_gliner:
-                    print(f"⚠️  GLiNER requested but not available, using Presidio built-in recognizers...")
+                    print(f"⚠️  GLiNER requested but not available, using Presidio built-in recognizers with spaCy...")
                 else:
-                    print(f"ℹ️  Using Presidio's built-in recognizers (set USE_GLINER=true to enable GLiNER)")
+                    print(f"ℹ️  Using Presidio's built-in recognizers with spaCy NER (set USE_GLINER=true to enable GLiNER)")
                 registry.load_predefined_recognizers(nlp_engine=nlp_engine)
 
             # Create analyzer engine
