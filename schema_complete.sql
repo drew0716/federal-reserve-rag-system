@@ -1,4 +1,4 @@
--- Complete Schema for Federal Reserve RAG System (Supabase)
+-- Complete Schema for Federal Reserve RAG System (Local PostgreSQL)
 -- This is the consolidated schema for fresh installations
 -- For existing database migrations, see files in migrations/ folder
 

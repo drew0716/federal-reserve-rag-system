@@ -88,7 +88,7 @@ Upgraded the feedback-based ranking system from chunk-level to URL-level scoring
 
 ### Migration & Utilities
 
-11. **`migrate_to_url_scores.py`** *(New)*
+11. **`migrations/migrate_to_url_scores.py`** *(New)*
     - Converts existing chunk scores to URL scores
     - One-time migration script
     - Includes verification
@@ -163,7 +163,7 @@ Upgraded the feedback-based ranking system from chunk-level to URL-level scoring
 psql -U rag_user -p 5433 -d rag_system -f schema_update_url_scoring.sql
 
 # 2. Migrate existing data (optional)
-python migrate_to_url_scores.py
+python migrations/migrate_to_url_scores.py
 
 # 3. Done!
 ```
@@ -259,7 +259,7 @@ Potential improvements to consider:
 - **Upgrade Guide**: `UPGRADE_URL_SCORING.md`
 - **Deployment**: `DEPLOY_URL_SCORING.md`
 - **Quick Start**: `DEPLOYMENT_CHECKLIST.md`
-- **Migration Script**: `migrate_to_url_scores.py`
+- **Migration Script**: `migrations/migrate_to_url_scores.py`
 - **Diagnostics**: `debug_feedback_flow.sql`, `verify_schema.sql`
 
 ---

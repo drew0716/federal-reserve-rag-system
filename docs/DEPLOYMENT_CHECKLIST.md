@@ -24,7 +24,7 @@ DATABASE_MODE=supabase
 SUPABASE_URL=postgresql://postgres:[PASSWORD]@[HOST]:6543/postgres
 
 # Run migration:
-python migrate_to_url_scores.py
+python migrations/migrate_to_url_scores.py
 ```
 
 **Option B: Skip Migration** (if starting fresh)

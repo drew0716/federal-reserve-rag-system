@@ -14,17 +14,17 @@ This system crawls official Federal Reserve documentation, processes it into a s
 
 ## 🚀 Quick Links
 
-- **[Pipeline Architecture](PIPELINE_ARCHITECTURE.md)** - System architecture diagrams, data flows, and component details
-- **[URL-Level Scoring](URL_SCORING.md)** - ⭐ NEW: How learned rankings persist across content refreshes
-- **[Database Switching Guide](DATABASE_SWITCHING.md)** - Easily switch between local PostgreSQL and Supabase
-- **[Deployment Guide](DEPLOYMENT.md)** - Complete guide for deploying to production with PostgreSQL options
-- **[Local Model Migration Guide](LOCAL_MODEL_MIGRATION.md)** - Replace Claude Sonnet 4 with local open-source models (Llama, Qwen, Mistral)
-- **[PII Redaction Documentation](PII_REDACTION.md)** - Details on privacy protection features
-- **[Feedback Analysis Documentation](FEEDBACK_ANALYSIS.md)** - How AI-powered feedback works
+- **[Pipeline Architecture](docs/PIPELINE_ARCHITECTURE.md)** - System architecture diagrams, data flows, and component details
+- **[URL-Level Scoring](docs/URL_SCORING.md)** - ⭐ NEW: How learned rankings persist across content refreshes
+- **[Database Switching Guide](docs/DATABASE_SWITCHING.md)** - Easily switch between local PostgreSQL and Supabase
+- **[Deployment Guide](docs/DEPLOYMENT.md)** - Complete guide for deploying to production with PostgreSQL options
+- **[Local Model Migration Guide](docs/LOCAL_MODEL_MIGRATION.md)** - Replace Claude Sonnet 4 with local open-source models (Llama, Qwen, Mistral)
+- **[PII Redaction Documentation](docs/PII_REDACTION.md)** - Details on privacy protection features
+- **[Feedback Analysis Documentation](docs/FEEDBACK_ANALYSIS.md)** - How AI-powered feedback works
 
-> **New to deployment?** Check out [DEPLOYMENT.md](DEPLOYMENT.md) for step-by-step guides to deploy with Streamlit Cloud, Railway, AWS, or Docker. Includes detailed PostgreSQL setup options (managed services like Supabase/Neon or self-hosted).
+> **New to deployment?** Check out [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md) for step-by-step guides to deploy with Streamlit Cloud, Railway, AWS, or Docker. Includes detailed PostgreSQL setup options (managed services like Supabase/Neon or self-hosted).
 
-> **Want to eliminate API costs?** See [LOCAL_MODEL_MIGRATION.md](LOCAL_MODEL_MIGRATION.md) for complete instructions on replacing Claude Sonnet 4 with local models like Llama 3.1, Qwen 2.5, or Mistral. Includes code changes, performance optimization, and quality comparison.
+> **Want to eliminate API costs?** See [docs/LOCAL_MODEL_MIGRATION.md](docs/LOCAL_MODEL_MIGRATION.md) for complete instructions on replacing Claude Sonnet 4 with local models like Llama 3.1, Qwen 2.5, or Mistral. Includes code changes, performance optimization, and quality comparison.
 
 ## Features
 
@@ -71,7 +71,7 @@ This system crawls official Federal Reserve documentation, processes it into a s
 - **macOS, Linux, or Windows** (instructions provided for macOS)
 - **Graphviz** (for generating architecture diagrams)
 
-> **📊 Database Options:** This system supports both local PostgreSQL and Supabase. You can easily switch between them by changing `DATABASE_MODE` in your `.env` file. See [DATABASE_SWITCHING.md](DATABASE_SWITCHING.md) for details.
+> **📊 Database Options:** This system supports both local PostgreSQL and Supabase. You can easily switch between them by changing `DATABASE_MODE` in your `.env` file. See [docs/DATABASE_SWITCHING.md](docs/DATABASE_SWITCHING.md) for details.
 
 ## Installation
 
@@ -207,13 +207,8 @@ CREATE EXTENSION IF NOT EXISTS vector;
 ```
 
 ```bash
-# Run all schema files in order
-psql -U rag_user -p 5433 -d rag_system -f schema.sql
-psql -U rag_user -p 5433 -d rag_system -f schema_update_sources.sql
-psql -U rag_user -p 5433 -d rag_system -f schema_update_categories.sql
-psql -U rag_user -p 5433 -d rag_system -f schema_update_feedback_analysis.sql
-psql -U rag_user -p 5433 -d rag_system -f schema_update_pii_no_storage.sql
-psql -U rag_user -p 5433 -d rag_system -f schema_update_url_scoring.sql
+# Run the complete schema file
+psql -U rag_user -p 5433 -d rag_system -f schema_complete.sql
 ```
 
 **Note:** You may be prompted for the password you set earlier. Use `PGPASSWORD='your_secure_password'` prefix if needed.
@@ -336,7 +331,7 @@ ENABLE_PII_REDACTION=true
 FEEDBACK_WEIGHT=0.3
 ```
 
-> **💡 Switching Databases:** You can switch between local and Supabase at any time by changing `DATABASE_MODE` in your `.env` file. See [DATABASE_SWITCHING.md](DATABASE_SWITCHING.md) for details.
+> **💡 Switching Databases:** You can switch between local and Supabase at any time by changing `DATABASE_MODE` in your `.env` file. See [docs/DATABASE_SWITCHING.md](docs/DATABASE_SWITCHING.md) for details.
 
 ### 8. Test Database Connection
 
@@ -407,9 +402,9 @@ python3 generate_pipeline_diagram.py
 ```
 
 This creates three diagrams that are displayed in the "How It Works" page:
-- `rag_architecture.png` - System architecture
-- `rag_query_flow.png` - Query flow pipeline with PII redaction and feedback analysis
-- `rag_content_pipeline.png` - Content processing pipeline
+- `images/rag_architecture.png` - System architecture
+- `images/rag_query_flow.png` - Query flow pipeline with PII redaction and feedback analysis
+- `images/rag_content_pipeline.png` - Content processing pipeline
 
 ---
 
@@ -425,9 +420,9 @@ The application will open in your browser at `http://localhost:8501`
 
 ---
 
-> **💡 Deploying to Production?** This guide covers local development setup. For production deployment (Streamlit Cloud, Railway, AWS, Docker, etc.), see the **[Deployment Guide](DEPLOYMENT.md)** which includes detailed PostgreSQL hosting options and platform-specific instructions.
+> **💡 Deploying to Production?** This guide covers local development setup. For production deployment (Streamlit Cloud, Railway, AWS, Docker, etc.), see the **[Deployment Guide](docs/DEPLOYMENT.md)** which includes detailed PostgreSQL hosting options and platform-specific instructions.
 >
-> **🔄 Switching Databases?** You can easily switch between local PostgreSQL and Supabase by changing `DATABASE_MODE` in your `.env` file. See [DATABASE_SWITCHING.md](DATABASE_SWITCHING.md) for complete instructions.
+> **🔄 Switching Databases?** You can easily switch between local PostgreSQL and Supabase by changing `DATABASE_MODE` in your `.env` file. See [docs/DATABASE_SWITCHING.md](docs/DATABASE_SWITCHING.md) for complete instructions.
 
 ---
 
@@ -540,7 +535,7 @@ streamlit run streamlit_app.py
 
 ## System Architecture
 
-> **📊 For detailed pipeline documentation:** See [PIPELINE_ARCHITECTURE.md](PIPELINE_ARCHITECTURE.md) for comprehensive explanations of all diagrams, data flows, component details, and performance considerations.
+> **📊 For detailed pipeline documentation:** See [docs/PIPELINE_ARCHITECTURE.md](docs/PIPELINE_ARCHITECTURE.md) for comprehensive explanations of all diagrams, data flows, component details, and performance considerations.
 
 ### High-Level Components
 
@@ -938,20 +933,29 @@ python3 -c "from anthropic import Anthropic; c = Anthropic(); print('✓ API key
 ├── fed_content_importer.py             # Content importer
 ├── crawl_about_fed.py                  # Web crawler
 ├── generate_pipeline_diagram.py        # Architecture diagram generator
-├── schema.sql                          # Base database schema
-├── schema_update_sources.sql           # Source management schema
-├── schema_update_categories.sql        # Query categorization schema
-├── schema_update_feedback_analysis.sql # Feedback analysis schema
-├── schema_update_pii_no_storage.sql    # PII data minimization schema
+├── schema_complete.sql                 # Complete database schema (local PostgreSQL)
+├── supabase_setup.sql                  # Complete database schema (Supabase)
 ├── requirements.txt                    # Python dependencies
 ├── .env.example                        # Environment template
 ├── .gitignore                          # Git exclusions
 ├── README.md                           # This file
-├── PII_REDACTION.md                    # PII redaction documentation
-├── FEEDBACK_ANALYSIS.md                # Feedback analysis documentation
-├── rag_architecture.png                # System architecture diagram
-├── rag_query_flow.png                  # Query flow diagram
-├── rag_content_pipeline.png            # Content processing diagram
+├── images/                             # Generated diagrams
+│   ├── rag_architecture.png            # System architecture diagram
+│   ├── rag_query_flow.png              # Query flow diagram
+│   └── rag_content_pipeline.png        # Content processing diagram
+├── docs/                               # Documentation
+│   ├── PIPELINE_ARCHITECTURE.md        # Pipeline architecture details
+│   ├── URL_SCORING.md                  # URL-level scoring documentation
+│   ├── DATABASE_SWITCHING.md           # Database switching guide
+│   ├── DEPLOYMENT.md                   # Deployment guide
+│   ├── LOCAL_MODEL_MIGRATION.md        # Local model migration guide
+│   ├── PII_REDACTION.md                # PII redaction documentation
+│   ├── FEEDBACK_ANALYSIS.md            # Feedback analysis documentation
+│   └── ...                             # Other documentation files
+├── migrations/                         # Legacy schema migration files
+│   ├── schema.sql                      # Base schema (legacy)
+│   ├── schema_update_sources.sql       # Source management update (legacy)
+│   └── ...                             # Other migration files
 ├── about_the_fed_pages/                # Crawled Fed content (generated)
 └── faq_pages/                          # Crawled FAQ content (generated)
 ```

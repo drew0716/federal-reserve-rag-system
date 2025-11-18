@@ -38,7 +38,7 @@ psql "$SUPABASE_URL" -f schema_update_url_scoring.sql
 
 If you have existing feedback and scores to preserve:
 ```bash
-python migrate_to_url_scores.py
+python migrations/migrate_to_url_scores.py
 ```
 
 **Output:**
@@ -115,7 +115,7 @@ psql $DATABASE_URL -c "SELECT source_url, enhanced_feedback_score FROM source_do
 - `URL_SCORING.md` - Complete documentation
 - `UPGRADE_URL_SCORING.md` - This guide
 - `schema_update_url_scoring.sql` - Schema migration
-- `migrate_to_url_scores.py` - Data migration script
+- `migrations/migrate_to_url_scores.py` - Data migration script
 
 ### Modified Files
 - `supabase_setup.sql` - Added source_document_scores table

@@ -94,7 +94,7 @@ The old `document_scores` table is kept for backward compatibility but is no lon
 If you have existing chunk-level scores, migrate them to URL-level:
 
 ```bash
-python migrate_to_url_scores.py
+python migrations/migrate_to_url_scores.py
 ```
 
 This script:

@@ -34,7 +34,7 @@ BEGIN
     RAISE NOTICE '✅ URL-level scoring schema update complete!';
     RAISE NOTICE '';
     RAISE NOTICE 'Next steps:';
-    RAISE NOTICE '1. Run migration script: python migrate_to_url_scores.py';
+    RAISE NOTICE '1. Run migration script: python migrations/migrate_to_url_scores.py';
     RAISE NOTICE '2. System will automatically use URL-level scoring';
     RAISE NOTICE '3. Scores will now persist across data refreshes';
     RAISE NOTICE '';

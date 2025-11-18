@@ -70,9 +70,9 @@ def get_rag_system():
 def ensure_diagrams_exist():
     """Generate pipeline diagrams if they don't exist."""
     diagram_files = [
-        'rag_architecture.png',
-        'rag_query_flow.png',
-        'rag_content_pipeline.png'
+        'images/rag_architecture.png',
+        'images/rag_query_flow.png',
+        'images/rag_content_pipeline.png'
     ]
 
     # Check if any diagrams are missing
@@ -982,8 +982,8 @@ def how_it_works_page():
             - **Claude Sonnet 4** integration for categorization and response generation
             - **PostgreSQL + pgvector** for vector similarity search and data storage
             """)
-            if Path('rag_architecture.png').exists():
-                st.image('rag_architecture.png', use_container_width=True)
+            if Path('images/rag_architecture.png').exists():
+                st.image('images/rag_architecture.png', use_container_width=True)
             else:
                 st.warning("Architecture diagram not available")
 
@@ -1001,8 +1001,8 @@ def how_it_works_page():
             The **feedback loop** (shown in blue dashed line) connects back to ranking,
             enabling continuous improvement based on user ratings and AI-analyzed comments.
             """)
-            if Path('rag_query_flow.png').exists():
-                st.image('rag_query_flow.png', use_container_width=True)
+            if Path('images/rag_query_flow.png').exists():
+                st.image('images/rag_query_flow.png', use_container_width=True)
             else:
                 st.warning("Query flow diagram not available")
 
@@ -1011,8 +1011,8 @@ def how_it_works_page():
             This diagram shows how Federal Reserve content is crawled from the website,
             processed into chunks, converted to vector embeddings, and stored in the PostgreSQL database.
             """)
-            if Path('rag_content_pipeline.png').exists():
-                st.image('rag_content_pipeline.png', use_container_width=True)
+            if Path('images/rag_content_pipeline.png').exists():
+                st.image('images/rag_content_pipeline.png', use_container_width=True)
             else:
                 st.warning("Content pipeline diagram not available")
 

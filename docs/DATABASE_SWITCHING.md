@@ -66,13 +66,9 @@ GRANT ALL PRIVILEGES ON DATABASE rag_system TO rag_user;
 CREATE EXTENSION IF NOT EXISTS vector;
 ```
 
-**3. Run schema files:**
+**3. Run schema file:**
 ```bash
-psql -p 5433 -U rag_user -d rag_system -f schema.sql
-psql -p 5433 -U rag_user -d rag_system -f schema_update_sources.sql
-psql -p 5433 -U rag_user -d rag_system -f schema_update_categories.sql
-psql -p 5433 -U rag_user -d rag_system -f schema_update_feedback_analysis.sql
-psql -p 5433 -U rag_user -d rag_system -f schema_update_pii_no_storage.sql
+psql -p 5433 -U rag_user -d rag_system -f schema_complete.sql
 ```
 
 **4. Set DATABASE_MODE:**

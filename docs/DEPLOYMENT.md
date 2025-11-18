@@ -238,11 +238,7 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
-      - ./schema.sql:/docker-entrypoint-initdb.d/1-schema.sql
-      - ./schema_update_sources.sql:/docker-entrypoint-initdb.d/2-sources.sql
-      - ./schema_update_categories.sql:/docker-entrypoint-initdb.d/3-categories.sql
-      - ./schema_update_feedback_analysis.sql:/docker-entrypoint-initdb.d/4-feedback.sql
-      - ./schema_update_pii_no_storage.sql:/docker-entrypoint-initdb.d/5-pii.sql
+      - ./schema_complete.sql:/docker-entrypoint-initdb.d/schema.sql
 
 volumes:
   postgres_data:

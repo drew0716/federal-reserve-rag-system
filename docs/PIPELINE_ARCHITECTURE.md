@@ -1007,7 +1007,7 @@ Quick reference to key files for each component:
 
 ## Additional Resources
 
-- **[README.md](README.md)** - Main documentation and installation
+- **[README.md](../README.md)** - Main documentation and installation
 - **[DEPLOYMENT.md](DEPLOYMENT.md)** - Production deployment guide
 - **[LOCAL_MODEL_MIGRATION.md](LOCAL_MODEL_MIGRATION.md)** - Replace Claude with local models
 - **[PII_REDACTION.md](PII_REDACTION.md)** - Privacy protection details

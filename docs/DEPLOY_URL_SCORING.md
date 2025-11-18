@@ -31,7 +31,7 @@ Step-by-step guide to upgrade your deployed Streamlit app to use URL-level scori
    ✅ URL-level scoring schema update complete!
 
    Next steps:
-   1. Run migration script: python migrate_to_url_scores.py
+   1. Run migration script: python migrations/migrate_to_url_scores.py
    2. System will automatically use URL-level scoring
    3. Scores will now persist across data refreshes
    ```
@@ -70,7 +70,7 @@ You have **3 options** to run the migration:
 
 2. **Run migration script**
    ```bash
-   python migrate_to_url_scores.py
+   python migrations/migrate_to_url_scores.py
    ```
 
 3. **Verify output**

@@ -25,7 +25,7 @@ def generate_system_architecture():
 
     with Diagram(
         "Federal Reserve RAG System Architecture",
-        filename="rag_architecture",
+        filename="images/rag_architecture",
         show=False,
         direction="TB",
         graph_attr=graph_attr,
@@ -94,7 +94,7 @@ def generate_query_flow_pipeline():
 
     with Diagram(
         "RAG Query Flow Pipeline",
-        filename="rag_query_flow",
+        filename="images/rag_query_flow",
         show=False,
         direction="LR",
         graph_attr=graph_attr,
@@ -160,7 +160,7 @@ def generate_data_flow_diagram():
 
     with Diagram(
         "Content Processing Pipeline",
-        filename="rag_content_pipeline",
+        filename="images/rag_content_pipeline",
         show=False,
         direction="LR",
         graph_attr=graph_attr,
@@ -195,20 +195,20 @@ if __name__ == "__main__":
 
     print("1. Generating system architecture diagram...")
     generate_system_architecture()
-    print("   ✓ Created: rag_architecture.png")
+    print("   ✓ Created: images/rag_architecture.png")
 
     print("2. Generating query flow pipeline diagram...")
     generate_query_flow_pipeline()
-    print("   ✓ Created: rag_query_flow.png")
+    print("   ✓ Created: images/rag_query_flow.png")
 
     print("3. Generating content processing pipeline diagram...")
     generate_data_flow_diagram()
-    print("   ✓ Created: rag_content_pipeline.png")
+    print("   ✓ Created: images/rag_content_pipeline.png")
 
     print()
     print("All diagrams generated successfully!")
     print()
     print("To view the diagrams:")
-    print("  - open rag_architecture.png")
-    print("  - open rag_query_flow.png")
-    print("  - open rag_content_pipeline.png")
+    print("  - open images/rag_architecture.png")
+    print("  - open images/rag_query_flow.png")
+    print("  - open images/rag_content_pipeline.png")
