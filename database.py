@@ -437,7 +437,7 @@ class Database:
                 WITH url_feedback AS (
                     SELECT
                         d.source_url,
-                        d.source_type,
+                        MAX(d.source_type) as source_type,
                         AVG(f.rating) as avg_rating,
                         AVG(
                             CASE
@@ -460,14 +460,14 @@ class Database:
                                     (f.rating - 3.0) / 2.0  -- Fallback to rating-based
                             END
                         ) as enhanced_score,
-                        COUNT(f.id) as feedback_count
+                        COUNT(DISTINCT f.id) as feedback_count
                     FROM responses r
                     JOIN feedback f ON f.response_id = r.id
                     JOIN documents d ON d.id = ANY(r.retrieved_doc_ids)
                     WHERE r.retrieved_doc_ids IS NOT NULL
                         AND d.source_url IS NOT NULL
                         AND d.source_url != ''
-                    GROUP BY d.source_url, d.source_type
+                    GROUP BY d.source_url
                 )
                 INSERT INTO source_document_scores (
                     source_url, source_type, feedback_score,
@@ -494,16 +494,16 @@ class Database:
                 WITH url_feedback AS (
                     SELECT
                         d.source_url,
-                        d.source_type,
+                        MAX(d.source_type) as source_type,
                         AVG(f.rating) as avg_rating,
-                        COUNT(f.id) as feedback_count
+                        COUNT(DISTINCT f.id) as feedback_count
                     FROM responses r
                     JOIN feedback f ON f.response_id = r.id
                     JOIN documents d ON d.id = ANY(r.retrieved_doc_ids)
                     WHERE r.retrieved_doc_ids IS NOT NULL
                         AND d.source_url IS NOT NULL
                         AND d.source_url != ''
-                    GROUP BY d.source_url, d.source_type
+                    GROUP BY d.source_url
                 )
                 INSERT INTO source_document_scores (
                     source_url, source_type, feedback_score,
