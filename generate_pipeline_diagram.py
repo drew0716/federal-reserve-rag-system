@@ -41,7 +41,7 @@ def generate_system_architecture():
             ui_how = Python("How It Works")
 
         with Cluster("RAG System Core"):
-            pii_redactor = Python("PII Redactor\n(spaCy NER)")
+            pii_redactor = Python("PII Redactor\n(Presidio + spaCy)")
             query_proc = Python("Query Processing\n& Categorization")
             embedding_svc = Python("Embedding Service\n(MiniLM-L6-v2)")
             retrieval = Python("Document Retrieval\n& Hybrid Ranking")
@@ -103,7 +103,7 @@ def generate_query_flow_pipeline():
         user_input = Users("User")
 
         with Cluster("1. Privacy Protection"):
-            redact_pii = Python("Redact PII\n(spaCy NER)")
+            redact_pii = Python("Redact PII\n(Presidio + spaCy)")
             store_query = PostgreSQL("Store Redacted\nQuery Only")
 
         with Cluster("2. Query Analysis"):
