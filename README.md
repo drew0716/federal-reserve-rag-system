@@ -8,6 +8,7 @@ This system crawls official Federal Reserve documentation, processes it into a s
 
 ## 🚀 Quick Links
 
+- **[Pipeline Architecture](PIPELINE_ARCHITECTURE.md)** - System architecture diagrams, data flows, and component details
 - **[Deployment Guide](DEPLOYMENT.md)** - Complete guide for deploying to production with PostgreSQL options
 - **[Local Model Migration Guide](LOCAL_MODEL_MIGRATION.md)** - Replace Claude Sonnet 4 with local open-source models (Llama, Qwen, Mistral)
 - **[PII Redaction Documentation](PII_REDACTION.md)** - Details on privacy protection features
@@ -406,6 +407,8 @@ streamlit run streamlit_app.py
   - Severity indicators
 
 ## System Architecture
+
+> **📊 For detailed pipeline documentation:** See [PIPELINE_ARCHITECTURE.md](PIPELINE_ARCHITECTURE.md) for comprehensive explanations of all diagrams, data flows, component details, and performance considerations.
 
 ### High-Level Components
 
