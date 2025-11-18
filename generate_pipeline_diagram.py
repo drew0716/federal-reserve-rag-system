@@ -190,6 +190,9 @@ def generate_data_flow_diagram():
 
 
 if __name__ == "__main__":
+    # Create images directory if it doesn't exist
+    os.makedirs('images', exist_ok=True)
+
     print("Generating Federal Reserve RAG System diagrams...")
     print()
 
