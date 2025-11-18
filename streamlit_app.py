@@ -874,32 +874,34 @@ def source_management_page():
             if st.button("🔄 Refresh Now", type="primary"):
                 with st.spinner("Refreshing content... This may take a few minutes."):
                     try:
-                        import subprocess
-                        result = subprocess.run(
-                            ['python', 'fed_content_importer.py', '--crawl'],
-                            capture_output=True,
-                            text=True,
-                            timeout=600  # 10 minute timeout
-                        )
+                        import asyncio
+                        from fed_content_importer import FedContentImporter
 
-                        if result.returncode == 0:
-                            st.success("✅ Refresh completed successfully!")
-                            st.rerun()
-                        else:
-                            st.error(f"❌ Refresh failed: {result.stderr}")
-                    except subprocess.TimeoutExpired:
-                        st.error("❌ Refresh timed out after 10 minutes")
+                        # Create importer and run crawl
+                        importer = FedContentImporter()
+
+                        # Run the async crawl function
+                        asyncio.run(importer.crawl_and_import())
+
+                        st.success("✅ Refresh completed successfully!")
+
+                        # Also recalculate URL-level scores after refresh
+                        with db:
+                            db.calculate_source_document_scores(use_enhanced_scores=True)
+
+                        st.rerun()
                     except Exception as e:
-                        st.error(f"❌ Error: {e}")
+                        st.error(f"❌ Refresh failed: {e}")
+                        import traceback
+                        st.code(traceback.format_exc())
 
         with col2:
             st.info("""
-            **Import existing content** (faster, no web crawling):
-            ```bash
-            python fed_content_importer.py --import-only
-            ```
+            **Manual refresh options:**
+            - Click "🔄 Refresh Now" button to crawl and update all content
+            - This will fetch the latest Federal Reserve content from their website
 
-            **Full refresh with crawling**:
+            **For local development:**
             ```bash
             python fed_content_importer.py --crawl
             ```
