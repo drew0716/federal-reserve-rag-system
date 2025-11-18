@@ -329,11 +329,14 @@ Please provide a professional, well-structured response with inline citations li
 
         # Recalculate URL-level scores after feedback
         try:
+            print("Recalculating URL-level scores...")
             with self.db as db:
-                db.calculate_source_document_scores(use_enhanced_scores=True)
-            print("URL-level scores updated")
+                updated_count = db.calculate_source_document_scores(use_enhanced_scores=True)
+            print(f"✅ URL-level scores updated: {updated_count} URLs")
         except Exception as e:
-            print(f"Warning: Failed to update URL scores: {e}")
+            print(f"❌ Failed to update URL scores: {e}")
+            import traceback
+            traceback.print_exc()
 
         # Check if document should be flagged for review
         if analysis and analysis.get('needs_review'):
