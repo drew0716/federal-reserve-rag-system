@@ -1583,7 +1583,8 @@ def data_management_page():
                         - 🗑️ {deleted_counts['responses']} responses
                         - 🗑️ {deleted_counts['feedback']} feedback items
                         - 🗑️ {deleted_counts['document_flags']} document review flags
-                        - 🗑️ {deleted_counts['document_scores']} document scores reset
+                        - 🗑️ {deleted_counts['document_scores']} chunk-level scores reset
+                        - 🗑️ {deleted_counts['source_document_scores']} URL-level scores reset
 
                         **System has been reset to fresh state with only source documents.**
                         """)

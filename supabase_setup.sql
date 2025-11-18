@@ -55,7 +55,8 @@ CREATE TABLE IF NOT EXISTS feedback (
     enhanced_feedback_score FLOAT DEFAULT 0.0
 );
 
--- Document scores for reranking
+-- Document scores for reranking (DEPRECATED - kept for backward compatibility)
+-- Use source_document_scores for new implementations
 CREATE TABLE IF NOT EXISTS document_scores (
     id SERIAL PRIMARY KEY,
     document_id INTEGER REFERENCES documents(id) ON DELETE CASCADE,
@@ -64,6 +65,18 @@ CREATE TABLE IF NOT EXISTS document_scores (
     enhanced_feedback_score FLOAT DEFAULT 0.0,
     last_updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     UNIQUE(document_id)
+);
+
+-- URL-level document scores (preserves learning across data refreshes)
+CREATE TABLE IF NOT EXISTS source_document_scores (
+    id SERIAL PRIMARY KEY,
+    source_url TEXT NOT NULL,
+    source_type VARCHAR(50),
+    feedback_score FLOAT DEFAULT 0.0,
+    enhanced_feedback_score FLOAT DEFAULT 0.0,
+    feedback_count INTEGER DEFAULT 0,
+    last_updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    UNIQUE(source_url)
 );
 
 -- Source refresh log table
@@ -107,6 +120,9 @@ CREATE INDEX IF NOT EXISTS idx_feedback_response_id ON feedback(response_id);
 CREATE INDEX IF NOT EXISTS idx_feedback_query_id ON feedback(query_id);
 CREATE INDEX IF NOT EXISTS idx_feedback_document_id ON feedback(document_id);
 CREATE INDEX IF NOT EXISTS idx_document_scores_document_id ON document_scores(document_id);
+CREATE INDEX IF NOT EXISTS idx_source_document_scores_url ON source_document_scores(source_url);
+CREATE INDEX IF NOT EXISTS idx_source_document_scores_type ON source_document_scores(source_type);
+CREATE INDEX IF NOT EXISTS idx_documents_source_url ON documents(source_url);
 CREATE INDEX IF NOT EXISTS idx_documents_source_type ON documents(source_type);
 CREATE INDEX IF NOT EXISTS idx_documents_external ON documents(is_external_source);
 CREATE INDEX IF NOT EXISTS idx_documents_refreshed ON documents(last_refreshed);
@@ -143,3 +159,4 @@ COMMENT ON COLUMN queries.query_text IS 'Query text - PII is redacted before sto
 COMMENT ON CONSTRAINT queries_pii_tracking_check ON queries IS 'Ensures PII tracking is consistent: if has_pii is true, there must be redactions';
 COMMENT ON COLUMN feedback.enhanced_feedback_score IS 'Enhanced score combining rating and sentiment analysis';
 COMMENT ON TABLE document_review_flags IS 'Tracks documents flagged for review based on feedback patterns';
+COMMENT ON TABLE source_document_scores IS 'URL-level scores that persist across data refreshes - applied to all chunks from same source URL';

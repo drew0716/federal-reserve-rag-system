@@ -115,25 +115,56 @@ class Database:
 
         return doc_ids
 
-    def search_similar_documents(self, query_embedding: np.ndarray, top_k: int = 5) -> List[Dict]:
-        """Search for similar documents using vector similarity with reranking scores."""
+    def search_similar_documents(self, query_embedding: np.ndarray, top_k: int = 5,
+                                 use_url_scores: bool = True) -> List[Dict]:
+        """
+        Search for similar documents using vector similarity with reranking scores.
+
+        Args:
+            query_embedding: Query embedding vector
+            top_k: Number of results to return
+            use_url_scores: If True, use URL-level scores (preserves across refreshes).
+                          If False, use chunk-level scores (deprecated).
+        """
         self.connect()
 
-        query = """
-            SELECT
-                d.id,
-                d.content,
-                d.metadata,
-                d.created_at,
-                COALESCE(ds.base_score, 1.0) as base_score,
-                COALESCE(ds.feedback_score, 0.0) as feedback_score,
-                (COALESCE(ds.base_score, 1.0) * (1 + %s * COALESCE(ds.feedback_score, 0.0))) as final_score,
-                (1 - (d.embedding <=> %s::vector)) as similarity
-            FROM documents d
-            LEFT JOIN document_scores ds ON d.id = ds.document_id
-            ORDER BY (1 - (d.embedding <=> %s::vector)) * (COALESCE(ds.base_score, 1.0) * (1 + %s * COALESCE(ds.feedback_score, 0.0))) DESC
-            LIMIT %s;
-        """
+        if use_url_scores:
+            # Use URL-level scores that persist across data refreshes
+            query = """
+                SELECT
+                    d.id,
+                    d.content,
+                    d.metadata,
+                    d.created_at,
+                    d.source_url,
+                    d.source_title,
+                    COALESCE(sds.feedback_score, 0.0) as feedback_score,
+                    COALESCE(sds.enhanced_feedback_score, 0.0) as enhanced_feedback_score,
+                    COALESCE(sds.feedback_count, 0) as feedback_count,
+                    (1 + %s * COALESCE(sds.enhanced_feedback_score, 0.0)) as final_score,
+                    (1 - (d.embedding <=> %s::vector)) as similarity
+                FROM documents d
+                LEFT JOIN source_document_scores sds ON d.source_url = sds.source_url
+                ORDER BY (1 - (d.embedding <=> %s::vector)) * (1 + %s * COALESCE(sds.enhanced_feedback_score, 0.0)) DESC
+                LIMIT %s;
+            """
+        else:
+            # Legacy chunk-level scores (DEPRECATED)
+            query = """
+                SELECT
+                    d.id,
+                    d.content,
+                    d.metadata,
+                    d.created_at,
+                    COALESCE(ds.base_score, 1.0) as base_score,
+                    COALESCE(ds.feedback_score, 0.0) as feedback_score,
+                    (COALESCE(ds.base_score, 1.0) * (1 + %s * COALESCE(ds.feedback_score, 0.0))) as final_score,
+                    (1 - (d.embedding <=> %s::vector)) as similarity
+                FROM documents d
+                LEFT JOIN document_scores ds ON d.id = ds.document_id
+                ORDER BY (1 - (d.embedding <=> %s::vector)) * (COALESCE(ds.base_score, 1.0) * (1 + %s * COALESCE(ds.feedback_score, 0.0))) DESC
+                LIMIT %s;
+            """
 
         feedback_weight = float(os.getenv('FEEDBACK_WEIGHT', '0.3'))
         embedding_list = query_embedding.tolist()
@@ -391,6 +422,113 @@ class Database:
 
         return updated_count
 
+    def calculate_source_document_scores(self, use_enhanced_scores: bool = True):
+        """
+        Recalculate feedback scores at the URL level (preserves across data refreshes).
+
+        This aggregates all feedback for chunks from the same source URL,
+        allowing scores to persist even when documents are refreshed.
+        """
+        self.connect()
+
+        if use_enhanced_scores:
+            # Use enhanced scores that combine rating and sentiment analysis
+            query = """
+                WITH url_feedback AS (
+                    SELECT
+                        d.source_url,
+                        d.source_type,
+                        AVG(f.rating) as avg_rating,
+                        AVG(
+                            CASE
+                                WHEN f.sentiment IS NOT NULL AND f.confidence > 0.3 THEN
+                                    -- Combine rating and sentiment with severity penalties
+                                    0.7 * ((f.rating - 3.0) / 2.0) +
+                                    0.3 * (CASE f.sentiment
+                                        WHEN 'positive' THEN 1.0
+                                        WHEN 'negative' THEN -1.0
+                                        WHEN 'neutral' THEN 0.0
+                                        ELSE 0.0
+                                    END) * f.confidence +
+                                    CASE f.severity
+                                        WHEN 'minor' THEN -0.1
+                                        WHEN 'moderate' THEN -0.3
+                                        WHEN 'severe' THEN -0.5
+                                        ELSE 0.0
+                                    END
+                                ELSE
+                                    (f.rating - 3.0) / 2.0  -- Fallback to rating-based
+                            END
+                        ) as enhanced_score,
+                        COUNT(f.id) as feedback_count
+                    FROM responses r
+                    JOIN feedback f ON f.response_id = r.id
+                    JOIN documents d ON d.id = ANY(r.retrieved_doc_ids)
+                    WHERE r.retrieved_doc_ids IS NOT NULL
+                        AND d.source_url IS NOT NULL
+                        AND d.source_url != ''
+                    GROUP BY d.source_url, d.source_type
+                )
+                INSERT INTO source_document_scores (
+                    source_url, source_type, feedback_score,
+                    enhanced_feedback_score, feedback_count, last_updated
+                )
+                SELECT
+                    source_url,
+                    source_type,
+                    COALESCE((avg_rating - 3.0) / 2.0, 0.0),
+                    COALESCE(enhanced_score, 0.0),
+                    feedback_count,
+                    CURRENT_TIMESTAMP
+                FROM url_feedback
+                ON CONFLICT (source_url) DO UPDATE
+                SET feedback_score = EXCLUDED.feedback_score,
+                    enhanced_feedback_score = EXCLUDED.enhanced_feedback_score,
+                    feedback_count = EXCLUDED.feedback_count,
+                    source_type = EXCLUDED.source_type,
+                    last_updated = EXCLUDED.last_updated;
+            """
+        else:
+            # Original rating-only method
+            query = """
+                WITH url_feedback AS (
+                    SELECT
+                        d.source_url,
+                        d.source_type,
+                        AVG(f.rating) as avg_rating,
+                        COUNT(f.id) as feedback_count
+                    FROM responses r
+                    JOIN feedback f ON f.response_id = r.id
+                    JOIN documents d ON d.id = ANY(r.retrieved_doc_ids)
+                    WHERE r.retrieved_doc_ids IS NOT NULL
+                        AND d.source_url IS NOT NULL
+                        AND d.source_url != ''
+                    GROUP BY d.source_url, d.source_type
+                )
+                INSERT INTO source_document_scores (
+                    source_url, source_type, feedback_score,
+                    feedback_count, last_updated
+                )
+                SELECT
+                    source_url,
+                    source_type,
+                    COALESCE((avg_rating - 3.0) / 2.0, 0.0),
+                    feedback_count,
+                    CURRENT_TIMESTAMP
+                FROM url_feedback
+                ON CONFLICT (source_url) DO UPDATE
+                SET feedback_score = EXCLUDED.feedback_score,
+                    feedback_count = EXCLUDED.feedback_count,
+                    source_type = EXCLUDED.source_type,
+                    last_updated = EXCLUDED.last_updated;
+            """
+
+        self.cursor.execute(query)
+        updated_count = self.cursor.rowcount
+        self.conn.commit()
+
+        return updated_count
+
     def get_analytics(self) -> Dict:
         """Get system analytics and performance metrics."""
         self.connect()
@@ -598,7 +736,7 @@ class Database:
     def delete_all_user_data(self) -> Dict[str, int]:
         """
         Delete ALL user data including responses, queries, feedback, and feedback-derived data.
-        This also removes document review flags and resets document scores.
+        This also removes document review flags and resets both chunk-level and URL-level scores.
         Returns a dictionary with counts of deleted records.
 
         WARNING: This is a destructive operation and cannot be undone!
@@ -610,7 +748,8 @@ class Database:
             'responses': 0,
             'queries': 0,
             'document_flags': 0,
-            'document_scores': 0
+            'document_scores': 0,
+            'source_document_scores': 0
         }
 
         try:
@@ -631,9 +770,13 @@ class Database:
             self.cursor.execute("DELETE FROM document_review_flags;")
             deleted_counts['document_flags'] = self.cursor.rowcount
 
-            # 5. Reset document scores (remove feedback-based rankings)
+            # 5. Reset chunk-level document scores (legacy - remove feedback-based rankings)
             self.cursor.execute("DELETE FROM document_scores;")
             deleted_counts['document_scores'] = self.cursor.rowcount
+
+            # 6. Reset URL-level document scores (remove feedback-based rankings)
+            self.cursor.execute("DELETE FROM source_document_scores;")
+            deleted_counts['source_document_scores'] = self.cursor.rowcount
 
             self.conn.commit()
             return deleted_counts

@@ -389,10 +389,12 @@ Please provide a professional, well-structured response with inline citations li
         mode = "enhanced (rating + comment analysis)" if use_enhanced_scores else "rating-only"
         print(f"Recalculating document scores using {mode} mode...")
         with self.db as db:
-            updated_count = db.calculate_document_feedback_scores(use_enhanced_scores)
+            # Update both chunk-level (legacy) and URL-level scores
+            chunk_count = db.calculate_document_feedback_scores(use_enhanced_scores)
+            url_count = db.calculate_source_document_scores(use_enhanced_scores)
 
-        print(f"Updated scores for {updated_count} documents")
-        return updated_count
+        print(f"Updated scores for {chunk_count} chunks and {url_count} URLs")
+        return url_count  # Return URL count as this is the primary scoring method
 
     def get_feedback_insights(self) -> Dict:
         """
