@@ -9,10 +9,13 @@ This system crawls official Federal Reserve documentation, processes it into a s
 ## 🚀 Quick Links
 
 - **[Deployment Guide](DEPLOYMENT.md)** - Complete guide for deploying to production with PostgreSQL options
+- **[Local Model Migration Guide](LOCAL_MODEL_MIGRATION.md)** - Replace Claude Sonnet 4 with local open-source models (Llama, Qwen, Mistral)
 - **[PII Redaction Documentation](PII_REDACTION.md)** - Details on privacy protection features
 - **[Feedback Analysis Documentation](FEEDBACK_ANALYSIS.md)** - How AI-powered feedback works
 
 > **New to deployment?** Check out [DEPLOYMENT.md](DEPLOYMENT.md) for step-by-step guides to deploy with Streamlit Cloud, Railway, AWS, or Docker. Includes detailed PostgreSQL setup options (managed services like Supabase/Neon or self-hosted).
+
+> **Want to eliminate API costs?** See [LOCAL_MODEL_MIGRATION.md](LOCAL_MODEL_MIGRATION.md) for complete instructions on replacing Claude Sonnet 4 with local models like Llama 3.1, Qwen 2.5, or Mistral. Includes code changes, performance optimization, and quality comparison.
 
 ## Features
 
