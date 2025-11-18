@@ -595,6 +595,42 @@ class Database:
             print(f"Error deleting old responses: {e}")
             return 0
 
+    def delete_all_user_data(self) -> Dict[str, int]:
+        """
+        Delete ALL user data including responses, queries, and feedback.
+        Returns a dictionary with counts of deleted records.
+
+        WARNING: This is a destructive operation and cannot be undone!
+        """
+        self.connect()
+
+        deleted_counts = {
+            'feedback': 0,
+            'responses': 0,
+            'queries': 0
+        }
+
+        try:
+            # Delete in order of foreign key dependencies
+            # 1. Delete feedback (references responses)
+            self.cursor.execute("DELETE FROM feedback;")
+            deleted_counts['feedback'] = self.cursor.rowcount
+
+            # 2. Delete responses (references queries)
+            self.cursor.execute("DELETE FROM responses;")
+            deleted_counts['responses'] = self.cursor.rowcount
+
+            # 3. Delete queries (no dependencies)
+            self.cursor.execute("DELETE FROM queries;")
+            deleted_counts['queries'] = self.cursor.rowcount
+
+            self.conn.commit()
+            return deleted_counts
+        except Exception as e:
+            self.conn.rollback()
+            print(f"Error deleting all user data: {e}")
+            raise
+
     def get_feedback_needing_review(self) -> List[Dict]:
         """Get all feedback marked as needing review (severe or moderate severity)."""
         self.connect()

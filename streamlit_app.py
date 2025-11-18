@@ -1543,6 +1543,48 @@ def data_management_page():
         else:
             st.info("No responses found with the selected filters")
 
+        # Danger Zone - Delete All Data
+        st.markdown("---")
+        st.markdown("### ⚠️ Danger Zone")
+
+        with st.expander("🚨 Delete All Data (Irreversible)", expanded=False):
+            st.warning("""
+            **WARNING: This action cannot be undone!**
+
+            This will permanently delete:
+            - ✗ All responses
+            - ✗ All queries
+            - ✗ All feedback and ratings
+
+            **Documents and source content will NOT be affected.**
+            """)
+
+            # Require confirmation checkbox
+            confirm_delete = st.checkbox(
+                "I understand this will permanently delete all responses, queries, and feedback",
+                key="confirm_delete_all"
+            )
+
+            # Show button only when confirmed
+            if confirm_delete:
+                if st.button("🗑️ DELETE ALL DATA", type="primary", key="delete_all_button"):
+                    try:
+                        with db:
+                            deleted_counts = db.delete_all_user_data()
+
+                        st.success(f"""
+                        **All user data has been deleted:**
+                        - 🗑️ {deleted_counts['queries']} queries
+                        - 🗑️ {deleted_counts['responses']} responses
+                        - 🗑️ {deleted_counts['feedback']} feedback items
+                        """)
+                        st.balloons()
+                        st.rerun()
+                    except Exception as delete_error:
+                        st.error(f"Error deleting all data: {delete_error}")
+                        import traceback
+                        st.code(traceback.format_exc())
+
     except Exception as e:
         st.error(f"Error in data management: {e}")
         import traceback
