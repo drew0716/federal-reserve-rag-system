@@ -593,16 +593,119 @@ streamlit run streamlit_app.py
 
 ### Database Schema
 
+#### Entity-Relationship Diagram
+
+```mermaid
+erDiagram
+    documents ||--o{ document_scores : "has"
+    documents ||--o{ document_review_flags : "flagged"
+    documents {
+        serial id PK
+        text content
+        vector_384 embedding
+        jsonb metadata
+        timestamp created_at
+        varchar source_type
+        text source_url
+        text source_title
+        timestamp last_refreshed
+        boolean is_external_source
+    }
+
+    queries ||--o{ responses : "generates"
+    queries {
+        serial id PK
+        text query_text
+        vector_384 query_embedding
+        timestamp created_at
+        varchar category
+        boolean has_pii
+        integer redaction_count
+        jsonb redaction_details
+    }
+
+    responses ||--o{ feedback : "receives"
+    responses {
+        serial id PK
+        integer query_id FK
+        text response_text
+        text model_version
+        integer_array retrieved_doc_ids
+        timestamp created_at
+    }
+
+    feedback {
+        serial id PK
+        integer response_id FK
+        integer rating
+        text comment
+        timestamp created_at
+        float sentiment_score
+        text_array issue_types
+        varchar severity
+        boolean needs_review
+        float analysis_confidence
+        text analysis_summary
+        timestamp analyzed_at
+    }
+
+    document_scores {
+        serial id PK
+        integer document_id FK
+        float base_score
+        float feedback_score
+        float enhanced_feedback_score
+        timestamp last_updated
+    }
+
+    source_document_scores {
+        serial id PK
+        text source_url UK
+        varchar source_type
+        float feedback_score
+        float enhanced_feedback_score
+        integer feedback_count
+        timestamp last_updated
+    }
+
+    document_review_flags {
+        serial id PK
+        integer document_id FK
+        timestamp flagged_at
+        text reason
+        jsonb common_issues
+        jsonb severity_distribution
+        integer total_feedbacks
+        varchar status
+        timestamp reviewed_at
+        text reviewer_notes
+    }
+
+    source_refresh_log {
+        serial id PK
+        varchar source_type
+        integer documents_added
+        integer documents_updated
+        integer documents_deleted
+        timestamp refresh_started
+        timestamp refresh_completed
+        varchar status
+        text error_message
+    }
+```
+
+#### Table Descriptions
+
 **Core Tables:**
 - `documents` - Chunked content with 384-dim vector embeddings
 - `queries` - Redacted user questions with embeddings and categories (**PII never stored**)
 - `responses` - Generated responses with metadata
 - `feedback` - User ratings, comments, and AI analysis
-  - `sentiment` - VARCHAR: positive, negative, neutral
-  - `issues` - Array of detected issues (outdated, incorrect, too_technical, etc.)
+  - `sentiment_score` - Float: -1.0 (negative) to +1.0 (positive)
+  - `issue_types` - Array of detected issues (outdated, incorrect, too_technical, etc.)
   - `severity` - VARCHAR: none, minor, moderate, severe
-  - `confidence` - Float: AI confidence level (0.0-1.0)
-  - `summary` - AI-generated summary
+  - `analysis_confidence` - Float: AI confidence level (0.0-1.0)
+  - `analysis_summary` - AI-generated summary
 - **`source_document_scores`** - **URL-level scores that persist across content refreshes** ⭐
   - Aggregates feedback for all chunks from same source URL
   - Survives document deletions during refresh
