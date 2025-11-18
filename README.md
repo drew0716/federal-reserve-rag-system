@@ -2,6 +2,12 @@
 
 A Retrieval Augmented Generation (RAG) system that provides professional responses to inquiries about Federal Reserve policies, operations, and monetary policy. Built with Claude Sonnet 4, PostgreSQL with pgvector, and Streamlit.
 
+## 🌐 Live Demo
+
+**Try it live:** [https://fed-rag-sample.streamlit.app](https://fed-rag-sample.streamlit.app)
+
+> **Note:** This is a sample demonstration app with limited access. Access is controlled by the author. If you would like to request access to try the system, please reach out via GitHub issues or contact the repository owner.
+
 ## Overview
 
 This system crawls official Federal Reserve documentation, processes it into a searchable knowledge base, and generates professional, well-cited responses using AI. It includes advanced privacy protection, AI-powered feedback analysis, and continuous improvement based on user ratings and comments.
