@@ -1124,17 +1124,21 @@ def how_it_works_page():
     """)
 
     st.code("""
-Final Score = Similarity Score × (Base Score × (1 + Feedback Weight × Enhanced Feedback Score))
+Final Score = Similarity Score × (1 + Feedback Weight × URL Enhanced Score)
 
 Where:
 - Similarity Score: How well the document matches your question (0-1)
-- Base Score: Default quality score (1.0 for all documents)
-- Enhanced Feedback Score: Combines ratings + AI sentiment analysis (-1.0 to +1.0)
-- Feedback Weight: How much feedback influences ranking (0.3 = 30%)
+- URL Enhanced Score: Aggregated score from all feedback for this source URL
+  - Combines ratings (70%) + sentiment analysis (30%) + issue penalties
+  - Ranges from -1.0 (poor quality) to +1.0 (excellent quality)
+- Feedback Weight: How much learning influences ranking (0.3 = 30%)
+
+Note: Scores are at URL level - all chunks from same source inherit its score
+This ensures learning persists even when documents are refreshed!
     """, language="python")
 
     st.markdown("""
-    6. **Retrieves top 10 most relevant documents** - Provides comprehensive context
+    6. **Retrieves top 10 most relevant documents** - Each inherits score from its source URL
     7. **Generates response** - Claude processes the retrieved documents and your question
     """)
 
@@ -1215,14 +1219,21 @@ Enhanced Score =
 
     st.markdown("""
     **Document Score Updates:**
-    - Feedback scores are recalculated whenever new ratings are submitted
+    - URL-level feedback scores are recalculated automatically after each rating
     - Changes take effect immediately for subsequent queries
     - No manual intervention required
+
+    **Persistent Learning Across Refreshes:**
+    - Scores are stored at the **URL level**, not chunk level
+    - When content refreshes, documents are deleted but **URL scores survive**
+    - The system remembers which sources work best, even after updates
+    - Learning accumulates over time - system gets smarter, never forgets
 
     **Content Refresh:**
     - Source content can be refreshed manually from the **Source Content** page
     - Recommended refresh frequency: Monthly, or when major Fed policy updates occur
-    - Refresh process crawls federalreserve.gov and updates the document database
+    - Refresh process: Crawls federalreserve.gov → Deletes old documents → Creates new chunks → Inherits URL scores
+    - **Zero learning loss** - all feedback-based rankings are preserved
     """)
 
     # Response Generation

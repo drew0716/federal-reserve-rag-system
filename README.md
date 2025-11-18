@@ -15,7 +15,8 @@ This system crawls official Federal Reserve documentation, processes it into a s
 ## 🚀 Quick Links
 
 - **[Pipeline Architecture](PIPELINE_ARCHITECTURE.md)** - System architecture diagrams, data flows, and component details
-- **[Database Switching Guide](DATABASE_SWITCHING.md)** - ⭐ NEW: Easily switch between local PostgreSQL and Supabase
+- **[URL-Level Scoring](URL_SCORING.md)** - ⭐ NEW: How learned rankings persist across content refreshes
+- **[Database Switching Guide](DATABASE_SWITCHING.md)** - Easily switch between local PostgreSQL and Supabase
 - **[Deployment Guide](DEPLOYMENT.md)** - Complete guide for deploying to production with PostgreSQL options
 - **[Local Model Migration Guide](LOCAL_MODEL_MIGRATION.md)** - Replace Claude Sonnet 4 with local open-source models (Llama, Qwen, Mistral)
 - **[PII Redaction Documentation](PII_REDACTION.md)** - Details on privacy protection features
@@ -48,9 +49,10 @@ This system crawls official Federal Reserve documentation, processes it into a s
   - Identifies specific issues (outdated info, incorrect info, too technical, missing citations, etc.)
   - Assigns severity levels (minor, moderate, severe)
   - Generates actionable summaries
-- **📊 Smart Document Ranking**: Combines ratings (70%) + sentiment analysis (30%) + issue penalties
+- **📊 Smart Document Ranking**: URL-level scoring combines ratings (70%) + sentiment analysis (30%) + issue penalties
+- **🔄 Persistent Learning**: Scores stored at URL level survive content refreshes - system never forgets what works
 - **🚨 Automatic Quality Flagging**: Documents with recurring issues are flagged for review
-- **📈 Continuous Learning**: System improves over time from both ratings and detailed feedback
+- **📈 Continuous Improvement**: System gets smarter over time from both ratings and detailed feedback
 
 ### User Interface
 - **🏷️ Automatic Query Categorization**: AI-powered topic detection for better analytics
@@ -211,6 +213,7 @@ psql -U rag_user -p 5433 -d rag_system -f schema_update_sources.sql
 psql -U rag_user -p 5433 -d rag_system -f schema_update_categories.sql
 psql -U rag_user -p 5433 -d rag_system -f schema_update_feedback_analysis.sql
 psql -U rag_user -p 5433 -d rag_system -f schema_update_pii_no_storage.sql
+psql -U rag_user -p 5433 -d rag_system -f schema_update_url_scoring.sql
 ```
 
 **Note:** You may be prompted for the password you set earlier. Use `PGPASSWORD='your_secure_password'` prefix if needed.
@@ -265,7 +268,7 @@ WHERE table_schema = 'public'
 ORDER BY table_name;
 ```
 
-You should see 7 tables: `document_review_flags`, `document_scores`, `documents`, `feedback`, `queries`, `responses`, `source_refresh_log`
+You should see 8 tables: `document_review_flags`, `document_scores`, `documents`, `feedback`, `queries`, `responses`, `source_document_scores`, `source_refresh_log`
 
 </details>
 
@@ -578,15 +581,15 @@ streamlit run streamlit_app.py
 4. **Claude detects query category** (e.g., Interest Rates, Banking, Currency)
 5. **Question → Vector embedding** (384-dim using MiniLM-L6-v2)
 6. **Vector similarity search** in PostgreSQL with pgvector
-7. **Hybrid ranking**: `Similarity × (Base Score × (1 + 0.3 × Enhanced Feedback Score))`
-8. **Top 10 documents retrieved** with source URLs
+7. **URL-level hybrid ranking**: `Similarity × (1 + 0.3 × URL Enhanced Score)`
+8. **Top 10 documents retrieved** with source URLs (inherit scores from their URL)
 9. **Claude generates response** with inline citations (2000 token limit)
 10. **Response stored** in database with category and metadata
 11. **User views response** with category tag and one-click copy
 12. **User rates response** (1-5 stars) with optional comment
 13. **AI analyzes comment** (Claude extracts sentiment, issues, severity)
-14. **Enhanced feedback score calculated** (rating + sentiment + penalties)
-15. **Document patterns checked** - Auto-flag documents with recurring issues
+14. **URL-level score updated** (aggregates all feedback for that source URL)
+15. **Scores persist across refreshes** - Learning preserved when content updates
 
 ### Database Schema
 
@@ -600,7 +603,11 @@ streamlit run streamlit_app.py
   - `severity` - VARCHAR: none, minor, moderate, severe
   - `confidence` - Float: AI confidence level (0.0-1.0)
   - `summary` - AI-generated summary
-- `document_scores` - Enhanced reranking scores based on feedback
+- **`source_document_scores`** - **URL-level scores that persist across content refreshes** ⭐
+  - Aggregates feedback for all chunks from same source URL
+  - Survives document deletions during refresh
+  - Primary scoring system for retrieval ranking
+- `document_scores` - *(Deprecated)* Legacy chunk-level scores (kept for compatibility)
 - `document_review_flags` - Auto-flagged documents needing attention
 
 **Source Management:**
@@ -732,6 +739,12 @@ python3 fed_content_importer.py --crawl
 ```
 
 Or use the **Source Content** page in the Streamlit UI.
+
+**🔄 Persistent Learning Across Refreshes:**
+- URL-level scores are preserved when content refreshes
+- Documents are deleted and recreated, but learned rankings survive
+- The system remembers which sources work best, even after updates
+- No need to re-learn from scratch after each refresh
 
 ## Troubleshooting
 
