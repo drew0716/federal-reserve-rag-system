@@ -1,61 +1,60 @@
 """
 PII Redaction Module
 Redacts personally identifiable information (PII) from user queries before processing.
-Uses spaCy NER and regex patterns for local, privacy-preserving redaction.
+Uses Microsoft Presidio with GLiNER for local, privacy-preserving redaction.
 """
 
 import re
-from typing import Dict, List, Tuple
+from typing import Dict, List, Optional
 
-# Try to import spaCy, but make it optional
+# Try to import Presidio components
 try:
-    import spacy
-    from spacy.matcher import Matcher
-    SPACY_AVAILABLE = True
+    from presidio_analyzer import AnalyzerEngine, RecognizerRegistry
+    from presidio_analyzer.nlp_engine import NlpEngineProvider
+    from presidio_anonymizer import AnonymizerEngine
+    from presidio_anonymizer.entities import OperatorConfig
+    PRESIDIO_AVAILABLE = True
 except ImportError:
-    SPACY_AVAILABLE = False
-    spacy = None
-    Matcher = None
+    PRESIDIO_AVAILABLE = False
+    AnalyzerEngine = None
+    RecognizerRegistry = None
+    NlpEngineProvider = None
+    AnonymizerEngine = None
+    OperatorConfig = None
+
+# Try to import GLiNER recognizer
+try:
+    from presidio_analyzer.predefined_recognizers import GLiNERRecognizer
+    GLINER_AVAILABLE = True
+except ImportError:
+    GLINER_AVAILABLE = False
+    GLiNERRecognizer = None
 
 
 class PIIRedactor:
-    """Redacts PII from text using spaCy NER and regex patterns."""
+    """Redacts PII from text using Microsoft Presidio with GLiNER and regex patterns."""
 
-    def __init__(self, model_name: str = "en_core_web_sm"):
-        """
-        Initialize the PII redactor.
+    def __init__(self):
+        """Initialize the PII redactor with Presidio + GLiNER."""
+        self.presidio_available = False
+        self.gliner_available = False
+        self.analyzer = None
+        self.anonymizer = None
 
-        Args:
-            model_name: spaCy model to use (default: en_core_web_sm)
-        """
-        if not SPACY_AVAILABLE:
-            print(f"⚠️  Warning: spaCy library not installed.")
-            print(f"   PII redaction will use regex patterns only (no NER).")
-            print(f"   To enable full PII redaction, install: pip install spacy && python3 -m spacy download {model_name}")
-            self.nlp = None
-            self.nlp_available = False
-        else:
+        # Initialize Presidio if available
+        if PRESIDIO_AVAILABLE:
             try:
-                self.nlp = spacy.load(model_name)
-                self.nlp_available = True
-            except OSError as e:
-                print(f"⚠️  Warning: spaCy model '{model_name}' not available.")
-                print(f"   PII redaction will use regex patterns only (no NER).")
-                print(f"   To enable full PII redaction, install: python3 -m spacy download {model_name}")
-                self.nlp = None
-                self.nlp_available = False
+                self._initialize_presidio()
+            except Exception as e:
+                print(f"⚠️  Warning: Could not initialize Presidio: {e}")
+                print(f"   PII redaction will use regex patterns only.")
+                self.presidio_available = False
+        else:
+            print(f"⚠️  Warning: Presidio library not installed.")
+            print(f"   PII redaction will use regex patterns only (no NER).")
+            print(f"   To enable full PII redaction, install: pip install 'presidio-analyzer[gliner]' presidio-anonymizer")
 
-        # Entity types to redact
-        self.entity_types = {
-            'PERSON': '[REDACTED_NAME]',
-            'ORG': '[REDACTED_ORG]',
-            'GPE': '[REDACTED_LOCATION]',
-            'LOC': '[REDACTED_LOCATION]',
-            'FAC': '[REDACTED_LOCATION]',
-            'DATE': '[REDACTED_DATE]',
-        }
-
-        # Compile regex patterns for additional PII types
+        # Compile regex patterns for fallback and additional PII types
         self.patterns = {
             'email': {
                 'pattern': re.compile(r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'),
@@ -83,9 +82,131 @@ class PIIRedactor:
             },
         }
 
+        # Entity type mappings for Presidio
+        self.entity_replacements = {
+            'PERSON': '[REDACTED_NAME]',
+            'EMAIL_ADDRESS': '[REDACTED_EMAIL]',
+            'PHONE_NUMBER': '[REDACTED_PHONE]',
+            'US_SSN': '[REDACTED_SSN]',
+            'CREDIT_CARD': '[REDACTED_CARD]',
+            'IP_ADDRESS': '[REDACTED_IP]',
+            'LOCATION': '[REDACTED_LOCATION]',
+            'GPE': '[REDACTED_LOCATION]',
+            'US_DRIVER_LICENSE': '[REDACTED_ID]',
+            'US_PASSPORT': '[REDACTED_ID]',
+            'DATE_TIME': '[REDACTED_DATE]',
+            'NRP': '[REDACTED_LOCATION]',  # Nationalities/religious/political groups
+            'ORGANIZATION': '[REDACTED_ORG]',
+            'MEDICAL_LICENSE': '[REDACTED_ID]',
+            'URL': '[REDACTED_URL]',
+            'US_BANK_NUMBER': '[REDACTED_ACCOUNT]',
+            'CRYPTO': '[REDACTED_CRYPTO]',
+            'IBAN_CODE': '[REDACTED_ACCOUNT]',
+        }
+
+    def _initialize_presidio(self):
+        """Initialize Presidio Analyzer and Anonymizer with GLiNER."""
+        try:
+            # Create NLP engine configuration
+            configuration = {
+                "nlp_engine_name": "spacy",
+                "models": [{"lang_code": "en", "model_name": "en_core_web_sm"}],
+            }
+
+            # Try to create NLP engine (spaCy for tokenization)
+            try:
+                nlp_engine = NlpEngineProvider(nlp_configuration=configuration).create_engine()
+            except Exception as e:
+                print(f"⚠️  Note: Could not load spaCy model: {e}")
+                print(f"   Attempting to use Presidio without spaCy...")
+                nlp_engine = None
+
+            # Create recognizer registry
+            registry = RecognizerRegistry()
+
+            # Use Presidio's built-in recognizers (fast and effective)
+            # GLiNER is optional and can be enabled via environment variable
+            import os
+            use_gliner = os.getenv('USE_GLINER', 'false').lower() == 'true'
+
+            if use_gliner and GLINER_AVAILABLE and GLiNERRecognizer:
+                try:
+                    print(f"⏳ Loading GLiNER model (this may take a minute on first run)...")
+                    # GLiNER model for PII detection
+                    gliner_model = "urchade/gliner_multi_pii-v1"
+
+                    # Map GLiNER labels to Presidio entity types
+                    entity_mapping = {
+                        "person": "PERSON",
+                        "name": "PERSON",
+                        "email": "EMAIL_ADDRESS",
+                        "phone number": "PHONE_NUMBER",
+                        "phone": "PHONE_NUMBER",
+                        "address": "LOCATION",
+                        "ssn": "US_SSN",
+                        "social security number": "US_SSN",
+                        "credit card number": "CREDIT_CARD",
+                        "credit card": "CREDIT_CARD",
+                        "ip address": "IP_ADDRESS",
+                        "organization": "ORGANIZATION",
+                        "location": "LOCATION",
+                        "date": "DATE_TIME",
+                        "url": "URL",
+                        "passport number": "US_PASSPORT",
+                        "passport": "US_PASSPORT",
+                        "driver license": "US_DRIVER_LICENSE",
+                        "license": "US_DRIVER_LICENSE",
+                        "bank account": "US_BANK_NUMBER",
+                        "account number": "US_BANK_NUMBER",
+                        "medical license": "MEDICAL_LICENSE",
+                    }
+
+                    gliner_recognizer = GLiNERRecognizer(
+                        model_name=gliner_model,
+                        entity_mapping=entity_mapping,
+                        flat_ner=False,
+                        multi_label=True,
+                        map_location="cpu",
+                    )
+
+                    registry.add_recognizer(gliner_recognizer)
+                    self.gliner_available = True
+                    print(f"✅ GLiNER PII model loaded successfully")
+
+                except Exception as e:
+                    print(f"⚠️  Note: Could not load GLiNER model: {e}")
+                    print(f"   Using Presidio's built-in recognizers only...")
+                    registry.load_predefined_recognizers(nlp_engine=nlp_engine)
+            else:
+                # Use built-in recognizers (default - fast and effective)
+                if use_gliner:
+                    print(f"⚠️  GLiNER requested but not available, using Presidio built-in recognizers...")
+                else:
+                    print(f"ℹ️  Using Presidio's built-in recognizers (set USE_GLINER=true to enable GLiNER)")
+                registry.load_predefined_recognizers(nlp_engine=nlp_engine)
+
+            # Create analyzer engine
+            self.analyzer = AnalyzerEngine(
+                registry=registry,
+                nlp_engine=nlp_engine,
+                supported_languages=["en"]
+            )
+
+            # Create anonymizer engine
+            self.anonymizer = AnonymizerEngine()
+
+            self.presidio_available = True
+            print(f"✅ Presidio PII detection initialized")
+
+        except Exception as e:
+            print(f"⚠️  Warning: Failed to initialize Presidio: {e}")
+            self.presidio_available = False
+            self.analyzer = None
+            self.anonymizer = None
+
     def redact(self, text: str, aggressive: bool = False) -> Dict:
         """
-        Redact PII from text.
+        Redact PII from text using Presidio + GLiNER and regex patterns.
 
         Args:
             text: Input text to redact
@@ -103,21 +224,90 @@ class PIIRedactor:
                 'redacted_text': text,
                 'original_text': text,
                 'redactions': [],
-                'has_pii': False
+                'has_pii': False,
+                'redaction_count': 0
             }
 
         original_text = text
         redacted_text = text
         redactions = []
 
-        # Step 1: Regex-based redaction (emails, phones, SSN, etc.)
+        # Step 1: Presidio-based detection (if available)
+        if self.presidio_available and self.analyzer:
+            try:
+                # Analyze for PII
+                analyzer_results = self.analyzer.analyze(
+                    text=text,
+                    language='en',
+                    score_threshold=0.5  # Confidence threshold
+                )
+
+                # Filter out Federal Reserve related entities
+                filtered_results = []
+                for result in analyzer_results:
+                    entity_text = text[result.start:result.end]
+
+                    # Skip Federal Reserve terms
+                    if self._is_federal_reserve_term(entity_text):
+                        continue
+
+                    # Skip financial terms for ORGANIZATION entities
+                    if result.entity_type == 'ORGANIZATION' and self._is_financial_term(entity_text):
+                        continue
+
+                    # Skip locations that are part of Federal Reserve Bank names
+                    if result.entity_type in ['LOCATION', 'GPE']:
+                        start_context = max(0, result.start - 30)
+                        end_context = min(len(text), result.end + 30)
+                        context = text[start_context:end_context].lower()
+                        if 'federal reserve bank of' in context:
+                            continue
+
+                    filtered_results.append(result)
+
+                # Anonymize using Presidio (replaces with our custom labels)
+                if filtered_results:
+                    # Create operators config for custom replacements
+                    operators = {}
+                    for entity_type, replacement in self.entity_replacements.items():
+                        operators[entity_type] = OperatorConfig("replace", {"new_value": replacement})
+
+                    anonymized = self.anonymizer.anonymize(
+                        text=text,
+                        analyzer_results=filtered_results,
+                        operators=operators
+                    )
+
+                    redacted_text = anonymized.text
+
+                    # Build redactions list
+                    for item in anonymized.items:
+                        redactions.append({
+                            'type': f'presidio_{item.entity_type.lower()}',
+                            'value': item.text if hasattr(item, 'text') else original_text[item.start:item.end],
+                            'start': item.start,
+                            'end': item.end,
+                            'replacement': item.text if hasattr(item, 'text') else self.entity_replacements.get(item.entity_type, '[REDACTED]')
+                        })
+
+            except Exception as e:
+                print(f"⚠️  Warning: Presidio analysis failed: {e}")
+                print(f"   Falling back to regex-only detection...")
+
+        # Step 2: Regex-based redaction (fallback + additional patterns)
+        # Apply to current redacted_text to catch anything Presidio missed
         for pii_type, config in self.patterns.items():
             matches = list(config['pattern'].finditer(redacted_text))
             for match in reversed(matches):  # Reverse to maintain indices
-                redacted_value = match.group()
+                matched_text = match.group()
+
+                # Check if this area was already redacted
+                if matched_text.startswith('[REDACTED'):
+                    continue
+
                 redactions.append({
-                    'type': pii_type,
-                    'value': redacted_value,
+                    'type': f'regex_{pii_type}',
+                    'value': matched_text,
                     'start': match.start(),
                     'end': match.end(),
                     'replacement': config['replacement']
@@ -127,51 +317,6 @@ class PIIRedactor:
                     config['replacement'] +
                     redacted_text[match.end():]
                 )
-
-        # Step 2: spaCy NER-based redaction (only if model is available)
-        entities_to_redact = []
-
-        if self.nlp_available and self.nlp is not None:
-            doc = self.nlp(redacted_text)
-
-            for ent in doc.ents:
-                if ent.label_ in self.entity_types:
-                    # Skip if it's a Federal Reserve related term
-                    if self._is_federal_reserve_term(ent.text):
-                        continue
-
-                    # Skip if it's part of a Federal Reserve Bank name
-                    # Check context around the entity
-                    start_context = max(0, ent.start_char - 30)
-                    end_context = min(len(redacted_text), ent.end_char + 30)
-                    context = redacted_text[start_context:end_context].lower()
-                    if 'federal reserve bank of' in context and ent.label_ == 'GPE':
-                        # This is likely a location that's part of a Federal Reserve Bank name
-                        continue
-
-                    # Skip common financial terms
-                    if self._is_financial_term(ent.text):
-                        continue
-
-                    entities_to_redact.append(ent)
-
-        # Sort entities by start position (reverse order for replacement)
-        entities_to_redact.sort(key=lambda e: e.start_char, reverse=True)
-
-        for ent in entities_to_redact:
-            replacement = self.entity_types[ent.label_]
-            redactions.append({
-                'type': f'named_entity_{ent.label_}',
-                'value': ent.text,
-                'start': ent.start_char,
-                'end': ent.end_char,
-                'replacement': replacement
-            })
-            redacted_text = (
-                redacted_text[:ent.start_char] +
-                replacement +
-                redacted_text[ent.end_char:]
-            )
 
         has_pii = len(redactions) > 0
 
@@ -247,12 +392,13 @@ class PIIRedactor:
         redaction_types = {}
         for r in redaction_result['redactions']:
             rtype = r['type']
-            redaction_types[rtype] = redaction_types.get(rtype, 0) + 1
+            # Clean up type names for display
+            clean_type = rtype.replace('presidio_', '').replace('regex_', '').replace('_', ' ').title()
+            redaction_types[clean_type] = redaction_types.get(clean_type, 0) + 1
 
         summary_parts = []
         for rtype, count in redaction_types.items():
-            clean_type = rtype.replace('named_entity_', '').replace('_', ' ').title()
-            summary_parts.append(f"{count} {clean_type}{'s' if count > 1 else ''}")
+            summary_parts.append(f"{count} {rtype}{'s' if count > 1 else ''}")
 
         return "Redacted: " + ", ".join(summary_parts)
 
@@ -310,7 +456,7 @@ if __name__ == "__main__":
     ]
 
     print("=" * 70)
-    print("PII REDACTION TESTS")
+    print("PII REDACTION TESTS (Presidio + GLiNER)")
     print("=" * 70)
 
     for i, test in enumerate(test_cases, 1):
