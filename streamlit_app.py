@@ -320,6 +320,10 @@ def review_page():
         if 'review_page' not in st.session_state:
             st.session_state.review_page = 0
 
+        # Reset page if out of range (can happen after rating the last response)
+        if st.session_state.review_page >= len(unrated_responses):
+            st.session_state.review_page = max(0, len(unrated_responses) - 1)
+
         current_page = st.session_state.review_page
         response = unrated_responses[current_page]
 
@@ -400,6 +404,8 @@ def review_page():
 
     except Exception as e:
         st.error(f"Error loading unrated responses: {e}")
+        import traceback
+        st.code(traceback.format_exc())
 
 @st.dialog("Feedback Details", width="large")
 def show_feedback_dialog(fb):
