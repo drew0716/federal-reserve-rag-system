@@ -1555,8 +1555,13 @@ def data_management_page():
             - ✗ All responses
             - ✗ All queries
             - ✗ All feedback and ratings
+            - ✗ All document review flags
+            - ✗ All document scores (feedback-based rankings)
 
             **Documents and source content will NOT be affected.**
+
+            This completely resets all user interactions and feedback-derived data,
+            returning the system to a fresh state with only the source documents.
             """)
 
             # Require confirmation checkbox
@@ -1577,6 +1582,10 @@ def data_management_page():
                         - 🗑️ {deleted_counts['queries']} queries
                         - 🗑️ {deleted_counts['responses']} responses
                         - 🗑️ {deleted_counts['feedback']} feedback items
+                        - 🗑️ {deleted_counts['document_flags']} document review flags
+                        - 🗑️ {deleted_counts['document_scores']} document scores reset
+
+                        **System has been reset to fresh state with only source documents.**
                         """)
                         st.balloons()
                         st.rerun()

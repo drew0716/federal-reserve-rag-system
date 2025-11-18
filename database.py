@@ -597,7 +597,8 @@ class Database:
 
     def delete_all_user_data(self) -> Dict[str, int]:
         """
-        Delete ALL user data including responses, queries, and feedback.
+        Delete ALL user data including responses, queries, feedback, and feedback-derived data.
+        This also removes document review flags and resets document scores.
         Returns a dictionary with counts of deleted records.
 
         WARNING: This is a destructive operation and cannot be undone!
@@ -607,7 +608,9 @@ class Database:
         deleted_counts = {
             'feedback': 0,
             'responses': 0,
-            'queries': 0
+            'queries': 0,
+            'document_flags': 0,
+            'document_scores': 0
         }
 
         try:
@@ -623,6 +626,14 @@ class Database:
             # 3. Delete queries (no dependencies)
             self.cursor.execute("DELETE FROM queries;")
             deleted_counts['queries'] = self.cursor.rowcount
+
+            # 4. Delete document review flags (feedback-derived)
+            self.cursor.execute("DELETE FROM document_review_flags;")
+            deleted_counts['document_flags'] = self.cursor.rowcount
+
+            # 5. Reset document scores (remove feedback-based rankings)
+            self.cursor.execute("DELETE FROM document_scores;")
+            deleted_counts['document_scores'] = self.cursor.rowcount
 
             self.conn.commit()
             return deleted_counts
